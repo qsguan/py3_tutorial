@@ -638,7 +638,13 @@ Python中字符串不可以发生改变。<br>Python中没有单独的字符类�
 
 索引值以 0 为开始值，-1 为从末尾的开始位置。
 
-<img src="./images/0001.png" alt="0001.png" style="zoom: 50%;" align="left" >
+<left>
+    <img src="./images/0001.png" alt="0001.png" style="zoom: 50%;" >
+</left>
+
+
+
+
 
 加号 \+ 是字符串的连接符；星号 \* 表示复制当前字符串，紧跟的数字为复制的次数。
 
