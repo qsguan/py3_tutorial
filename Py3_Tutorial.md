@@ -638,7 +638,7 @@ Python中字符串不可以发生改变。<br>Python中没有单独的字符类�
 
 索引值以 0 为开始值，-1 为从末尾的开始位置。
 
-<img src="./images/0001.png" alt="0001.png" style="zoom: 67%;" align="left" >
+<img src="./images/0001.png" alt="0001.png" style="zoom: 50%;" align="left" >
 
 加号 \+ 是字符串的连接符；星号 \* 表示复制当前字符串，紧跟的数字为复制的次数。
 
@@ -690,11 +690,11 @@ List (列表) 是 Python 中使用最频繁的数据类型，可以完成大多�
 
 索引值以 0 为开始值，-1 为从末尾的开始位置。
 
-<img src="./images/0002.png" alt="0002.png" style="zoom: 50%;" align="left" >
+<img src="./images/0002.png" alt="0002.png" style="zoom: 35%;" align="left" >
 
 Python 列表截取可以接收第三个参数，作用是截取的步长。
 
-<img src="./images/0003.png" alt="0003.png" style="zoom: 60%;" align="left" >
+<img src="./images/0003.png" alt="0003.png" style="zoom: 42%;" align="left" >
 
 若步长参数为负数则表示逆向读取，以下实例用于翻转字符串：
 
