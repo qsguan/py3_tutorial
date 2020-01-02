@@ -482,12 +482,6 @@ PYTHONDEVMODE: enable the development mode.
 PYTHONPYCACHEPREFIX: root directory for bytecode cache (pyc) files.
 ```
 
-## `if __name__ == '__main__'：`的作用
-
-一个 python 文件通常有两种使用方法:<br>    第一是作为脚本直接执行；<br>    第二是`import `到其他的 python 脚本中被调用 (模块重用) 执行。
-
-`if __name__ == '__main__': `的作用就是控制这两种情况执行代码的过程。在 `if __name__ == '__main__': `下的的代码只在第一种情况下 (即文件作为脚本直接执行时) 才会被执行, 而`import`到其他脚本中是不会被执行的。
-
 # Python 3 基本数据类型
 
 Python 中的变量不需要声明。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建。<br>Python 中的变量就是变量，它没有类型，我们所说的"*类型* "是变量所指的内存中对象的类型。
@@ -856,7 +850,7 @@ Python 中格式化操作符**辅助指令**：
 
 #### 使用`str.format()`
 
-Python 2.6 开始，新增了一种格式化字符串的函数`str.format()`，它增强了字符串格式化的功能。<br>基本语法是通过 **{}** 和 **:** 来代替以前的 **%** 。`format()` 函数可以接受不限个数的参数，位置可以不按顺序。
+Python 2.6 开始，新增了一种格式化字符串的函数`str.format()`，它增强了字符串格式化的功能。<br>基本语法是通过 **{}** 和 **:** 来代替以前的 **%** 。`str.format()` 函数可以接受不限个数的参数，位置可以不按顺序。
 
 ```python
 >>>"{} {}".format("hello", "world")        # 不设置指定位置，按默认顺序
@@ -867,19 +861,25 @@ Python 2.6 开始，新增了一种格式化字符串的函数`str.format()`，�
 'world hello world'
 ```
 
-也可设置参数：
+也可设置索引或关键字参数：
 
 ```python
 #!/usr/bin/env python3
-print("网站名：{name}, 地址 {url}".format(name="菜鸟教程", url="www.runoob.com"))
 
-# 通过字典设置参数
+# 通过关键字设置参数
+print("网站名：{name}, 地址：{url}".format(name="菜鸟教程", url="www.runoob.com"))
+
+# 通过字典关键字设置参数
 site = {"name": "菜鸟教程", "url": "www.runoob.com"}
-print("网站名：{name}, 地址 {url}".format(**site))
- 
-# 通过列表索引设置参数
+print("网站名：{name}, 地址：{url}".format(**site))
+
+# 通过指定位置+字典关键字设置参数
+my_dict = {'name': "菜鸟教程", 'url': "www.runoob.com"}
+print("网站名：{0[name]}; 地址：{0[url]}".format(my_dict))  # "0" 是必须的
+
+# 通过指定位置+列表索引设置参数
 my_list = ['菜鸟教程', 'www.runoob.com']
-print("网站名：{0[0]}, 地址 {0[1]}".format(my_list))  # "0" 是必须的
+print("网站名：{0[0]}, 地址：{0[1]}".format(my_list))       # "0" 是必须的
 ```
 
 也可以向`str.format()`传入对象：
@@ -895,24 +895,9 @@ print('value 为: {0.value}'.format(my_value)) # "0" 是可选的
 print('value 为: {.value}'.format(my_value))  # "0" 是可选的 (两结果相同)
 ```
 
-如果有个实在很长的格式化字符串，又不想分割它。假设可以用命名来引用被格式化的变量而不是位置，则可以传入一个字典，并用中括号 ( **[]** ) 访问它的键：
+**注意**: 在 **\{\}** 中可使用特殊符号来指定输出字符串格式：**`!a`**使用 **`ascii()`**,  **`!s`**使用 **`str()`** , **`!r`**使用 **`repr()`**。
 
-```python
->>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678}
->>> print('Jack: {0[Jack]:d}; Sjoerd: {0[Sjoerd]:d}; '
-          'Dcab: {0[Dcab]:d}'.format(table))
-Jack: 4098; Sjoerd: 4127; Dcab: 8637678
-```
-
-也可以用 ***\*** 标志将这个字典以关键字参数的方式传入：
-
-```python
->>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678}
->>> print('Jack: {Jack:d}; Sjoerd: {Sjoerd:d}; Dcab: {Dcab:d}'.format(**table))
-Jack: 4098; Sjoerd: 4127; Dcab: 8637678
-```
-
-**数字的格式化** (大括号中使用 " : "来表示数字的格式化，" : " 前仍可添加位置参数，如 "0: ")：
+**数字的格式化** (在 **\{\}** 中使用 " : "来表示数字的格式化，" : " 前仍可添加限定参数，如 "0: ", "name: "等)：
 
 | Number     | Format               | Output    | Description                  |
 | :--------- | :------------------- | :-------- | :--------------------------- |
@@ -935,12 +920,12 @@ Jack: 4098; Sjoerd: 4127; Dcab: 8637678
 | 11         | `'{:#x}'.format(11)` | 0xb       | 十六进制前面显示'0x'         |
 | 11         | `'{:#X}'.format(11)` | 0XB       | 十六进制前面显示'0X'         |
 
-**总结**： **{}** 中的格式样式为：
+**总结**：使用**`str.format()`**中的 **{}** 的格式样式为：
 
 ```
 {[name][:][symbol][align][width][.precision][type]}
 
-name      : 位置参数 (可为数字，键值，索引，.value 等)
+name      : 限定参数 (可为数字，键值，索引，.value 等)
 symbol    : 填充符号 (只能是一个字符，如: 正号,逗号,0,x 等；不指定则默认使用空格填充)
 align     : 居中(^)、左对齐(<)、右对齐(>)
 width     : 表示总宽度
@@ -1585,135 +1570,6 @@ Python 中元组包含了以下内置函数：
 |  1   | [len(tuple)](https://www.runoob.com/python3/python3-att-list-len.html) 计算元组元素个数 |  3   | [min(tuple)](https://www.runoob.com/python3/python3-att-list-min.html) 返回元组中元素最小值 |
 |  2   | [max(tuple)](https://www.runoob.com/python3/python3-att-list-max.html) 返回元组中元素最大值 |  4   | [tuple(seq)](https://www.runoob.com/python3/python3-att-list-list.html) 将序列转换为元组 |
 
-## 集合 (Set)
-
-集合 (set) 是由一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员。<br>集合的基本功能是**进行成员关系测试**和**删除重复元素**。可以使用大括号 **\{\}** 或者 `set()` 函数创建集合。<br>**注意**: 创建一个空集合必须用 `set()` 而不是大括号 **\{\}**，因为 \{\} 是用来创建一个空字典的。
-
-创建格式：
-
-```python
-parame = {value01, value02, ...}
-或者
-set(value01, value02, ...)
-```
-
-实例：
-
-```python
-#!/usr/bin/env python3
-student = {'Tom', 'Jim', 'Mary', 'Tom', 'Jack', 'Rose'}
-print(student) # 输出集合，重复的元素被自动去掉
-
-# 成员测试
-if 'Rose' in student :
-	print('Rose 在集合中')
-else :
-	print('Rose 不在集合中')
-    
-# set可以进行集合运算
-a = set('abracadabra')
-b = set('alacazam')
-print(a)
-print(a - b) # a 和 b 的差集
-print(a | b) # a 和 b 的并集
-print(a & b) # a 和 b 的交集
-print(a ^ b) # a 和 b 中不同时存在的元素
-```
-
-Python 中**集合的内置方法**有：
-
-| Method                                                       | Description                                               |
-| ------------------------------------------------------------ | --------------------------------------------------------- |
-| [set.add(elmnt)](https://www.runoob.com/python3/ref-set-add.html) | 为集合添加元素 (若已存在则舍弃)                           |
-| [set.update(x)](https://www.runoob.com/python3/ref-set-update.html) | 为集合添加元素，入参`x`可为列表, 元组, 字典等             |
-| [set.discard(elmnt)](https://www.runoob.com/python3/ref-set-discard.html) | 删除集合中指定的元素 (若元素不存在不报错)                 |
-| [set.remove(elmnt)](https://www.runoob.com/python3/ref-set-remove.html) | 删除集合中指定的元素 (若元素不存在则报错)                 |
-| [set.pop()](https://www.runoob.com/python3/ref-set-pop.html) | 随机地移除一个元素                                        |
-| [set.copy()](https://www.runoob.com/python3/ref-set-copy.html) | 拷贝一个集合                                              |
-| [set.clear()](https://www.runoob.com/python3/ref-set-clear.html) | 移除集合中的所有元素                                      |
-| [set = set1.difference(set2)](https://www.runoob.com/python3/ref-set-difference.html) | 返回一集合中不存在于另一指定集合的元素                    |
-| [set1.difference_update(set2)](https://www.runoob.com/python3/ref-set-difference_update.html) | 移除一集合中存在于另一指定集合的元素                      |
-| [set = set1.intersection(set2)](https://www.runoob.com/python3/ref-set-intersection.html) | 返回一集合中存在于另一指定集合的元素                      |
-| [set1.intersection_update(set2)](https://www.runoob.com/python3/ref-set-intersection_update.html) | 移除一集合中不存在于另一指定集合的元素                    |
-| [set = set1.symmetric_difference(set2)](https://www.runoob.com/python3/ref-set-symmetric_difference.html) | 返回两个集合中不重复的元素组成的新集合                    |
-| [set1.symmetric_difference_update(set2)](https://www.runoob.com/python3/ref-set-symmetric_difference_update.html) | 返回两个集合中不重复的元素组成的新集合                    |
-| [set = set1.union(set2)](https://www.runoob.com/python3/ref-set-union.html) | 返回两个集合的并集                                        |
-| [set1.isdisjoint(set2)](https://www.runoob.com/python3/ref-set-isdisjoint.html) | 判断两个集合是否包含相同元素，若无返回`True`，否则`False` |
-| [set1.issubset(set2)](https://www.runoob.com/python3/ref-set-issubset.html) | 判断指定集合是否为该方法参数集合的子集。                  |
-| [set1.issuperset(set2)](https://www.runoob.com/python3/ref-set-issuperset.html) | 判断该方法的参数集合是否为指定集合的子集                  |
-
-实例：
-
-```python
->>> thisset = set(("Google", "Runoob", "Taobao"))
->>> thisset.add("Facebook")
->>> print(thisset)
-{'Taobao', 'Facebook', 'Google', 'Runoob'}
-
->>> thisset = set(("Google", "Runoob", "Taobao"))
->>> thisset.update({1,3})
->>> print(thisset)
-{1, 3, 'Google', 'Taobao', 'Runoob'}
->>> thisset.update([1,4],[5,6])  
->>> print(thisset)
-{1, 3, 4, 5, 6, 'Google', 'Taobao', 'Runoob'}
-
->>> thisset = set(("Google", "Runoob", "Taobao"))
->>> thisset.remove("Taobao")
->>> print(thisset)
-{'Google', 'Runoob'}
->>> thisset.remove("Facebook")   # 不存在会发生错误
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-KeyError: 'Facebook'
->>>
-```
-
-**注意**：
-
-1. `set.update("字符串")`与`set.update({"字符串"})`或`set.update(("字符串"))`含义不同：
-
-   * `set.update({"字符串"})` 将字符串添加到集合中，有重复的会忽略。
-
-   * `set.update("字符串")` 将字符串拆分为单个字符后，再一个个添加到集合中，有重复的会忽略。
-
-   ```python
-   >>> thisset = set(("Google", "Runoob", "Taobao"))
-   >>> print(thisset)
-   {'Google', 'Runoob', 'Taobao'}
-   >>> thisset.update({"Facebook"})
-   >>> print(thisset) 
-   {'Google', 'Runoob', 'Taobao', 'Facebook'}
-   >>> thisset.update("Yahoo")
-   >>> print(thisset)
-   {'h', 'o', 'Facebook', 'Google', 'Y', 'Runoob', 'Taobao', 'a'}
-   ```
-
-2. 集合用`set.pop()`方法删除元素的不一样的感想如下:
-
-   对于 list, tuple 类型中的元素，转换集合时会去掉重复的元素，且具有升序排列的功能:
-
-   ```python
-   >>> list = [1,1,2,3,4,5,3,1,4,6,5]
-   >>> set(list)
-   {1, 2, 3, 4, 5, 6}
-   >>> tuple = (2,3,5,6,3,5,2,5)
-   >>> set(tuple)
-   {2, 3, 5, 6}
-   ```
-
-   有人认为`set.pop()`是随机删除集合中的一个元素，其实不然！对于是字典和字符串转换的集合，确实是随机删除元素的。但当集合是由列表和元组构成时，`set.pop()`是从左边删除元素的。如下:
-
-   ```python
-   >>> set1 = set([9,4,5,2,6,7,1,8])
-   >>> print(set1)
-   {1, 2, 4, 5, 6, 7, 8, 9}
-   >>> print(set1.pop())
-   1
-   >>> print(set1)
-   {2, 4, 5, 6, 7, 8, 9}
-   ```
-
 ## 字典 (Dictionary)
 
 字典 (Dictionary) 是一种映射类型，用 **\{\}** 标识，它是一个无序的`键(key):值(value)`的集合。相比于列表 (有序的对象集合)，字典当中的元素是通过键来存取的，而不是通过偏移存取。
@@ -1847,6 +1703,135 @@ Python 中字典包含了以下**内置方法**：
 
 3. 字典推导式: `{key:value for variable in iterable [if expression]}`
 
+## 集合 (Set)
+
+集合 (set) 是由一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员。<br>集合的基本功能是**进行成员关系测试**和**删除重复元素**。可以使用大括号 **\{\}** 或者 `set()` 函数创建集合。<br>**注意**: 创建一个空集合必须用 `set()` 而不是大括号 **\{\}**，因为 \{\} 是用来创建一个空字典的。
+
+创建格式：
+
+```python
+parame = {value01, value02, ...}
+或者
+set(value01, value02, ...)
+```
+
+实例：
+
+```python
+#!/usr/bin/env python3
+student = {'Tom', 'Jim', 'Mary', 'Tom', 'Jack', 'Rose'}
+print(student) # 输出集合，重复的元素被自动去掉
+
+# 成员测试
+if 'Rose' in student :
+	print('Rose 在集合中')
+else :
+	print('Rose 不在集合中')
+    
+# set可以进行集合运算
+a = set('abracadabra')
+b = set('alacazam')
+print(a)
+print(a - b) # a 和 b 的差集
+print(a | b) # a 和 b 的并集
+print(a & b) # a 和 b 的交集
+print(a ^ b) # a 和 b 中不同时存在的元素
+```
+
+Python 中**集合的内置方法**有：
+
+| Method                                                       | Description                                               |
+| ------------------------------------------------------------ | --------------------------------------------------------- |
+| [set.add(elmnt)](https://www.runoob.com/python3/ref-set-add.html) | 为集合添加元素 (若已存在则舍弃)                           |
+| [set.update(x)](https://www.runoob.com/python3/ref-set-update.html) | 为集合添加元素，入参`x`可为列表, 元组, 字典等             |
+| [set.discard(elmnt)](https://www.runoob.com/python3/ref-set-discard.html) | 删除集合中指定的元素 (若元素不存在不报错)                 |
+| [set.remove(elmnt)](https://www.runoob.com/python3/ref-set-remove.html) | 删除集合中指定的元素 (若元素不存在则报错)                 |
+| [set.pop()](https://www.runoob.com/python3/ref-set-pop.html) | 随机地移除一个元素                                        |
+| [set.copy()](https://www.runoob.com/python3/ref-set-copy.html) | 拷贝一个集合                                              |
+| [set.clear()](https://www.runoob.com/python3/ref-set-clear.html) | 移除集合中的所有元素                                      |
+| [set = set1.difference(set2)](https://www.runoob.com/python3/ref-set-difference.html) | 返回一集合中不存在于另一指定集合的元素                    |
+| [set1.difference_update(set2)](https://www.runoob.com/python3/ref-set-difference_update.html) | 移除一集合中存在于另一指定集合的元素                      |
+| [set = set1.intersection(set2)](https://www.runoob.com/python3/ref-set-intersection.html) | 返回一集合中存在于另一指定集合的元素                      |
+| [set1.intersection_update(set2)](https://www.runoob.com/python3/ref-set-intersection_update.html) | 移除一集合中不存在于另一指定集合的元素                    |
+| [set = set1.symmetric_difference(set2)](https://www.runoob.com/python3/ref-set-symmetric_difference.html) | 返回两个集合中不重复的元素组成的新集合                    |
+| [set1.symmetric_difference_update(set2)](https://www.runoob.com/python3/ref-set-symmetric_difference_update.html) | 返回两个集合中不重复的元素组成的新集合                    |
+| [set = set1.union(set2)](https://www.runoob.com/python3/ref-set-union.html) | 返回两个集合的并集                                        |
+| [set1.isdisjoint(set2)](https://www.runoob.com/python3/ref-set-isdisjoint.html) | 判断两个集合是否包含相同元素，若无返回`True`，否则`False` |
+| [set1.issubset(set2)](https://www.runoob.com/python3/ref-set-issubset.html) | 判断指定集合是否为该方法参数集合的子集。                  |
+| [set1.issuperset(set2)](https://www.runoob.com/python3/ref-set-issuperset.html) | 判断该方法的参数集合是否为指定集合的子集                  |
+
+实例：
+
+```python
+>>> thisset = set(("Google", "Runoob", "Taobao"))
+>>> thisset.add("Facebook")
+>>> print(thisset)
+{'Taobao', 'Facebook', 'Google', 'Runoob'}
+
+>>> thisset = set(("Google", "Runoob", "Taobao"))
+>>> thisset.update({1,3})
+>>> print(thisset)
+{1, 3, 'Google', 'Taobao', 'Runoob'}
+>>> thisset.update([1,4],[5,6])  
+>>> print(thisset)
+{1, 3, 4, 5, 6, 'Google', 'Taobao', 'Runoob'}
+
+>>> thisset = set(("Google", "Runoob", "Taobao"))
+>>> thisset.remove("Taobao")
+>>> print(thisset)
+{'Google', 'Runoob'}
+>>> thisset.remove("Facebook")   # 不存在会发生错误
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'Facebook'
+>>>
+```
+
+**注意**：
+
+1. `set.update("字符串")`与`set.update({"字符串"})`或`set.update(("字符串"))`含义不同：
+
+   * `set.update({"字符串"})` 将字符串添加到集合中，有重复的会忽略。
+
+   * `set.update("字符串")` 将字符串拆分为单个字符后，再一个个添加到集合中，有重复的会忽略。
+
+   ```python
+   >>> thisset = set(("Google", "Runoob", "Taobao"))
+   >>> print(thisset)
+   {'Google', 'Runoob', 'Taobao'}
+   >>> thisset.update({"Facebook"})
+   >>> print(thisset) 
+   {'Google', 'Runoob', 'Taobao', 'Facebook'}
+   >>> thisset.update("Yahoo")
+   >>> print(thisset)
+   {'h', 'o', 'Facebook', 'Google', 'Y', 'Runoob', 'Taobao', 'a'}
+   ```
+
+2. 集合用`set.pop()`方法删除元素的不一样的感想如下:
+
+   对于 list, tuple 类型中的元素，转换集合时会去掉重复的元素，且具有升序排列的功能:
+
+   ```python
+   >>> list = [1,1,2,3,4,5,3,1,4,6,5]
+   >>> set(list)
+   {1, 2, 3, 4, 5, 6}
+   >>> tuple = (2,3,5,6,3,5,2,5)
+   >>> set(tuple)
+   {2, 3, 5, 6}
+   ```
+
+   有人认为`set.pop()`是随机删除集合中的一个元素，其实不然！对于是字典和字符串转换的集合，确实是随机删除元素的。但当集合是由列表和元组构成时，`set.pop()`是从左边删除元素的。如下:
+
+   ```python
+   >>> set1 = set([9,4,5,2,6,7,1,8])
+   >>> print(set1)
+   {1, 2, 4, 5, 6, 7, 8, 9}
+   >>> print(set1.pop())
+   1
+   >>> print(set1)
+   {2, 4, 5, 6, 7, 8, 9}
+   ```
+
 ## Python 数据类型转换
 
 Python 中数据类型的转换，只需要**将数据类型作为函数名**即可。
@@ -1880,7 +1865,7 @@ Python 中数据类型的转换，只需要**将数据类型作为函数名**即
 "{'google': 'google.com', 'runoob': 'runoob.com'}"
 ```
 
-## 数组,列表,矩阵间的相互转化
+## 数组,列表,矩阵间的转换
 
 Python 中提供的基本组合数据类型有集合、序列和字典，列表属于序列类型。数组`array`和矩阵`mat`的使用需要用到`numpy`库，它们之间可相互便捷的转化。
 
@@ -3464,13 +3449,448 @@ f = a(b(c(f)))
 
 # Python 3 模块
 
+Python 提供了一个办法，把定义的所有的方法和变量存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被称为模块。模块是一个包含所有定义的函数和变量的文件，其后缀名是.py。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 Python 标准库的方法。
 
+模块除了方法定义，还可以包括可执行的代码，这些代码一般用来初始化这个模块，只有在第一次被导入时才会被执行。每个模块有着各自独立的符号表，在模块内部为所有的函数当作全局符号表来使用。所以可放心大胆地在模块内部使用这些全局变量，而不用担心把其他用户的全局变量搞混。此外，也可通过`modname.itemname`这样的表示法来访问模块内的函数。 
 
+## `import`语句
 
+想使用 Python 源文件，只需在另一个源文件里执行`import`语句，被导入的模块的名称将被放入当前操作的模块的符号表中。语法如下：
+
+```python
+import module1[, module2[,... moduleN]
+```
+
+当解释器遇到`import`语句，若所要导入的模块存在于当前的搜索路径中则会被导入。搜索路径是一个解释器会先进行搜索的所有目录的列表。**一个模块只会被导入一次**，不管你执行了多少次`import`。
+
+当我们使用`import`语句的时，Python 解释器是怎样找到对应的文件的呢？这就涉及到 Python 的搜索路径，由一系列目录名组成，Python 解释器依次从这些目录中去寻找所需引入的模块。也可以通过定义环境变量的方式来确定搜索路径。搜索路径是在 Python 编译或安装的时候确定的，安装新的库时会添加相应库的路径到搜索路径中。搜索路径被存储在`sys`模块中的`path`变量：
+
+```python
+>>> import sys; sys.path
+['', '/usr/lib/python38.zip', '/usr/lib/python3.8', '/usr/lib/python3.8/lib-dynload', '/usr/lib/python3.8/site-packages']
+```
+
+`sys.path`输出是一个列表，其中第一项是空串''，代表当前目录，即我们执行 Python 解释器的目录 (对于脚本的话则是运行脚本的所在目录)。因此若在当前目录下存在与所要引入模块同名的文件，则会屏蔽掉要引入的模块。
+
+## `from … import` 语句
+
+Python 的`from`语句让你从模块中导入一个指定的部分到当前命名空间中，这种导入的方法不会把被导入的模块的名称放在当前的字符表中。语法如下：
+
+```python
+from modname import name1[, name2[, ... nameN]]
+```
+
+把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：
+
+```python
+from modname import *
+```
+
+这提供了一个简单的方法来导入一个模块中的所有项目，但是那些由单一下划线 (_) 开头的不会被导入。大多数情况下 Python 程序员不使用这种方法，因为引入的其它来源的命名很可能覆盖了已有的定义。 
+
+## `if __name__ == '__main__'：`的作用
+
+一个 Python 文件通常有两种使用方法:<br>    第一是作为脚本直接执行；<br>    第二是`import `到其他的 python 脚本中被调用 (模块重用) 执行。
+
+`if __name__ == '__main__': `的作用就是控制这两种情况执行代码的过程。在 `if __name__ == '__main__': `下的的代码只在第一种情况下 (即文件作为脚本直接执行时) 才会被执行, 而`import`到其他脚本中是不会被执行的。
+
+## 使用`dir()`函数
+
+内置的函数`dir()`可以找到模块内定义的所有名称，以一个字符串列表的形式返回：
+
+```python
+>>> import sys; dir(sys)
+['__breakpointhook__', '__displayhook__', '__doc__', '__excepthook__', '__interactivehook__', '__loader__', '__name__', '__package__', '__spec__', '__stderr__', '__stdin__', '__stdout__', '__unraisablehook__', '_base_executable', '_clear_type_cache', '_current_frames', '_debugmallocstats', '_framework', '_getframe', '_git', '_home', '_xoptions', 'abiflags', 'addaudithook', 'api_version', 'argv', 'audit', 'base_exec_prefix', 'base_prefix', 'breakpointhook', 'builtin_module_names', 'byteorder', 'call_tracing', 'callstats', 'copyright', 'displayhook', 'dont_write_bytecode', 'exc_info', 'excepthook', 'exec_prefix', 'executable', 'exit', 'flags', 'float_info', 'float_repr_style', 'get_asyncgen_hooks', 'get_coroutine_origin_tracking_depth', 'getallocatedblocks', 'getcheckinterval', 'getdefaultencoding', 'getdlopenflags', 'getfilesystemencodeerrors', 'getfilesystemencoding', 'getprofile', 'getrecursionlimit', 'getrefcount', 'getsizeof', 'getswitchinterval', 'gettrace', 'hash_info', 'hexversion', 'implementation', 'int_info', 'intern', 'is_finalizing', 'last_traceback', 'last_type', 'last_value', 'maxsize', 'maxunicode', 'meta_path', 'modules', 'path', 'path_hooks', 'path_importer_cache', 'platform', 'prefix', 'ps1', 'ps2', 'pycache_prefix', 'set_asyncgen_hooks', 'set_coroutine_origin_tracking_depth', 'setcheckinterval', 'setdlopenflags', 'setprofile', 'setrecursionlimit', 'setswitchinterval', 'settrace', 'stderr', 'stdin', 'stdout', 'thread_info', 'unraisablehook', 'version', 'version_info', 'warnoptions']
+```
+
+若没有给定参数，那么`dir()`函数会罗列出当前定义的所有名称。
+
+```python
+>>> a = [1, 2, 3, 4, 5]
+>>> import math
+>>> dir()
+['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'a', 'math', 'sys']
+>>> b = math.sqrt(a[3]); dir()
+['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'a', 'b', 'math', 'sys']
+```
+
+## Python 包(packages)
+
+包 (packages) 是一种管理 Python 模块命名空间的形式，采用"点模块名称"。比如一个模块的名称是`A.B`， 那么它表示一个包`A`中的子模块`B`。就像使用模块的时候，不用担心不同模块之间的全局变量相互影响一样，采用点模块名称这种形式也不用担心不同库之间的模块有重名的情况。
+
+不妨假设想设计一套统一处理声音文件和数据的模块 (或者称之为一个"包")，但是有很多种不同的音频文件格式通过后缀名区分，如: .wav, .aiff, .au等，所以需要有一组不断增加的模块，用来在不同的格式之间转换。并且针对这些音频数据，还有很多不同的操作，如: 混音, 添加回声, 增加均衡器, 创建人造立体声效果等。所以还需要一组怎么也写不完的模块来处理这些操作。
+
+这里给出了一种可能的包结构 (在分层的文件系统中): 
+
+```
+sound/                          顶层包
+      __init__.py               初始化 sound 包
+      formats/                  文件格式转换子包
+              __init__.py
+              wavread.py
+              wavwrite.py
+              aiffread.py
+              aiffwrite.py
+              auread.py
+              auwrite.py
+              ...
+      effects/                  声音效果子包
+              __init__.py
+              echo.py
+              surround.py
+              reverse.py
+              ...
+      filters/                  filters 子包
+              __init__.py
+              equalizer.py
+              vocoder.py
+              karaoke.py
+              ...
+```
+
+在导入一个包的时候，Python 会根据`sys.path`中的目录来寻找这个包中包含的子目录。这些目录中只有包含一个叫做 `__init__.py`的文件才会被认作是一个包，主要是为了避免一些滥俗的名字 (比如叫做`string`) 不小心地影响了搜索路径中的有效模块。最简单的情况，可放一个空的`__init__.py`文件。这个文件中也可以包含一些初始化代码或者为`__all__`变量赋值。
+
+用户可只导入一个包里的特定模块，如: **`import sound.effects.echo`**，这将会导入子模块`sound.effects.echo`，但必须使用全名去访问，如: `sound.effects.echo.echofilter(input, output, delay=0.7, atten=4)`。还有一种导入子模块的方法是: **`from sound.effects import echo`**，这同样会导入子模块`echo`并且不需要冗长的前缀，可以这样使用: `echo.echofilter(input, output, delay=0.7, atten=4)`。还有一种变化就是直接导入一个函数或者变量: **`from sound.effects.echo import echofilter`**，同样这也会导入子模块`echo`且可以直接使用`echofilter()`函数，如: `echofilter(input, output, delay=0.7, atten=4)`。
+
+**注意**：
+
+1. 若使用**`from package import item`**这种导入形式，对应的`item`既**可以是包里面的子包**，或者是**包里面定义的其他名称**，如：**函数、类或者变量名**。`import`语法会首先把`item`当作一个包定义的名称；若没找到，再试图按照一个模块去导入；若还没找到，则抛出一个`ImportError`异常。
+
+2. 若使用**`import item.subitem.subsubitem`**这种导入形式，**最后一项之外的其他项都必须是包**，而**最后一项则可以是模块或者是包**，但**不可以是函数、类或者变量名**。 
+
+3. 若包在结构中是一个子包而又想**导入其同级别的包**，则需**使用绝对路径来导入**。如:`sound.filters.vocoder`模块中要使用包`sound.effects`中的`echo`，则需写成`from sound.effects import echo`。
+
+4. 若在包定义文件**`__init__.py`**中存在一个叫做**`__all__`**的列表变量，那么在使用**`from package import *`**的时候只会把这个列表中的所有名字作为包内容导入。
+
+5. 在包定义文件**`__init__.py`**中可写入**初始化模块的代码**，也可**写入类的定义**，如：
+
+   ```python
+   # coding: utf-8
+   # Copyright (c) Materials Virtual Lab
+   # Distributed under the terms of the BSD License.
+   
+   """This package contains Potential classes representing Interatomic Potentials."""
+   
+   import abc
+   import six
+   from monty.json import MSONable
+   
+   
+   class Potential(six.with_metaclass(abc.ABCMeta, MSONable)):
+       """
+       Abstract Base class for a Interatomic Potential.
+       """
+   
+       @abc.abstractmethod
+       def train(self, train_structures, energies, forces, stresses, **kwargs):
+           """
+           Train interatomic potentials with energies, forces and
+           stresses corresponding to structures.
+   
+           Args:
+               train_structures (list): List of Pymatgen Structure objects.
+               energies (list): List of DFT-calculated total energies of each structure
+                   in structures list.
+               forces (list): List of DFT-calculated (m, 3) forces of each structure
+                   with m atoms in structures list. m can be varied with each single
+                   structure case.
+               stresses (list): List of DFT-calculated (6, ) virial stresses of each
+                   structure in structures list.
+           """
+           pass
+   
+       @abc.abstractmethod
+       def evaluate(self, test_structures, ref_energies, ref_forces, ref_stresses):
+           """
+           Evaluate energies, forces and stresses of structures with trained
+           interatomic potentials.
+   
+           Args:
+               test_structures (list): List of Pymatgen Structure Objects.
+               ref_energies (list): List of DFT-calculated total energies of each
+                   structure in structures list.
+               ref_forces (list): List of DFT-calculated (m, 3) forces of each
+                   structure with m atoms in structures list. m can be varied with
+                   each single structure case.
+               ref_stresses (list): List of DFT-calculated (6, ) viriral stresses of
+                   each structure in structures list.
+   
+           Returns:
+               DataFrame of original data and DataFrame of predicted data.
+           """
+           pass
+   
+       @abc.abstractmethod
+       def predict(self, structure):
+           """
+           Predict energy, forces and stresses of the structure.
+   
+           Args:
+               structure (Structure): Pymatgen Structure object.
+   
+           Returns:
+               energy, forces, stress
+           """
+           pass
+   ```
 
 # Python 3 输入和输出
 
+## `input()`输入
 
+Python 3 仅保留了`input()`函数，它可接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。
+
+执行下面的程序在按回车键后就会等待用户输入：
+
+```python
+#!/usr/bin/env python3
+input("\n\n按下 enter 键后退出。")
+```
+
+以上代码中 ，`'\n\n'`在结果输出前会输出两个新的空行。一旦用户按下 <kbd>Enter</kbd> 键时，程序将退出。
+
+## `print()`输出
+
+Python 中有两种**输出值**的方式: **表达式语句**和**`print()`函数**。第三种方式是使用**文件对象**的**`write()`方法**，标准输出文件可以用`sys.stdout`引用。
+
+* 若希望输出的形式更加多样，可以使用`str.format()`函数来格式化输出值 (见**Section 4.5.3**)。
+
+* 若希望将输出的值转成字符串，可以使用`repr()`或`str()`函数来实现。
+  * **`str()`**: 函数返回一个用户易读的表达形式。 
+  * **`repr()`**: 产生一个解释器易读的表达形式。
+
+```python
+>>> s = 'Hello, Runoob'
+>>> str(s)
+'Hello, Runoob'
+>>> repr(s)
+"'Hello, Runoob'"
+>>> str(1/7)
+'0.14285714285714285'
+>>> x = 10 * 3.25; y = 200 * 200
+>>> s = 'x 的值为： ' + repr(x) + ',  y 的值为：' + repr(y) + '.'
+>>> print(s)
+x 的值为： 32.5,  y 的值为：40000.
+>>> hello = 'hello, runoob\n'; hellos = repr(hello); print(hellos)  
+'hello, runoob\n'                       # repr()函数可以转义字符串中的特殊字符  
+>>> repr((x, y, ('Google', 'Runoob')))  # repr()的参数可以是 Python 的任何对象
+"(32.5, 40000, ('Google', 'Runoob'))"
+```
+
+两种方式输出一个平方与立方的表：
+
+```python
+>>> for x in range(1, 11):
+...     print(repr(x).rjust(2), repr(x*x).rjust(3), end=' ') 
+...     # 注意前一行 'end' 的使用
+...     print(repr(x*x*x).rjust(4))  # 使用rjust()方法将字符串靠右,并在左边填充空格
+...
+>>> for x in range(1, 11):
+...     print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
+...
+```
+
+## 读和写文件
+
+### 打开文件`open()`函数
+
+利用`open()`函数将会返回一个`file`对象，基本语法格式如下: 
+
+```python
+open(filename, mode)
+```
+
+- `filename`：包含了你要访问的文件名称的字符串值。
+- `mode`：决定了打开文件的模式：只读，写入，追加等。该参数是非强制的，默认文件访问模式为只读。
+
+不同模式打开文件的完全列表：
+
+| Mode | Description                                                  |
+| ---- | ------------------------------------------------------------ |
+| r    | (默认模式) 以只读方式打开文件。文件的指针将会放在文件的开头。 |
+| rb   | 以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。 |
+| r+   | 打开一个文件用于读写。文件指针将会放在文件的开头。           |
+| rb+  | 以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。 |
+| w    | 打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
+| wb   | 以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
+| w+   | 打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
+| wb+  | 以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
+| a    | 打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，则创建新文件进行写入。 |
+| ab   | 以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，则创建新文件进行写入。 |
+| a+   | 打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，则创建新文件用于读写。 |
+| ab+  | 以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，则创建新文件用于读写。 |
+
+下图很好的总结了这几种模式：
+
+<left>
+    <img src="./images/0015.png" alt="0015.png" style="zoom: 50%;">
+</left>
+
+|    Mode    |  r   |  r+  |  w   |  w+  |  a   |  a+  |
+| :--------: | :--: | :--: | :--: | :--: | :--: | :--: |
+|     读     |  +   |  +   |      |  +   |      |  +   |
+|     写     |      |  +   |  +   |  +   |  +   |  +   |
+|    创建    |      |      |  +   |  +   |  +   |  +   |
+|    覆盖    |      |      |  +   |  +   |      |      |
+| 指针在开始 |  +   |  +   |  +   |  +   |      |      |
+| 指针在结尾 |      |      |      |      |  +   |  +   |
+
+### 文件对象的方法
+
+本节中剩下的例子假设已经创建了一个称为`f`的文件对象。
+
+1. `f.read()`函数：调用`f.read(size)`将读取一定数目的数据，然后作为字符串或字节对象返回。`size`是一个可选的数字类型的参数，当`size`被忽略了或者为负时该文件的所有内容都将被读取并且返回。
+
+   ```python
+   #!/usr/bin/env python3
+   
+   # 打开一个文件
+   f = open("/tmp/foo.txt", "r")
+   
+   str = f.read()
+   print(str)
+   
+   # 关闭打开的文件
+   f.close()
+   ```
+
+2. `f.readline()`函数：从文件中读取单独的一行，换行符为`'\n'`。若`f.readline()`返回一个空字符串, 说明已经已经读取到最后一行。
+
+3. `f.readlines()`函数：将返回该文件中包含的所有行。若设置可选参数`sizehint`，则读取指定长度的字节, 并且将这些字节按行分割。
+
+4. 另一种方式是迭代一个文件对象然后读取每行：
+
+   ```python
+   #!/usr/bin/env python3
+   
+   # 打开一个文件
+   f = open("/tmp/foo.txt", "r")
+   
+   for line in f:
+       print(line, end='')
+   
+   # 关闭打开的文件
+   f.close()
+   ```
+
+5. `f.write()`函数：`f.write(string)`将`string`写入到文件中，然后返回写入的字符数。若要写入一些不是字符串的东西，那么将需要先进行转换。
+
+6. `f.tell()`函数：返回文件对象当前所处的位置，即从文件开头开始算起的字节数。
+
+7. `f.seek()`函数：若要改变文件当前的位置，可以使用`f.seek(offset, from_what)`函数。
+
+   `from_what`的值，若是 0 表示开头 (默认)；1 表示当前位置； 2 表示文件的结尾，例如：
+
+   - `seek(x,0)`： 从文件首行首字符开始往后移动`x`个字符
+   - `seek(x,1)`： 表示从当前位置往后移动`x`个字符
+   - `seek(-x,2)`：表示从文件的结尾往前移动`x`个字符
+
+   ```python
+   >>> f = open('/tmp/foo.txt', 'rb+')
+   >>> f.write(b'0123456789abcdef')
+   16
+   >>> f.seek(5)     # 移动到文件的第六个字节
+   5
+   >>> f.read(1)
+   b'5'
+   >>> f.seek(-3, 2) # 移动到文件的倒数第三字节
+   13
+   >>> f.read(1)
+   b'd'
+   ```
+
+   
+
+8. `f.close()`函数：在文本文件中 (那些打开文件的模式下没有b的)，只会相对于文件起始位置进行定位。当处理完一个文件后，调用`f.close()`来关闭文件并释放系统资源，若尝试再调用该文件则会抛出异常。
+
+9. 当处理一个文件对象时，使用`with`关键字是非常好的方式。在结束后，它会帮你正确的关闭文件。而且写起来也比`try - finally`语句块要简短：
+
+   ```python
+   >>> with open('/tmp/foo.txt', 'r') as f:
+   ...     read_data = f.read()
+   >>> f.closed
+   True
+   ```
+
+### 使用`pickle`模块
+
+Python 中的`pickle`模块实现了基本的数据序列化和反序列化操作。通过`pickle`模块的序列化能够将程序中运行的对象信息保存到文件中并永久存储。通过`pickle`模块的反序列化，能够从文件中创建上一次程序保存的对象。基本接口：
+
+```python
+pickle.dump(obj, file, [,protocol=None])
+
+obj     : 要封装的对象
+file    : 必须以二进制可写模式即"wb"打开
+protocol: 使用的协议：0,1,2,3,4,5
+    
+pickle.HIGHEST_PROTOCOL: 一个整数，可用的最高协议的版本 (Python3.8中为5)
+pickle.DEFAULT_PROTOCOL: 一个整数，默认的协议版本 (Python3.8中默认为4)
+
+```
+
+有了`pickle`这个对象，就能对`file`以读取的形式打开:
+
+```python
+x = pickle.load(file[,*, fix_imports=True, encoding="ASCII", errors="strict"])
+
+file    : 必须以二进制可读模式即"rb"打开
+
+```
+
+使用`pickle`模块可能出现三种异常：
+
+1. `PickleError`：封装和拆封时出现的异常类，继承自`Exception`
+
+2. `PicklingError`: 遇到不可封装的对象时出现的异常，继承自`PickleError`
+
+3. `UnPicklingError`: 拆封对象过程中出现的异常，继承自`PickleError`
+
+
+
+实例1：
+
+```python
+#!/usr/bin/env python3
+import pickle
+
+# 原始数据对象
+data1 = {'a': [1, 2.0, 3, 4+6j],
+         'b': ('string', u'Unicode string'),
+         'c': None}
+
+selfref_list = [1, 2, 3]
+selfref_list.append(selfref_list)
+
+# 使用pickle模块将数据对象保存到文件
+output = open('data.pkl', 'wb')
+
+# Pickle dictionary using protocol 0.
+pickle.dump(data1, output)
+
+# Pickle the list using the highest protocol available.
+pickle.dump(selfref_list, output, -1)
+
+# 关闭文件
+output.close()
+```
+
+实例2：
+
+```python
+#!/usr/bin/env python3
+import pprint, pickle
+
+# 使用pickle模块从文件中重构Python对象
+pkl_file = open('data.pkl', 'rb')
+
+data1 = pickle.load(pkl_file)
+pprint.pprint(data1)
+
+data2 = pickle.load(pkl_file)
+pprint.pprint(data2)
+
+pkl_file.close()
+```
 
 
 
@@ -3489,6 +3909,8 @@ f = a(b(c(f)))
 # Python 3 错误和异常
 
 
+
+# Python3 标准库
 
 
 
