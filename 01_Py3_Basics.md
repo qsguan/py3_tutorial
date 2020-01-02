@@ -1,6 +1,6 @@
 [toc]
 
-**Python3 基础教程**
+**Python 3 基础教程**
 
 # 1 Python 2 与 3 的区别
 
@@ -2017,7 +2017,90 @@ orange
 pear
 ```
 
-# 6 Python 3 运算符
+# 6 Python 中的浅拷贝与深拷贝
+
+## 6.1 赋值语句
+
+```python
+a = 'abc'
+b = a
+print id(a)
+print id(b)
+
+# id(a):29283464
+# id(b):29283464
+```
+
+通过简单的赋值语句，我们可以看到`a`、`b`其实是一个对象。对象赋值实际上是简单的对象引用，也就是说，当你创建了一个对象，然后把它赋值给另一个变量时，Python 并没有拷贝这个对象，而是拷贝了这个对象的引用。
+
+## 6.2 浅拷贝
+
+序列 (Sequence) 类型的对象**默认**拷贝类型是**浅拷贝**，通过以下几种方式实施：
+
+1. 完全切片操作，即 [:]；
+2. 利用工厂函数，如 `list()`、`dict()`等；
+3. 使用`copy`模块中的`copy()`函数。
+
+创建一个列表，然后分别用切片操作和工厂方法拷贝对象，然后使用`id()`内建函数来显示每个对象的标识符。
+
+```python
+s = ['abc', ['def',1]]
+a = s[:]
+b = list(s)
+print([id(x) for x in (s,a,b)])
+# [139780055330112, 139780053990464, 139780054532160]
+```
+
+可以看到创建了三个不同的列表对象。再对对象的每一个元素进行操作：
+
+```python
+a[0] = 'a'
+b[0] = 'b'
+print(a,b)
+# ['a', ['def', 1]] ['b', ['def', 1]]
+
+a[1][1] = 0
+print(a,b)
+# ['a', ['def', 0]] ['b', ['def', 0]]
+```
+
+我们可以看到，当执行`a[1][1] = 0`时，`b[1][1]`也跟着变为0。这是因为我们仅仅做了一个浅拷贝，对一个对象进行浅拷贝其实是新创建了一个类型跟原对象一样，它的内容元素是原来对象元素的引用。换句话说，这个拷贝的对象是新的，但他的内容还是原来的，这就是浅拷贝。
+
+```python
+#改变前
+print([id(x) for x in a])
+# [139780055253360, 139780055330304]
+print([id(x) for x in b])
+# [139780055253360, 139780055330304]
+
+#改变后
+print([id(x) for x in a])
+# [139780054899056, 139780055330304]
+print([id(x) for x in b])
+# [139780055136176, 139780055330304]
+```
+
+但是我们看到`a`的第一个元素，即字符串被赋值后，并没有影响`b`的。这是因为在这个对象中，第一个字符串类型对象是不可变的，而第二个列表对象是可变的。正因为如此，当进行浅拷贝时，字符串被显式的拷贝，并创建了一个新的字符串对象，而列表元素只是把它的引用复制了，并不是他的成员。
+
+## 6.3 深拷贝
+
+根据上面的例子，如果我们想要在改变`a`时不影响到`b`，要得到一个完全拷贝或者说深拷贝 (即一个新的容器对象包含原有对象元素全新拷贝的引用)，就需要`copy.deepcopy()`函数。
+
+```python
+from copy import deepcopy
+s = ['abc', ['def',1]]
+a = deepcopy(s)
+b = deepcopy(s)
+print([id(x) for x in (s,a,b)])
+# [139741157573888, 139741157596928, 139741157650240]
+a[0] = 'a'
+b[0] = 'b'
+a[1][1] = 0
+print(a,b)
+# ['a', ['def', 0]] ['b', ['def', 1]]
+```
+
+# 7 Python 3 运算符
 
 Python 支持以下类型的运算符：
 
@@ -2030,7 +2113,7 @@ Python 支持以下类型的运算符：
 * 身份运算符
 * 运算符优先级
 
-## 6.1 算术运算符
+## 7.1 算术运算符
 
 | Operator | Description                                           |
 | -------- | ----------------------------------------------------- |
@@ -2042,7 +2125,7 @@ Python 支持以下类型的运算符：
 | %        | 两个数相除，返回除法的余数                            |
 | **       | 幂运算                                                |
 
-## 6.2 比较(关系)运算符
+## 7.2 比较(关系)运算符
 
 | Operator | Description                                |
 | -------- | ------------------------------------------ |
@@ -2053,7 +2136,7 @@ Python 支持以下类型的运算符：
 | \>\=     | 比较前面一个对象是否大于或等于后面一个对象 |
 | \<\=     | 比较前面一个对象是否小于或等于后面一个对象 |
 
-## 6.3 赋值运算符
+## 7.3 赋值运算符
 
 | Operator | Description                                                  |
 | -------- | ------------------------------------------------------------ |
@@ -2100,7 +2183,7 @@ while ( (block := f.read(256)) != ''):
     process(block)
 ```
 
-## 6.4 逻辑运算符
+## 7.4 逻辑运算符
 
 | Operator | Logic Expression | Description                                                  |
 | -------- | ---------------- | ------------------------------------------------------------ |
@@ -2108,7 +2191,7 @@ while ( (block := f.read(256)) != ''):
 | `or`     | `x or y`         | 布尔 "或"：若`x`是`True`，则返回`x`的值；否则返回`y`的计算值。 |
 | `not`    | `not x`          | 布尔 "非"：若`x`为`True`，则返回`False` ；否则返回`True`。   |
 
-## 6.5 位运算符
+## 7.5 位运算符
 
 按位运算符是把数字看作二进制来进行计算的。Python 中的按位运算法则如下：
 
@@ -2156,14 +2239,14 @@ oct(a)          # 输出八进制
 hex(a)          # 输出十六进制
 ```
 
-## 6.6 成员运算符
+## 7.6 成员运算符
 
 | Operator | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | `in`     | 如果在指定的序列 (Sequence) 中找到值则返回`True`，否则返回`False`。 |
 | `not in` | 如果在指定的序列 (Sequence) 中没有找到值则返回`True`，否则返回`False`。 |
 
-## 6.7 身份运算符
+## 7.7 身份运算符
 
 | Operator | Description                                                  |
 | -------- | ------------------------------------------------------------ |
@@ -2172,7 +2255,7 @@ hex(a)          # 输出十六进制
 
 **注**：`is`与`==`的区别在于，`is`用于判断两个变量引用对象是否为同一个，而`==`用于判断引用变量的值是否相等。
 
-## 6.8 运算符优先级
+## 7.8 运算符优先级
 
 下表列出了从最高到最低优先级的所有运算符：
 
@@ -2192,7 +2275,7 @@ hex(a)          # 输出十六进制
 | `in`, `not in`                                 | 成员运算符                                   |
 | `not`, `and`, `or`                             | 逻辑运算符                                   |
 
-## 6.9 Python 无自增/自减运算
+## 7.9 Python 无自增/自减运算
 
 ```python
 >>> b = 5  
@@ -2217,9 +2300,9 @@ Python 中变量是以内容为基准而不是像C语言中以变量名为基准
 
 以上所说在脚本式编程环境中没有问题。但是在交互式环境中，编译器会有一个**小整数池**的概念，会把 (-5, 256) 间的数预先创建好，而当`a`和`b`超过这个范围的时候，两个变量就会指向不同的对象，因此地址也会不一样。
 
-# 7 Python 3 控制语句
+# 8 Python 3 控制语句
 
-## 7.1 条件控制
+## 8.1 条件控制
 
 Python 条件语句是通过一条或多条语句的执行结果 (`True`或`False`) 来决定执行的代码块。执行过程图示：
 
@@ -2233,7 +2316,7 @@ Python 条件语句是通过一条或多条语句的执行结果 (`True`或`Fals
     <img src="./images/0005.webp" alt="0005.webp" style="zoom: 30%;">
 </left>
 
-### 7.1.1 `if`语句
+### 8.1.1 `if`语句
 
 Python 中`if`语句的一般形式如下所示：
 
@@ -2257,7 +2340,7 @@ else:
 - 2、使用缩进来划分语句块，相同缩进数的语句在一起组成一个语句块。
 - 3、在Python中没有`switch – case`语句。
 
-### 7.1.2 `if`嵌套
+### 8.1.2 `if`嵌套
 
 在嵌套`if`语句中，可以把`if...elif...else`结构放在另外一个`if...elif...else`结构中。
 
@@ -2276,7 +2359,7 @@ else:
     语句
 ```
 
-## 7.2 循环控制
+## 8.2 循环控制
 
 Python 中的循环语句有`for`和`while`，其控制结构图如下所示：
 
@@ -2284,7 +2367,7 @@ Python 中的循环语句有`for`和`while`，其控制结构图如下所示：
     <img src="./images/0006.png" alt="0006.png" style="zoom: 90%;">
 </left>
 
-### 7.2.1 `while`循环
+### 8.2.1 `while`循环
 
 Python 中`while`循环语句的一般形式：
 
@@ -2308,7 +2391,7 @@ while <condition> : <statement(s)>  # single-line style
 
 同样需要注意冒号和缩进。另外，在 Python 中**没有`do...while`循环**。
 
-### 7.2.2 `for`循环
+### 8.2.2 `for`循环
 
 Python 中`for`循环可以遍历任何序列的项目，如一个列表或者一个字符串。`for`循环的一般格式如下：
 
@@ -2357,7 +2440,7 @@ for index, item in enumerate(sequence):
 - 若`else`语句和`while`循环语句一起使用，则当条件变为`False`时，则执行`else`语句。
 - 若`else`语句和`for`循环语句一起使用，则`else`语句块只在`for`循环正常终止时执行！
 
-### 7.2.3 `pass`,`break`和`continue`语句
+### 8.2.3 `pass`,`break`和`continue`语句
 
 **pass**语句是空语句，不做任何事情，是为了保持程序结构的完整性，一般用做占位语句。<br>**break**语句可以跳出`for`和`while`的循环体，若跳出循环体终止，任何对应的`else`循环块将不被执行。<br>**continue**语句被用来跳过当前循环块中的剩余语句，然后继续进行下一轮循环。
 
@@ -2379,13 +2462,13 @@ for index, item in enumerate(sequence):
     <img src="./images/0011.webp" alt="0011.webp" style="zoom: 40%;">
 </left>
 
-# 8 Python 3 迭代器与生成器
+# 9 Python 3 迭代器与生成器
 
-## 8.1 迭代器
+## 9.1 迭代器
 
 迭代是Python最强大的功能之一，是访问集合元素的一种方式。<br>迭代器是一个可以记住遍历的位置的对象。迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。迭代器有两个基本的方法：**iter()** 和 **next()**。
 
-### 8.1.1 迭代器的创建
+### 9.1.1 迭代器的创建
 
 字符串，列表或元组对象都可用于创建迭代器：
 
@@ -2422,7 +2505,7 @@ while True:
         sys.exit()
 ```
 
-### 8.1.2 类作为迭代器
+### 9.1.2 类作为迭代器
 
 把一个类作为一个迭代器使用需要在类中实现两个方法`__iter__()`与`__next__()`。`__iter__()`方法返回一个特殊的迭代器对象， 这个迭代器对象实现了`__next__()`方法并通过`StopIteration`异常标识迭代的完成。`__next__()`方法会返回下一个迭代器对象，在 `__next__()`方法中我们可以设置在完成指定循环次数后触发`StopIteration`异常来结束迭代，防止出现无限循环的情况。
 
@@ -2449,7 +2532,7 @@ for i in Fibonacci(10):
     print(i, end=" ")
 ```
 
-## 8.2 生成器
+## 9.2 生成器
 
 在 Python 中，使用了`yield`的函数被称为生成器 (generator)，跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个迭代器。在调用生成器运行的过程中，每次遇到`yield`时函数会暂停并保存当前所有的运行信息，返回`yield`的值, 并在下一次执行`next()`方法时从当前位置继续运行。
 
@@ -2489,11 +2572,11 @@ def read_file(fpath):
                 return
 ```
 
-# 9 Python 3 函数
+# 10 Python 3 函数
 
 函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。函数能提高应用的模块性和代码的重复利用率。Python提供了许多**内建函数**，比如`print()`，同时也可以自己创建函数，即**用户自定义函数**。
 
-## 9.1 定义函数
+## 10.1 定义函数
 
 可以定义一个有自己想要功能的函数，以下是简单的规则：
 
@@ -2514,7 +2597,7 @@ def 函数名(参数列表):
 
 默认情况下，参数值和参数名称是按函数声明中定义的顺序匹配起来的。
 
-## 9.2 函数调用
+## 10.2 函数调用
 
 函数定义：给了函数一个名称，指定了函数里包含的参数和代码块结构。这个函数的基本结构完成以后，可通过另一个函数调用执行，也可以直接从 Python 命令提示符执行。
 
@@ -2529,7 +2612,7 @@ def fun(a,b):
 print(fun(1,2))
 ```
 
-## 9.3 参数传递
+## 10.3 参数传递
 
 Python 中一切都是对象，严格意义上不能说值传递还是引用传递，应该说传不可变对象和传可变对象：
 
@@ -2586,7 +2669,7 @@ def execute(f):
 execute(hello)
 ```
 
-## 9.4 参数类型
+## 10.4 参数类型
 
 以下是调用函数时可使用的正式参数类型：
 
@@ -2693,7 +2776,7 @@ TypeError: f() takes 2 positional arguments but 3 were given
 6
 ```
 
-## 9.5 匿名函数 (`lambda`)
+## 10.5 匿名函数 (`lambda`)
 
 Python 使用`lambda`来创建匿名函数。所谓匿名，即不再使用`def`语句这样标准的形式定义一个函数。
 
@@ -2741,7 +2824,7 @@ map(function, iterable, ...)
 [3, 7, 11, 15, 19]   # 提供了两个列表，对相同位置的列表数据进行相加
 ```
 
-## 9.6 强制位置参数
+## 10.6 强制位置参数
 
 Python 3.8 中新增了一个函数形参语法`/`用来指明函数形参必须使用指定位置参数，不能使用关键字参数的形式。在以下的例子中，形参`a`和`b`必须使用指定位置参数，`c`或`d`可以是位置形参或关键字形参，而`e`或`f`要求为关键字形参：
 
@@ -2763,9 +2846,9 @@ f(10, b=20, c=30, d=40, e=50, f=60)   # b 不能使用关键字参数的形式
 f(10, 20, 30, 40, 50, f=60)           # e 必须使用关键字参数的形式
 ```
 
-# 10 Python 3 变量前加 \* 或 \*\* 号
+# 11 Python 3 变量前加 \* 或 \*\* 号
 
-## 10.1 变量前加 \* 号可进行拆分
+## 11.1 变量前加 \* 号可进行拆分
 
 在列表、元组、字典变量前加 "\*" 号，会将其拆分成一个一个的独立元素。<br>不光是列表、元组、字典，由`numpy`生成的向量也可进行拆分。
 
@@ -2789,7 +2872,7 @@ f(10, 20, 30, 40, 50, f=60)           # e 必须使用关键字参数的形式
 [1, 2, 3] [4, 5, 6]
 ```
 
-## 10.2 函数传参中使用 \* 或 \*\*
+## 11.2 函数传参中使用 \* 或 \*\*
 
 函数的参数传递中使用`*args`和`**kwargs`，这两个形参都接收若干个参数，通常我们将其称为参数组；
 
@@ -2811,7 +2894,7 @@ f(10, 20, 30, 40, 50, f=60)           # e 必须使用关键字参数的形式
 <class 'tuple'>   # print(type(args))的结果, test(1,2,3,4)返回的args是一个元组
 ```
 
-## 10.3 综合以上两点的实例
+## 11.3 综合以上两点的实例
 
 ```python
 def add(*args) :
@@ -2856,7 +2939,7 @@ add_plus(*_list2)
 [4, 5, 6]
 ```
 
-## 10.4 使用`zip()`函数进行压缩
+## 11.4 使用`zip()`函数进行压缩
 
 Python 中有一个`zip()`函数功能与"\*"号相反，该函数可将一个或多个可迭代对象进行包装压缩，返回的结果是一个 ‘zip’ 类的迭代器。通俗的说：`zip()`压缩可迭代对象，而 "\*" 号解压可迭代对象。
 
@@ -2941,9 +3024,9 @@ True
 1. **可迭代对象**才可以使用 "\*" 号来拆分，或`zip()`函数来压缩；
 2. 带 "\*" 号变量并不是一个变量，而更**应该称为参数**，它是**不能赋值给其他变量**的，但可作为参数传递。
 
-# 11 Python 3 命名空间和作用域
+# 12 Python 3 命名空间和作用域
 
-## 11.1 命名空间
+## 12.1 命名空间
 
 先看看官方文档的一段话：
 
@@ -2977,7 +3060,7 @@ def some_func():
     <img src="./images/0013.png" alt="0013.png" style="zoom: 80%;">
 </left>
 
-## 11.2 作用域
+## 12.2 作用域
 
 > A scope is a textual region of a Python program where a namespace is directly accessible. "Directly accessible" here means that an unqualified reference to a name attempts to find the name in the namespace.  作用域就是一个 Python 程序可以直接访问命名空间的正文区域。在一个 Python 程序中，直接访问一个变量，会从内到外依次访问所有的作用域直到找到，否则会报未定义的错误。
 
@@ -3031,7 +3114,7 @@ Traceback (most recent call last):
 NameError: name 'msg_inner' is not defined
 ```
 
-### 11.2.1 全局变量和局部变量
+### 12.2.1 全局变量和局部变量
 
 定义在函数内部的变量有一个局部作用域，定义在函数外的有全局作用域。局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。调用函数时，所有在函数内声明的变量名称都将被加入到作用域中：
 
@@ -3046,7 +3129,7 @@ sum(10,20) # 调用sum函数
 print("函数外是全局变量: ", total)
 ```
 
-### 11.2.2 关键字 global 和 nonlocal
+### 12.2.2 关键字 global 和 nonlocal
 
 内部作用域**可访问外部作用域**变量**但不可以修改**该变量。当内部作用域想修改外部作用域的变量时，需要使用关键字 **global** 和 **nonlocal** 。
 
@@ -3077,11 +3160,11 @@ def outer():
 outer()
 ```
 
-# 12 Python 3 函数装饰器
+# 13 Python 3 函数装饰器
 
 装饰器 (Decorators) 是 Python 的一个重要部分。简单地说：它们是修改其他函数的功能的函数，有助于让代码更简洁也更 Python范儿。这可能是最难掌握的概念之一，我们会每次只讨论一个步骤，直至你能完全理解它。
 
-## 12.1 函数也是对象
+## 13.1 函数也是对象
 
 首先我们来理解下 Python 中的函数：
 
@@ -3110,7 +3193,7 @@ print(greet())
 #outputs: 'hi yasoob'
 ```
 
-## 12.2 在函数中定义函数
+## 13.2 在函数中定义函数
 
 在 Python 中我们可以在一个函数中定义另一个函数：
 
@@ -3141,7 +3224,7 @@ greet()
 #outputs: NameError: name 'greet' is not defined
 ```
 
-## 12.3 从函数中返回函数
+## 13.3 从函数中返回函数
 
 其实并不需要在一个函数里去执行另一个函数，我们也可以将其作为输出返回出来：
 
@@ -3171,7 +3254,7 @@ print(a())
 
 再次看看这个代码，在`if/else`语句中我们返回`greet`和`welcome`，而不是`greet()`和`welcome()`。这是因为如果把一对小括号放在函数名称后，这个函数就会执行；然而若不放括号在函数名称后，那它可以被到处传递，并且可以赋值给别的变量而不去执行它。当写下`a = hi()`时，`hi()`会被执行，而由于`name`参数默认是`yasoob`，所以函数名`greet`被返回了 (同样，若把语句改为`a = hi(name = "ali")`，那么函数名`welcome`将被返回)。当执行`a()`时，相当于执行`hi()()`即`greet()`，这时才会输出`now you are in the greet() function`。
 
-## 12.4 将函数作为参数传给另一个函数
+## 13.4 将函数作为参数传给另一个函数
 
 ```python
 #!/usr/bin/env python3
@@ -3187,7 +3270,7 @@ doSomethingBeforeHi(hi)
 #        hi yasoob!
 ```
 
-## 12.5 第一个装饰器
+## 13.5 第一个装饰器
 
 上一个例子里，其实已经创建了一个装饰器！现在修改下上一个装饰器，并编写一个稍微更有用点的程序：
 
@@ -3298,9 +3381,9 @@ print(func())
 
 **注意**：**@wraps()** 接受一个函数来进行装饰，并加入了复制函数名称、注释文档、参数列表等等的功能。这可以让我们在装饰器里面访问在装饰之前的函数的属性。
 
-## 12.6 装饰器的使用场景
+## 13.6 装饰器的使用场景
 
-### 12.6.1 授权(Authorization)
+### 13.6.1 授权(Authorization)
 
 装饰器能有助于检查某个人是否被授权去使用一个web应用的端点(endpoint)。它们被大量使用于Flask和Django web框架中。这里是一个例子来使用基于装饰器的授权：
 
@@ -3316,7 +3399,7 @@ def requires_auth(f):
     return decorated
 ```
 
-### 12.6.2 日志(Logging)
+### 13.6.2 日志(Logging)
 
 日志是装饰器运用的另一个亮点。这是个例子：
 
@@ -3338,7 +3421,7 @@ result = addition_func(4)
 # Output: addition_func was called
 ```
 
-## 12.7 带参数的装饰器
+## 13.7 带参数的装饰器
 
 ```python
 from functools import wraps
@@ -3373,7 +3456,7 @@ myfunc2()
 # 现在一个叫做 func2.log 的文件出现了，里面的内容就是上面的字符串
 ```
 
-## 12.8 装饰器类
+## 13.8 装饰器类
 
 现在我们有了能用于正式环境的`logit`装饰器，但当我们的应用的某些部分还比较脆弱时，异常也许是需要更紧急关注的事情。比方说有时你只想打日志到一个文件。而有时你想把引起你注意的问题发送到一个Email，同时也保留日志，留个记录。这是一个使用继承的场景，但目前为止我们只看到过用来构建装饰器的函数。幸运的是，类也可以用来构建装饰器。那我们现在以一个类而不是一个函数的方式，来重新构建`logit`。
 
@@ -3429,7 +3512,7 @@ class email_logit(logit):
 
 从现在起，`@email_logit`将会和`@logit`产生同样的效果，但在打日志的基础上还会多发送一封邮件给管理员。
 
-## 12.9 装饰器顺序
+## 13.9 装饰器顺序
 
 一个函数还可以同时定义多个装饰器，比如：
 
@@ -3447,13 +3530,13 @@ def f ():
 f = a(b(c(f)))
 ```
 
-# 13 Python 3 模块
+# 14 Python 3 模块
 
 Python 提供了一个办法，把定义的所有的方法和变量存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被称为模块。模块是一个包含所有定义的函数和变量的文件，其后缀名是.py。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 Python 标准库的方法。
 
 模块除了方法定义，还可以包括可执行的代码，这些代码一般用来初始化这个模块，只有在第一次被导入时才会被执行。每个模块有着各自独立的符号表，在模块内部为所有的函数当作全局符号表来使用。所以可放心大胆地在模块内部使用这些全局变量，而不用担心把其他用户的全局变量搞混。此外，也可通过`modname.itemname`这样的表示法来访问模块内的函数。 
 
-## 13.1 `import`语句
+## 14.1 `import`语句
 
 想使用 Python 源文件，只需在另一个源文件里执行`import`语句，被导入的模块的名称将被放入当前操作的模块的符号表中。语法如下：
 
@@ -3472,7 +3555,7 @@ import module1[, module2[,... moduleN]
 
 `sys.path`输出是一个列表，其中第一项是空串''，代表当前目录，即我们执行 Python 解释器的目录 (对于脚本的话则是运行脚本的所在目录)。因此若在当前目录下存在与所要引入模块同名的文件，则会屏蔽掉要引入的模块。
 
-## 13.2 `from … import` 语句
+## 14.2 `from … import` 语句
 
 Python 的`from`语句让你从模块中导入一个指定的部分到当前命名空间中，这种导入的方法不会把被导入的模块的名称放在当前的字符表中。语法如下：
 
@@ -3488,13 +3571,13 @@ from modname import *
 
 这提供了一个简单的方法来导入一个模块中的所有项目，但是那些由单一下划线 (_) 开头的不会被导入。大多数情况下 Python 程序员不使用这种方法，因为引入的其它来源的命名很可能覆盖了已有的定义。 
 
-## 13.3 `if __name__ == '__main__'：`的作用
+## 14.3 `if __name__ == '__main__'：`的作用
 
 一个 Python 文件通常有两种使用方法:<br>    第一是作为脚本直接执行；<br>    第二是`import `到其他的 python 脚本中被调用 (模块重用) 执行。
 
 `if __name__ == '__main__': `的作用就是控制这两种情况执行代码的过程。在 `if __name__ == '__main__': `下的的代码只在第一种情况下 (即文件作为脚本直接执行时) 才会被执行, 而`import`到其他脚本中是不会被执行的。
 
-## 13.4 使用`dir()`函数
+## 14.4 使用`dir()`函数
 
 内置的函数`dir()`可以找到模块内定义的所有名称，以一个字符串列表的形式返回：
 
@@ -3514,7 +3597,7 @@ from modname import *
 ['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'a', 'b', 'math', 'sys']
 ```
 
-## 13.5 Python 包(packages)
+## 14.5 Python 包(packages)
 
 包 (packages) 是一种管理 Python 模块命名空间的形式，采用"点模块名称"。比如一个模块的名称是`A.B`， 那么它表示一个包`A`中的子模块`B`。就像使用模块的时候，不用担心不同模块之间的全局变量相互影响一样，采用点模块名称这种形式也不用担心不同库之间的模块有重名的情况。
 
@@ -3634,576 +3717,11 @@ sound/                          顶层包
            pass
    ```
 
-# 14 Python 3 输入和输出
+# 15 Python 3 错误和异常
 
-## 14.1 `input()`输入
 
-Python 3 仅保留了`input()`函数，它可接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。
 
-执行下面的程序在按回车键后就会等待用户输入：
 
-```python
-#!/usr/bin/env python3
-input("\n\n按下 enter 键后退出。")
-```
 
-以上代码中 ，`'\n\n'`在结果输出前会输出两个新的空行。一旦用户按下 <kbd>Enter</kbd> 键时，程序将退出。
 
-## 14.2 `print()`输出
-
-Python 中有两种**输出值**的方式: **表达式语句**和**`print()`函数**。第三种方式是使用**文件对象**的**`write()`方法**，标准输出文件可以用`sys.stdout`引用。
-
-* 若希望输出的形式更加多样，可以使用`str.format()`函数来格式化输出值 (见**Section 4.5.3**)。
-
-* 若希望将输出的值转成字符串，可以使用`repr()`或`str()`函数来实现。
-  * **`str()`**: 函数返回一个用户易读的表达形式。 
-  * **`repr()`**: 产生一个解释器易读的表达形式。
-
-```python
->>> s = 'Hello, Runoob'
->>> str(s)
-'Hello, Runoob'
->>> repr(s)
-"'Hello, Runoob'"
->>> str(1/7)
-'0.14285714285714285'
->>> x = 10 * 3.25; y = 200 * 200
->>> s = 'x 的值为： ' + repr(x) + ',  y 的值为：' + repr(y) + '.'
->>> print(s)
-x 的值为： 32.5,  y 的值为：40000.
->>> hello = 'hello, runoob\n'; hellos = repr(hello); print(hellos)  
-'hello, runoob\n'                       # repr()函数可以转义字符串中的特殊字符  
->>> repr((x, y, ('Google', 'Runoob')))  # repr()的参数可以是 Python 的任何对象
-"(32.5, 40000, ('Google', 'Runoob'))"
-```
-
-两种方式输出一个平方与立方的表：
-
-```python
->>> for x in range(1, 11):
-...     print(repr(x).rjust(2), repr(x*x).rjust(3), end=' ') 
-...     # 注意前一行 'end' 的使用
-...     print(repr(x*x*x).rjust(4))  # 使用rjust()方法将字符串靠右,并在左边填充空格
-...
->>> for x in range(1, 11):
-...     print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
-...
-```
-
-## 14.3 读和写文件
-
-### 14.3.1 打开文件`open()`函数
-
-利用`open()`函数将会返回一个`file`对象，基本语法格式如下: 
-
-```python
-open(filename, mode)
-```
-
-- `filename`：包含了你要访问的文件名称的字符串值。
-- `mode`：决定了打开文件的模式：只读，写入，追加等。该参数是非强制的，默认文件访问模式为只读。
-
-不同模式打开文件的完全列表：
-
-| Mode | Description                                                  |
-| ---- | ------------------------------------------------------------ |
-| r    | (默认模式) 以只读方式打开文件。文件的指针将会放在文件的开头。 |
-| rb   | 以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。 |
-| r+   | 打开一个文件用于读写。文件指针将会放在文件的开头。           |
-| rb+  | 以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。 |
-| w    | 打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
-| wb   | 以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
-| w+   | 打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
-| wb+  | 以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，则创建新文件。 |
-| a    | 打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，则创建新文件进行写入。 |
-| ab   | 以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，则创建新文件进行写入。 |
-| a+   | 打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，则创建新文件用于读写。 |
-| ab+  | 以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，则创建新文件用于读写。 |
-
-下图很好的总结了这几种模式：
-
-<left>
-    <img src="./images/0015.png" alt="0015.png" style="zoom: 50%;">
-</left>
-
-|    Mode    |  r   |  r+  |  w   |  w+  |  a   |  a+  |
-| :--------: | :--: | :--: | :--: | :--: | :--: | :--: |
-|     读     |  +   |  +   |      |  +   |      |  +   |
-|     写     |      |  +   |  +   |  +   |  +   |  +   |
-|    创建    |      |      |  +   |  +   |  +   |  +   |
-|    覆盖    |      |      |  +   |  +   |      |      |
-| 指针在开始 |  +   |  +   |  +   |  +   |      |      |
-| 指针在结尾 |      |      |      |      |  +   |  +   |
-
-### 14.3.2 文件对象的方法
-
-本节中剩下的例子假设已经创建了一个称为`f`的文件对象。
-
-1. `f.read()`函数：调用`f.read(size)`将读取一定数目的数据，然后作为字符串或字节对象返回。`size`是一个可选的数字类型的参数，当`size`被忽略了或者为负时该文件的所有内容都将被读取并且返回。
-
-   ```python
-   #!/usr/bin/env python3
-   
-   # 打开一个文件
-   f = open("/tmp/foo.txt", "r")
-   
-   str = f.read()
-   print(str)
-   
-   # 关闭打开的文件
-   f.close()
-   ```
-
-2. `f.readline()`函数：从文件中读取单独的一行，换行符为`'\n'`。若`f.readline()`返回一个空字符串, 说明已经已经读取到最后一行。
-
-3. `f.readlines()`函数：将返回该文件中包含的所有行。若设置可选参数`sizehint`，则读取指定长度的字节, 并且将这些字节按行分割。
-
-4. 另一种方式是迭代一个文件对象然后读取每行：
-
-   ```python
-   #!/usr/bin/env python3
-   
-   # 打开一个文件
-   f = open("/tmp/foo.txt", "r")
-   
-   for line in f:
-       print(line, end='')
-   
-   # 关闭打开的文件
-   f.close()
-   ```
-
-5. `f.write()`函数：`f.write(string)`将`string`写入到文件中，然后返回写入的字符数。若要写入一些不是字符串的东西，那么将需要先进行转换。
-
-6. `f.tell()`函数：返回文件对象当前所处的位置，即从文件开头开始算起的字节数。
-
-7. `f.seek()`函数：若要改变文件当前的位置，可以使用`f.seek(offset, from_what)`函数。
-
-   `from_what`的值，若是 0 表示开头 (默认)；1 表示当前位置； 2 表示文件的结尾，例如：
-
-   - `seek(x,0)`： 从文件首行首字符开始往后移动`x`个字符
-   - `seek(x,1)`： 表示从当前位置往后移动`x`个字符
-   - `seek(-x,2)`：表示从文件的结尾往前移动`x`个字符
-
-   ```python
-   >>> f = open('/tmp/foo.txt', 'rb+')
-   >>> f.write(b'0123456789abcdef')
-   16
-   >>> f.seek(5)     # 移动到文件的第六个字节
-   5
-   >>> f.read(1)
-   b'5'
-   >>> f.seek(-3, 2) # 移动到文件的倒数第三字节
-   13
-   >>> f.read(1)
-   b'd'
-   ```
-
-   
-
-8. `f.close()`函数：在文本文件中 (那些打开文件的模式下没有b的)，只会相对于文件起始位置进行定位。当处理完一个文件后，调用`f.close()`来关闭文件并释放系统资源，若尝试再调用该文件则会抛出异常。
-
-9. 当处理一个文件对象时，使用`with`关键字是非常好的方式。在结束后，它会帮你正确的关闭文件。而且写起来也比`try - finally`语句块要简短：
-
-   ```python
-   >>> with open('/tmp/foo.txt', 'r') as f:
-   ...     read_data = f.read()
-   >>> f.closed
-   True
-   ```
-
-### 14.3.3 使用`pickle`模块
-
-Python 中的`pickle`模块实现了基本的数据序列化和反序列化操作。通过`pickle`模块的序列化能够将程序中运行的对象信息保存到文件中并永久存储。通过`pickle`模块的反序列化，能够从文件中创建上一次程序保存的对象。基本接口：
-
-```python
-pickle.dump(obj, file, [,protocol=None])  # 将对象的pickled表示写入数据文件
-pickle.dumps(obj [,protocol=None])        # 将对象的pickled表示作为bytes对象返回
-
-obj     : 要封装的对象
-file    : 必须以二进制可写模式即"wb"打开
-protocol: 使用的协议：0,1,2,3,4,5,-1 (若为负数,则选用最高)
-
->>> pickle.HIGHEST_PROTOCOL # 可用的最高协议的版本 (Python3.8中为5)
-5
->>> pickle.DEFAULT_PROTOCOL # 默认的协议版本 (Python3.8中默认为4)
-4
->>> pickle.format_version  # 当前格式版本
-'4.0'
->>> pickle.compatible_formats  # 兼容的格式版本
-['1.0', '1.1', '1.2', '1.3', '2.0', '3.0', '4.0', '5.0']
->>> 
->>> with open(filename, 'wb') as file:
-...   pickle.dump(data, file)
-...
->>> p_str = pickle.dumps(data); print(p_str)
-```
-
-有了`pickle`这个对象，就能对`file`以读取的形式打开:
-
-```python
-x = pickle.load(file)  # 从数据文件中读取转换被封装的对象并返回为Python的数据结构
-x = pickle.loads(obj)  # 从字节对象中读取转换被封装的对象并返回为Python的数据结构
-
-file: 必须以二进制可读模式即"rb"打开
-
->>> with open(filename, 'r') as file:
-...   data = pickle.load(file)
-...
->>> mes = pickle.loads(p_str); print(mes)
-```
-
-使用`pickle`模块可能出现三种异常：
-
-1. `PickleError`：封装和拆封时出现的异常类，继承自`Exception`
-
-2. `PicklingError`: 遇到不可封装的对象时出现的异常，继承自`PickleError`
-
-3. `UnPicklingError`: 拆封对象过程中出现的异常，继承自`PickleError`
-
-实例1：
-
-```python
-#!/usr/bin/env python3
-import pickle
-
-# 原始数据对象1 (字典)
-data1 = {'a': [1, 2.0, 3, 4+6j],
-         'b': ('string', u'Unicode string'),
-         'c': None}
-# 原始数据对象2 (递归引用)
-selfref_list = [1, 2, 3]
-selfref_list.append(selfref_list)
-
-# 使用pickle模块将数据对象保存到文件
-output = open('data.pkl', 'wb')
-
-# Pickle dictionary using protocol 0.
-pickle.dump(data1, output)
-
-# Pickle the list using the highest protocol available.
-pickle.dump(selfref_list, output, -1)
-
-# 关闭文件
-output.close()
-```
-
-实例2：
-
-```python
-#!/usr/bin/env python3
-import pprint, pickle
-
-# 使用pickle模块从文件中重构Python对象
-pkl_file = open('data.pkl', 'rb')
-
-data1 = pickle.load(pkl_file)
-pprint.pprint(data1)
-
-data2 = pickle.load(pkl_file)
-pprint.pprint(data2)
-
-pkl_file.close()
-```
-
-# 15 Python 3 文件操作
-
-
-
-
-
-
-
-# 16 Python 3 OS操作
-
-
-
-
-
-# 17 Python 3 错误和异常
-
-
-
-# 18 Python3 标准库
-
-
-
-# 19 Python 中的浅拷贝与深拷贝
-
-## 19.1 赋值语句
-
-```python
-a = 'abc'
-b = a
-print id(a)
-print id(b)
-
-# id(a):29283464
-# id(b):29283464
-```
-
-通过简单的赋值语句，我们可以看到`a`、`b`其实是一个对象。对象赋值实际上是简单的对象引用，也就是说，当你创建了一个对象，然后把它赋值给另一个变量时，Python 并没有拷贝这个对象，而是拷贝了这个对象的引用。
-
-## 19.2 浅拷贝
-
-序列 (Sequence) 类型的对象**默认**拷贝类型是**浅拷贝**，通过以下几种方式实施：
-
-1. 完全切片操作，即 [:]；
-2. 利用工厂函数，如 `list()`、`dict()`等；
-3. 使用`copy`模块中的`copy()`函数。
-
-创建一个列表，然后分别用切片操作和工厂方法拷贝对象，然后使用`id()`内建函数来显示每个对象的标识符。
-
-```python
-s = ['abc', ['def',1]]
-a = s[:]
-b = list(s)
-print([id(x) for x in (s,a,b)])
-# [139780055330112, 139780053990464, 139780054532160]
-```
-
-可以看到创建了三个不同的列表对象。再对对象的每一个元素进行操作：
-
-```python
-a[0] = 'a'
-b[0] = 'b'
-print(a,b)
-# ['a', ['def', 1]] ['b', ['def', 1]]
-
-a[1][1] = 0
-print(a,b)
-# ['a', ['def', 0]] ['b', ['def', 0]]
-```
-
-我们可以看到，当执行`a[1][1] = 0`时，`b[1][1]`也跟着变为0。这是因为我们仅仅做了一个浅拷贝，对一个对象进行浅拷贝其实是新创建了一个类型跟原对象一样，它的内容元素是原来对象元素的引用。换句话说，这个拷贝的对象是新的，但他的内容还是原来的，这就是浅拷贝。
-
-```python
-#改变前
-print([id(x) for x in a])
-# [139780055253360, 139780055330304]
-print([id(x) for x in b])
-# [139780055253360, 139780055330304]
-
-#改变后
-print([id(x) for x in a])
-# [139780054899056, 139780055330304]
-print([id(x) for x in b])
-# [139780055136176, 139780055330304]
-```
-
-但是我们看到`a`的第一个元素，即字符串被赋值后，并没有影响`b`的。这是因为在这个对象中，第一个字符串类型对象是不可变的，而第二个列表对象是可变的。正因为如此，当进行浅拷贝时，字符串被显式的拷贝，并创建了一个新的字符串对象，而列表元素只是把它的引用复制了，并不是他的成员。
-
-## 19.3 深拷贝
-
-根据上面的例子，如果我们想要在改变`a`时不影响到`b`，要得到一个完全拷贝或者说深拷贝 (即一个新的容器对象包含原有对象元素全新拷贝的引用)，就需要`copy.deepcopy()`函数。
-
-```python
-from copy import deepcopy
-s = ['abc', ['def',1]]
-a = deepcopy(s)
-b = deepcopy(s)
-print([id(x) for x in (s,a,b)])
-# [139741157573888, 139741157596928, 139741157650240]
-a[0] = 'a'
-b[0] = 'b'
-a[1][1] = 0
-print(a,b)
-# ['a', ['def', 0]] ['b', ['def', 1]]
-```
-
-
-
-# 20 Python 获取命令行参数
-
-## 20.1 利用`sys.argv`
-
-Python 中可以用 `sys` 的 `sys.argv` 来获取命令行参数：
-
-```
-sys.argv 是命令行参数列表。
-len(sys.argv) 是命令行参数个数
-
-注：sys.argv[0] 表示代码本身文件路径，所以参数从1开始
-```
-
-### 20.1.1 实例1
-
-创建test.py 文件，代码如下：
-
-```python
-#!/usr/bin/env python3
-import sys
-print ('参数个数为:', len(sys.argv), '个参数。')
-print ('参数列表:', str(sys.argv))
-```
-
-执行以上代码，输出结果为：
-
-```bash
-$ python3 test.py arg1 arg2 arg3
-参数个数为: 4 个参数。
-参数列表: ['test.py', 'arg1', 'arg2', 'arg3']
-```
-
-### 20.1.2 实例2
-
-创建sample.py 文件，代码如下：
-
-```python
-#!/usr/bin/env python  
-#_*_ coding:utf-8 _*_  
-import sys   
-
-HELP = ''' 
-This program prints files to the standard output.  
-Any number of files can be specified.  
-Options include:  
-  --version : Prints the version number  
-  --help    : Display this help
-'''  
-
-def readfile(filename): #定义readfile函数，从文件中读出文件内容   
-  '''''''''Print a file to the standard output.'''  
-  f = file(filename)   
-  while True:   
-    line = f.readline()   
-    if len(line) == 0:   
-      break  
-    print line, # notice comma 分别输出每行内容   
-  f.close() 
-
-# Script starts from here  
-print sys.argv  
-
-if len(sys.argv) < 2:   
-  print 'No action specified.'  
-  sys.exit()   
-
-if sys.argv[1].startswith('--'):   
-  option = sys.argv[1][2:]   
-  # fetch sys.argv[1] but without the first two characters   
-  if option == 'version': #当命令行参数为-- version，显示版本号   
-    print 'Version 1.2'  
-  elif option == 'help': #当命令行参数为--help时，显示相关帮助内容   
-    print HELP
-  else:   
-    print 'Unknown option.'  
-  sys.exit()   
-else:   
-  for filename in sys.argv[1:]: #当参数为文件名时，传入readfile，读出其内容   
-    readfile(filename)
-```
-
-在与sample.py同一目录下，新建1个记事本文件test.txt, 其内容为: `hello python!`。<br>验证sample.py，如下：
-
-```bash
-C:\Users\91135\Desktop>python sample.py
- ['sample.py']
-No action specified.
-
-C:\Users\91135\Desktop>python sample.py --help
-['sample.py', '--help']
-This program prints files to the standard output.
- Any number of files can be specified.
- Options include:
-  --version : Prints the version number
-  --help    : Display this help
- 
-C:\Users\91135\Desktop>python sample.py --version
- ['sample.py', '--version']
-Version 1.2
-
-C:\Users\91135\Desktop>python sample.py --ok
- ['sample.py', '--ok']
-Unknown option.
-
-C:\Users\91135\Desktop>python sample.py test.txt
- ['sample.py', 'test.txt']
-hello python!
-```
-
-## 20.2 利用`getopt`模块
-
-`getopt`模块是专门处理命令行参数的模块，用于获取命令行选项和参数，即`sys.argv`。命令行选项使得程序的参数更加灵活。支持短选项模式 (-) 和长选项模式 (--)。该模块提供了两个方法及一个异常处理来解析命令行参数。
-
-### 20.2.1 `getopt.getopt` 方法
-
-`getopt.getopt `方法用于解析命令行参数列表，语法格式如下：
-
-```python
-getopt.getopt(args, options[, long_options])
-```
-
-方法参数说明:
-
-```
-args        : 要解析的命令行参数列表。
-options     : 以字符串的格式定义，后的冒号(:)表示该选项必须有附加参数，不带冒号表示该选项不附加参数。
-long_options: 以列表的格式定义，后的等号(=)表示如果设置该选项则必须有附加参数，否则就不附加参数。
-
-该方法返回值由两个元素组成: 
-第一个是 (option, value) 元组的列表。 
-第二个是参数列表，包含那些没有'-'或'--'的参数。
-```
-
-### 20.2.2 `getopt.gnu_getopt` 方法
-
-另外一个方法是 ’getopt.gnu_getopt‘，这里不多做介绍。
-
-### 20.2.3 异常处理`except getopt.GetoptError`
-
-在没有找到参数列表，或选项的需要的参数为空时会触发该异常。<br>异常的参数是一个字符串，表示错误的原因。<br>属性 `msg` 和 `opt` 为相关选项的错误信息。
-
-### 20.2.4 实例
-
-假定我们创建这样一个脚本，可以通过命令行向脚本文件传递两个文件名，同时我们通过另外一个选项查看脚本的使用。脚本使用方法如下：
-
-```bash
-usage: test.py -i <inputfile> -o <outputfile>
-```
-
-创建test.py 文件，代码如下所示：
-
-```python
-#!/usr/bin/env python3
-import sys, getopt
-
-def main(argv):
-    inputfile = ''
-    outputfile = ''
-    try:
-        opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
-    except getopt.GetoptError:
-        print ('test.py -i <inputfile> -o <outputfile>')
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-        	print ('test.py -i <inputfile> -o <outputfile>')
-            sys.exit()
-        elif opt in ("-i", "--ifile"):
-            inputfile = arg
-        elif opt in ("-o", "--ofile"):
-            outputfile = arg
-        print ('Input File is: ', inputfile)
-        print ('Output File is: ', outputfile)
-
-if __name__ == "__main__":
-	main(sys.argv[1:])
-```
-
-```
-Note:
-	"hi:o:"             -> '-'型参数有: -h, -i(必须带附加参数), -o(必须带附加参数)
-	["ifile=","ofile="] -> '--'型参数有: --ifile(必须带附加参数), --ofile(必须带附加参数)
-```
-
-执行以上代码，输出结果为：
-
-```bash
-$ python3 test.py -h
-usage: test.py -i <inputfile> -o <outputfile>
-$ python3 test.py -i inputfile -o outputfile
-Input File is: inputfile
-Output File is: outputfile
-```
 
