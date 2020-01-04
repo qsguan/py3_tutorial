@@ -1,7 +1,12 @@
-[toc]
-
 **Python 3 基础教程**
 
+---
+
+目录
+
+[toc]
+
+<div style="page-break-after: always;"></div>
 # 1 Python 2 与 3 的区别
 
 ## 1.1 `print`函数
@@ -118,7 +123,7 @@ Python 2 中反引号\`\`相当于`repr`函数的作用；<br>Python 3 中去掉
 
 ## 1.12 `map`、`filter`和`reduce`
 
-这三个函数号称是函数式编程的代表。在 Python 2 中它们都是内置函数 (built-in function)。而在 Python 3 中它们从内置函数变成了类 (class)；其次它们的返回结果也从当初的列表变成了一个可迭代的对象，可以使用`next()`函数来进行手工迭代。
+这三个函数号称是函数式编程的代表。在 Python 2 中它们都是内置函数 (built-in function)。而在 Python 3 中它们从内置函数变成了类 (class)；其次它们的**返回结果**也从当初的列表变成了一个**可迭代的对象**，可以使用`next()`函数来进行手工迭代，若想输出需使用`list()`转换为列表。
 
 # 2 Python 解释器
 
@@ -133,7 +138,7 @@ Python 2 中反引号\`\`相当于`repr`函数的作用；<br>Python 3 中去掉
 
 ## 2.2 脚本式编程
 
-在Linux/Unix系统中，你可以在脚本顶部添加以下命令让Python脚本可以像SHELL脚本一样可直接执行：
+在 Linux/Unix 中可以在脚本顶部添加以下命令让 Python 脚本可以像 Shell 脚本一样可直接执行：
 
 ```python
 #!/usr/bin/env python3
@@ -151,6 +156,7 @@ $ chmod +x hello.py
 ./hello.py
 ```
 
+<div style="page-break-after: always;"></div>
 # 3 Python 3 基础语法
 
 ## 3.1 编码
@@ -189,7 +195,7 @@ $ chmod +x hello.py
 
 ## 3.4 注释
 
-单行注释：以 \# 开头；<br>多行注释：多个 \#，或者 ''' ，或者 """。
+**单行注释**：以 \# 开头；<br>**多行注释**：多个 \#，或者 ''' ，或者 """。
 
 ```python
 #!/usr/bin/env python3
@@ -225,8 +231,8 @@ print(a.__doc__)
 
 ### 3.5.1 缩进
 
-Python最具特色的就是使用缩进来表示代码块，不需要使用大括号 \{\} 。<br>
-缩进的空格数是可变的，但是同一个代码块的语句必须包含相同的缩进空格数。
+Python 最具特色的就是使用缩进来表示代码块，不需要使用大括号 \{\} 。<br>
+缩进的空格数是可变的，但是**同一个代码块**的语句**必须包含相同的缩进**空格数。
 
 ### 3.5.2 空行
 
@@ -297,9 +303,7 @@ else :
 
 ### 3.7.1 `input` 输入
 
-Python 3 仅保留了`input()`函数，它可接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。
-
-执行下面的程序在按回车键后就会等待用户输入：
+Python 3 仅保留了`input()`函数，它可接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。执行下面的程序在按回车键后就会等待用户输入：
 
 ```python
 #!/usr/bin/env python3
@@ -379,7 +383,7 @@ print(...)
 | 将整个模块(somemodule)导入： `import somemodule`             |
 | 从某个模块中导入某个函数： `from somemodule import somefunction` |
 | 从某个模块中导入多个函数：` from somemodule import firstfunc, secondfunc, thirdfunc` |
-| 将某个模块中的全部函数导入： `from somemodule import *`      |
+| 将某个模块中的全部函数导入： `from somemodule import *` (应避免使用) |
 
 ## 3.9 `help()` 函数
 
@@ -482,6 +486,7 @@ PYTHONDEVMODE: enable the development mode.
 PYTHONPYCACHEPREFIX: root directory for bytecode cache (pyc) files.
 ```
 
+<div style="page-break-after: always;"></div>
 # 4 Python 3 基本数据类型
 
 Python 中的变量不需要声明。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建。<br>Python 中的变量就是变量，它没有类型，我们所说的"*类型* "是变量所指的内存中对象的类型。
@@ -518,7 +523,7 @@ Python 3 的六个标准数据类型中：
 
 ## 4.3 查询对象类型
 
-内置的 `type()` 函数可以用来查询变量所指的对象类型：
+内置的 **`type()`** 函数可以用来查询变量所指的对象类型：
 
 ```python
 >>> a, b, c, d = 20, 5.5, True, 4+3j
@@ -526,7 +531,7 @@ Python 3 的六个标准数据类型中：
 <class 'int'> <class 'float'> <class 'bool'> <class 'complex'>
 ```
 
-此外还可以用` isinstance()` 来判断：
+此外还可以用**` isinstance()` **来判断：
 
 ```python
 >>>a = 111
@@ -534,7 +539,7 @@ Python 3 的六个标准数据类型中：
 True
 ```
 
-比较`isinstance()` 和 `type()` 的区别在于：
+比较**`isinstance()` **和 **`type()` **的区别在于：
 
 ```
 type()不会认为子类是一种父类类型;
@@ -578,12 +583,12 @@ Python中数字有四种类型：**整数 (int)**、**布尔型 (bool)**、**浮
 
 | Number Type      | Description/Example                                          |
 | ---------------- | ------------------------------------------------------------ |
-| `int` (整数)     | 如: 1。只有一种整数类型`int`，表示为长整型，没有python2中的`long`。 |
+| `int` (整数)     | 如: 1。只有一种整数类型`int`，表示为长整型，没有Python2中的`long`。 |
 | `bool` (布尔型)  | 如：`True` 或 `False`。其实它们的值还是1和0，可以和数字相加。 |
 | `float` (浮点数) | 如：1.23、3.1E-2。                                           |
 | `complex` (复数) | 如：1 + 2j、1.1 - 2.2j，a + bj 或 complex(a, b)              |
 
-当你指定一个值时，**Number**对象就会被创建。<br>可以使用`del`语句删除一些对象引用:
+当你指定一个值时，**Number**对象就会被创建。可以使用`del`语句删除一些对象引用:
 
 ```python
 del var1[,var2[,var3[....,varN]]]
@@ -591,7 +596,7 @@ del var1[,var2[,var3[....,varN]]]
 
 **注意**：
 
-1. 其他类型值转换为`bool`值时，除了`' '`、`""`、`''''''`、`""""""`、`0`、`()`、`[]`、`{}`、`None`、`0.0`、`0L`、`0.0+0.0j`及`False`转换为 为 `False` 外，其他都为 `True`。
+1. 其他类型值转换为`bool`值时，除了`' '`、`""`、`''''''`、`""""""`、`0`、`()`、`[]`、`{}`、`None`、`0.0`、`0L`、`0.0+0.0j`及`False`转换为`False`外，其他的转换都为 `True`。
 2. 虚数不能单独存在，它们总是和一个值为0.0的实数部分一起构成一个复数。获取复数`x`的实部`x.real`与虚部`x.imag`；获取复数`x`的共轭: `x.conjugate()`。
 3. Python 不支持复数转换为整数或浮点数。
 
@@ -745,7 +750,7 @@ Python中字符串**不可以发生改变**。<br>Python中没有单独的字符
 索引值以 0 为开始值，-1 为从末尾的开始位置。
 
 <left>
-    <img src="./images/0001.png" alt="0001.png" style="zoom: 50%;">
+    <img src="./images/0001.png" alt="0001.png" height="175" width="433">
 </left>
 
 ### 4.5.2 字符串的操作
@@ -828,7 +833,6 @@ Python 中格式化操作符**辅助指令**：
 | `m.n`     | `m`是显示的最小总宽度，`n`是小数点后的位数                   |
 | `*`       | 定义宽度或者小数点精度 (可实现动态带入)                      |
 | `#`       | 在八进制数前面显示零('0')，在十六进制前面显示'0x'或者'0X' (取决于用的是'x'还是'X') |
-| `%`       | '%%'输出一个单一的'%'                                        |
 | `(var)`   | 映射变量(字典参数)                                           |
 
 实例：
@@ -976,7 +980,7 @@ Python 3.6 之后添加了 **f-string** , 称之为**字面量格式化字符串
 
 Python 使用反斜杠 (**\\**) 来转义；使用 **r** 或 **R** 可以让反斜杠不发生转义，表示原始字符串：
 
-```python
+```bash
 >>> print('Ru\noob')
 Ru
 oob
@@ -1003,46 +1007,46 @@ Python 的字符串常用内建函数如下：
 
 |  No.   | Function & Description                                       |
 | :----: | :----------------------------------------------------------- |
-|   1    | [capitalize()](https://www.runoob.com/python3/python3-string-capitalize.html) 将字符串的首字符转换为大写, 其余字符转换为小写；若首字符非字母, 则首字符不转换 |
-|   2    | [center(width, fillchar)](https://www.runoob.com/python3/python3-string-center.html) 返回一个指定的宽度`width`居中的字符串, `fillchar`为填充的字符(默认为空格) |
-|   3    | [count(str, beg= 0,end=len(string))](https://www.runoob.com/python3/python3-string-count.html) 返回`str`在`string`里面出现的次数, 若`beg`或`end`指定则返回指定范围内`str`出现的次数 |
-|   4    | [bytes.decode(encoding="utf-8", errors="strict")](https://www.runoob.com/python3/python3-string-decode.html) Python 3 中没有 decode 方法, 但我们可以使用`bytes`对象的`decode()`方法来解码给定的`bytes`对象, 这个`bytes`对象可以由`str.encode()`来编码返回 |
-|   5    | [encode(encoding='UTF-8',errors='strict')](https://www.runoob.com/python3/python3-string-encode.html) 以`encoding`指定的编码格式编码字符串, 如果出错默认报一个`ValueError`的异常, 除非`errors`指定的是`ignore`或`replace` |
-| **6**  | [endswith(suffix, beg=0, end=len(string))](https://www.runoob.com/python3/python3-string-endswith.html) 检查字符串是否以 obj 结束，如果beg 或者 end 指定则检查指定的范围内是否以 obj 结束，如果是返回 True, 否则返回 False. |
-|   7    | [expandtabs(tabsize=8)](https://www.runoob.com/python3/python3-string-expandtabs.html) 把字符串 string 中的 tab 符号转为空格，tab 符号默认的空格数是 8 。 |
-| **8**  | [find(str, beg=0, end=len(string))](https://www.runoob.com/python3/python3-string-find.html) 检测 str 是否包含在字符串中，如果指定范围 beg 和 end ，则检查是否包含在指定范围内，如果包含返回开始的索引值，否则返回-1 |
-| **9**  | [index(str, beg=0, end=len(string))](https://www.runoob.com/python3/python3-string-index.html) 跟find()方法一样，只不过如果str不在字符串中会报一个异常. |
-| **10** | [isalnum()](https://www.runoob.com/python3/python3-string-isalnum.html) 如果字符串至少有一个字符并且所有字符都是字母或数字则返 回 True,否则返回 False |
-| **11** | [isalpha()](https://www.runoob.com/python3/python3-string-isalpha.html) 如果字符串至少有一个字符并且所有字符都是字母则返回 True, 否则返回 False |
-| **12** | [isdigit()](https://www.runoob.com/python3/python3-string-isdigit.html) 如果字符串只包含数字则返回 True 否则返回 False.. |
-|   13   | [islower()](https://www.runoob.com/python3/python3-string-islower.html) 如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是小写，则返回 True，否则返回 False |
-| **14** | [isnumeric()](https://www.runoob.com/python3/python3-string-isnumeric.html) 如果字符串中只包含数字字符，则返回 True，否则返回 False |
-|   15   | [isspace()](https://www.runoob.com/python3/python3-string-isspace.html) 如果字符串中只包含空白，则返回 True，否则返回 False. |
-|   16   | [istitle()](https://www.runoob.com/python3/python3-string-istitle.html) 如果字符串是标题化的(见 title())则返回 True，否则返回 False |
-|   17   | [isupper()](https://www.runoob.com/python3/python3-string-isupper.html) 如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是大写，则返回 True，否则返回 False |
-| **18** | [join(seq)](https://www.runoob.com/python3/python3-string-join.html) 以指定字符串作为分隔符, 将 seq 中所有元素(的字符串表示)合并为一个新的字符串 |
-| **19** | [len(string)](https://www.runoob.com/python3/python3-string-len.html) 返回字符串长度 |
-|   20   | [ljust(width[, fillchar])](https://www.runoob.com/python3/python3-string-ljust.html) 返回一个原字符串左对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。 |
-|   21   | [lower()](https://www.runoob.com/python3/python3-string-lower.html) 转换字符串中所有大写字符为小写. |
-|   22   | [lstrip()](https://www.runoob.com/python3/python3-string-lstrip.html) 截掉字符串左边的空格或指定字符。 |
-|   23   | [maketrans()](https://www.runoob.com/python3/python3-string-maketrans.html) 创建字符映射的转换表，对于接受两个参数的最简单的调用方式，第一个参数是字符串，表示需要转换的字符，第二个参数也是字符串表示转换的目标。 |
-|   24   | [max(str)](https://www.runoob.com/python3/python3-string-max.html) 返回字符串 str 中最大的字母。 |
-|   25   | [min(str)](https://www.runoob.com/python3/python3-string-min.html) 返回字符串 str 中最小的字母。 |
-|   26   | [replace(old, new [, max])](https://www.runoob.com/python3/python3-string-replace.html) 把 将字符串中的 str1 替换成 str2,如果 max 指定，则替换不超过 max 次。 |
-|   27   | [rfind(str, beg=0,end=len(string))](https://www.runoob.com/python3/python3-string-rfind.html) 类似于 find()函数，不过是从右边开始查找. |
-|   28   | [rindex( str, beg=0, end=len(string))](https://www.runoob.com/python3/python3-string-rindex.html) 类似于 index()，不过是从右边开始. |
-|   29   | [rjust(width,[, fillchar])](https://www.runoob.com/python3/python3-string-rjust.html) 返回一个原字符串右对齐,并使用fillchar(默认空格）填充至长度 width 的新字符串 |
-|   30   | [rstrip()](https://www.runoob.com/python3/python3-string-rstrip.html) 删除字符串字符串末尾的空格. |
-| **31** | [split(str="", num=string.count(str))](https://www.runoob.com/python3/python3-string-split.html) num=string.count(str)) 以 str 为分隔符截取字符串，如果 num 有指定值，则仅截取 num+1 个子字符串 |
-| **32** | [splitlines([keepends])](https://www.runoob.com/python3/python3-string-splitlines.html) 按照行('\r', '\r\n', \n')分隔，返回一个包含各行作为元素的列表，如果参数 keepends 为 False，不包含换行符，如果为 True，则保留换行符。 |
-| **33** | [startswith(substr, beg=0,end=len(string))](https://www.runoob.com/python3/python3-string-startswith.html) 检查字符串是否是以指定子字符串 substr 开头，是则返回 True，否则返回 False。如果beg 和 end 指定值，则在指定范围内检查。 |
-|   34   | [strip([chars])](https://www.runoob.com/python3/python3-string-strip.html) 在字符串上执行 lstrip()和 rstrip() |
-|   35   | [swapcase()](https://www.runoob.com/python3/python3-string-swapcase.html) 将字符串中大写转换为小写，小写转换为大写 |
-|   36   | [title()](https://www.runoob.com/python3/python3-string-title.html) 返回"标题化"的字符串,就是说所有单词都是以大写开始，其余字母均为小写(见 istitle()) |
-|   37   | [translate(table, deletechars="")](https://www.runoob.com/python3/python3-string-translate.html) 根据 str 给出的表(包含 256 个字符)转换 string 的字符, 要过滤掉的字符放到 deletechars 参数中 |
-|   38   | [upper()](https://www.runoob.com/python3/python3-string-upper.html) 转换字符串中的小写字母为大写 |
-|   39   | [zfill (width)](https://www.runoob.com/python3/python3-string-zfill.html) 返回长度为 width 的字符串，原字符串右对齐，前面填充0 |
-| **40** | [isdecimal()](https://www.runoob.com/python3/python3-string-isdecimal.html) 检查字符串是否只包含十进制字符，如果是返回 true，否则返回 false。 |
+|   1    | [str.capitalize()](https://www.runoob.com/python3/python3-string-capitalize.html) 将`str`的首字符转换为大写, 其余字符转换为小写；若首字符非字母, 则首字符不转换 |
+|   2    | [str.center(width, fillchar)](https://www.runoob.com/python3/python3-string-center.html) 返回一个指定宽度`width`居中的`str`, `fillchar`为填充的字符(默认为空格) |
+| **3**  | [str1.count(str2, beg=0,end=len(str1))](https://www.runoob.com/python3/python3-string-count.html) 返回`str2`在`str1`里面出现的次数, 若`beg`或`end`指定则返回指定范围内`str2`出现的次数 |
+| **4**  | [bytes.decode(encoding="utf-8", errors="strict")](https://www.runoob.com/python3/python3-string-decode.html) Python 3 中没有`decode()`方法, 但可使用`bytes`对象的`decode()`方法来解码给定的`bytes`对象, 这个`bytes`对象可以由`str.encode()`来编码返回 |
+| **5**  | [str.encode(encoding='UTF-8',errors='strict')](https://www.runoob.com/python3/python3-string-encode.html) 以`encoding`指定的编码格式编码字符串, 若出错默认报一个`ValueError`的异常, 除非`errors`指定的是`ignore`或`replace` |
+| **6**  | [str.endswith(suffix, beg=0, end=len(string))](https://www.runoob.com/python3/python3-string-endswith.html) 检查字符串是否以`suffix`结束，如果`beg`或者`end`指定则仅检查指定的范围内是否以`suffix`结束，如果是返回`True`, 否则返回`False` |
+|   7    | [str.expandtabs(tabsize=8)](https://www.runoob.com/python3/python3-string-expandtabs.html) 把字符串`str`中的`tab`符号转为空格，默认的空格数为8 |
+| **8**  | [str1.find(str2, beg=0, end=len(str1))](https://www.runoob.com/python3/python3-string-find.html) 检测`str2`是否包含在字符串`str1`中，参数`beg`和`end`指定检查的范围，若包含返回开始的索引值，否则返回-1 |
+| **9**  | [str1.index(str2, beg=0, end=len(str1))](https://www.runoob.com/python3/python3-string-index.html) 跟`find()`方法一样，只不过若`str2`不在`str1`中会报一个异常 |
+| **10** | [str.isalnum()](https://www.runoob.com/python3/python3-string-isalnum.html) 如果字符串至少有一个字符并且所有字符都是字母或数字则返 回 True,否则返回 False |
+| **11** | [str.isalpha()](https://www.runoob.com/python3/python3-string-isalpha.html) 如果字符串至少有一个字符并且所有字符都是字母则返回 True, 否则返回 False |
+| **12** | [str.isdigit()](https://www.runoob.com/python3/python3-string-isdigit.html) 如果字符串只包含数字则返回 True 否则返回 False.. |
+|   13   | [str.islower()](https://www.runoob.com/python3/python3-string-islower.html) 如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是小写，则返回 True，否则返回 False |
+| **14** | [str.isnumeric()](https://www.runoob.com/python3/python3-string-isnumeric.html) 如果字符串中只包含数字字符，则返回 True，否则返回 False |
+|   15   | [str.isspace()](https://www.runoob.com/python3/python3-string-isspace.html) 如果字符串中只包含空白，则返回 True，否则返回 False. |
+|   16   | [str.istitle()](https://www.runoob.com/python3/python3-string-istitle.html) 如果字符串是标题化的则返回 True，否则返回 False |
+|   17   | [str.isupper()](https://www.runoob.com/python3/python3-string-isupper.html) 如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是大写，则返回 True，否则返回 False |
+| **18** | [str.join(seq)](https://www.runoob.com/python3/python3-string-join.html) 以指定字符串`str`作为分隔符, 将序列`seq`中所有元素(的字符串表示)合并为新的字符串 |
+| **19** | [len(str)](https://www.runoob.com/python3/python3-string-len.html) 返回字符串长度 |
+| **20** | [str.ljust(width[, fillchar])](https://www.runoob.com/python3/python3-string-ljust.html) 返回由原字符串`str`左对齐并使用`fillchar`(默认为空格)填充至指定长度`width`的新字符串 |
+| **21** | [str.lower()](https://www.runoob.com/python3/python3-string-lower.html) 转换字符串中所有大写字符为小写. |
+|   22   | [str.lstrip([chars])](https://www.runoob.com/python3/python3-string-lstrip.html) 删除字符串左边的空格或指定字符。 |
+|   23   | [str.maketrans(intab, outtab)](https://www.runoob.com/python3/python3-string-maketrans.html) 创建字符映射的转换表，对于接受两个参数的最简单的调用方式，第一个参数是字符串，表示需要转换的字符，第二个参数也是字符串表示转换的目标。 |
+|   24   | [max(str)](https://www.runoob.com/python3/python3-string-max.html) 返回字符串`str`中最大的字母。 |
+|   25   | [min(str)](https://www.runoob.com/python3/python3-string-min.html) 返回字符串`str`中最小的字母。 |
+| **26** | [str.replace(old, new [, max])](https://www.runoob.com/python3/python3-string-replace.html) 把 将字符串中的`old`替换成`new`，若`max`指定，则替换不超过`max`次。 |
+| **27** | [str1.rfind(str2, beg=0, end=len(str1))](https://www.runoob.com/python3/python3-string-rfind.html) 类似于`find()`函数，不过是从右边开始查找. |
+|   28   | [str1.rindex(str2, beg=0, end=len(str1))](https://www.runoob.com/python3/python3-string-rindex.html) 类似于`index()`函数，不过是从右边开始. |
+|   29   | [str.rjust(width[, fillchar])](https://www.runoob.com/python3/python3-string-rjust.html) 返回由原字符串`str`右对齐并使用`fillchar`(默认为空格)填充至指定长度`width`的新字符串 |
+| **30** | [str.rstrip([chars])](https://www.runoob.com/python3/python3-string-rstrip.html) 删除字符串右边的空格或指定字符。 |
+| **31** | [str.split(sep[, num=-1])](https://www.runoob.com/python3/python3-string-split.html) 以`sep`为分隔符(默认为所有的空字符,包括空格换行制表符等)截取字符串。若指定`num`值，则将`str`截为`num+1`个子字符串，默认截取所有分隔符。 |
+| **32** | [str.splitlines([keepends])](https://www.runoob.com/python3/python3-string-splitlines.html) 按照行('\r', '\r\n', '\n')分隔，返回一个包含各行作为元素的列表，若参数` keepends`为`False`则不包含换行符，否则保留换行符。 |
+| **33** | [str.startswith(prefix, beg=0, end=len(str))](https://www.runoob.com/python3/python3-string-startswith.html) 检查字符串是否以`prefix`开始，如果`beg`或者`end`指定则仅检查指定的范围内是否以`prefix`开始，如果是返回`True`, 否则返回`False` |
+| **34** | [str.strip([chars])](https://www.runoob.com/python3/python3-string-strip.html) 在字符串上执行`lstrip()`和`rstrip()` |
+|   35   | [str.swapcase()](https://www.runoob.com/python3/python3-string-swapcase.html) 将字符串中大写转换为小写，小写转换为大写 |
+|   36   | [str.title()](https://www.runoob.com/python3/python3-string-title.html) 返回"标题化"的字符串, 即所有单词都是以大写开始, 其余字母均为小写 |
+| **37** | [str.translate(table, deletechars="")](https://www.runoob.com/python3/python3-string-translate.html) 根据`table`给出的表(包含 256 个字符)转换`str`的字符, 要过滤掉的字符放到`deletechars`参数中 |
+|   38   | [str.upper()](https://www.runoob.com/python3/python3-string-upper.html) 转换字符串中的小写字母为大写 |
+|   39   | [str.zfill (width)](https://www.runoob.com/python3/python3-string-zfill.html) 返回长度为`width`的字符串, 原字符串右对齐前面填充0 (同`str.rjust(width,"0"))` |
+| **40** | [str.isdecimal()](https://www.runoob.com/python3/python3-string-isdecimal.html) 检查字符串是否只包含十进制字符，如果是返回`True`，否则返回`False` |
 
 **补充说明**：
 
@@ -1081,7 +1085,7 @@ Python 的字符串常用内建函数如下：
    num.isnumeric() # True
    ```
 
-2. 针对`Counter`的升级使用，示例如下：
+2. 针对**`Counter`**的升级使用，示例如下：
 
    ```python
    #必须引用如下库
@@ -1184,13 +1188,13 @@ print ([mul2(i) for i in testList])
 索引值以 0 为开始值，-1 为从末尾的开始位置。
 
 <left>
-    <img src="./images/0002.png" alt="0002.png" style="zoom: 35%;">
+    <img src="./images/0002.png" alt="0002.png" height="200" width="407">
 </left>
 
 Python 列表截取可以接收第三个参数，作用是截取的步长。
 
 <left>
-    <img src="./images/0003.png" alt="0003.png" style="zoom: 42%;">
+    <img src="./images/0003.png" alt="0003.png" height="151" width="424">
 </left>
 
 若步长参数为负数则表示逆向读取，以下实例用于翻转字符串：
@@ -1294,7 +1298,7 @@ Python 包含以下内置函数:
 | No.  | Function & Description                                       | No.  | Function & Description                                       |
 | :--: | :----------------------------------------------------------- | :--: | ------------------------------------------------------------ |
 |  1   | [len(list)](https://www.runoob.com/python3/python3-att-list-len.html) 计算列表元素个数 |  3   | [min(list)](https://www.runoob.com/python3/python3-att-list-min.html) 返回列表元素的最小值 |
-|  2   | [max(list)](https://www.runoob.com/python3/python3-att-list-max.html) 返回列表元素的最大值 |  4   | [list(seq)](https://www.runoob.com/python3/python3-att-list-list.html) 将元组转换为列表 |
+|  2   | [max(list)](https://www.runoob.com/python3/python3-att-list-max.html) 返回列表元素的最大值 |  4   | [list(seq)](https://www.runoob.com/python3/python3-att-list-list.html) 将序列转换为列表 |
 
 Python 包含以下方法:
 
@@ -1631,7 +1635,7 @@ print (tinydict.values()) # 输出所有值
   * 不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住。
   * 键必须不可变，所以可以用数字,字符串或元组充当，而不可用列表。
 
-**注意**: Python 中的字典是使用了一个称为散列表 (hashtable) 的算法，不管字典中有多少项使用`in`操作符花费的时间都差不多。如果把一个字典对象作为`for`的迭代对象，那么这个操作将会**遍历该字典的键而不是其值**：
+**注意**: Python 中的字典是使用了一个称为**散列表 (hashtable) 的算法**，不管字典中有多少项使用`in`操作符花费的时间都差不多。如果把一个字典对象作为`for`的迭代对象，那么这个操作将会**遍历该字典的键而不是其值**：
 
 ```python
 def example(dict):
@@ -1967,7 +1971,7 @@ gallahad the pure
 robin the brave
 ```
 
-在**序列 (seq) 中遍历**时，索引位置和对应值可以使用`enumerate()`函数同时得到：
+在**序列 (seq) 中遍历**时，**索引位置**和**对应值**可以使用`enumerate()`函数同时得到：
 
 ```python
 >>> for i, v in enumerate(['tic', 'tac', 'toe']):
@@ -2037,9 +2041,9 @@ print id(b)
 
 序列 (Sequence) 类型的对象**默认**拷贝类型是**浅拷贝**，通过以下几种方式实施：
 
-1. 完全切片操作，即 [:]；
-2. 利用工厂函数，如 `list()`、`dict()`等；
-3. 使用`copy`模块中的`copy()`函数。
+1. **完全切片**操作，即 [:]；
+2. 利用**工厂函数**，如 `list()`、`dict()`等；
+3. 使用`copy`模块中的**`copy()`函数**。
 
 创建一个列表，然后分别用切片操作和工厂方法拷贝对象，然后使用`id()`内建函数来显示每个对象的标识符。
 
@@ -2064,7 +2068,7 @@ print(a,b)
 # ['a', ['def', 0]] ['b', ['def', 0]]
 ```
 
-我们可以看到，当执行`a[1][1] = 0`时，`b[1][1]`也跟着变为0。这是因为我们仅仅做了一个浅拷贝，对一个对象进行浅拷贝其实是新创建了一个类型跟原对象一样，它的内容元素是原来对象元素的引用。换句话说，这个拷贝的对象是新的，但他的内容还是原来的，这就是浅拷贝。
+我们可以看到，当执行`a[1][1] = 0`时，`b[1][1]`也跟着变为0。这是因为我们仅仅做了一个浅拷贝，对一个对象进行浅拷贝其实是新创建了一个类型跟原对象一样，它的内容元素是原来对象元素的引用。换句话说，这个**拷贝的对象是新的，但他的内容还是原来的，这就是浅拷贝**。
 
 ```python
 #改变前
@@ -2100,6 +2104,7 @@ print(a,b)
 # ['a', ['def', 0]] ['b', ['def', 1]]
 ```
 
+<div style="page-break-after: always;"></div>
 # 7 Python 3 运算符
 
 Python 支持以下类型的运算符：
@@ -2111,7 +2116,6 @@ Python 支持以下类型的运算符：
 * 位运算符
 * 成员运算符
 * 身份运算符
-* 运算符优先级
 
 ## 7.1 算术运算符
 
@@ -2148,7 +2152,7 @@ Python 支持以下类型的运算符：
 | //\=     | 取整除赋值运算符，例：`c //= a`等效于`c = c // a`            |
 | %\=      | 取模赋值运算符，例：`c %= a`等效于`c = c % a`                |
 | \*\*\=   | 幂赋值运算符，例：`c **= a`等效于`c = c ** a`                |
-| :\=      | 海象运算符，可在表达式内部为变量赋值。(Python 3.8 新增运算符) |
+| :\=      | **海象运算符**，**可在表达式内部为变量赋值**。(**Python 3.8 新增**运算符) |
 
 没有`:=`之前：
 
@@ -2300,20 +2304,21 @@ Python 中变量是以内容为基准而不是像C语言中以变量名为基准
 
 以上所说在脚本式编程环境中没有问题。但是在交互式环境中，编译器会有一个**小整数池**的概念，会把 (-5, 256) 间的数预先创建好，而当`a`和`b`超过这个范围的时候，两个变量就会指向不同的对象，因此地址也会不一样。
 
+<div style="page-break-after: always;"></div>
 # 8 Python 3 控制语句
 
 ## 8.1 条件控制
 
-Python 条件语句是通过一条或多条语句的执行结果 (`True`或`False`) 来决定执行的代码块。执行过程图示：
+Python 条件语句是通过一条或多条语句的执行结果 (`True`或`False`) 来决定执行的代码块。执行过程：
 
 <left>
-    <img src="./images/0004.jpg" alt="0004.jpg" style="zoom: 100%;">
+    <img src="./images/0004.jpg" alt="0004.jpg" height="270" width="260">
 </left>
 
 代码执行过程：
 
 <left>
-    <img src="./images/0005.webp" alt="0005.webp" style="zoom: 30%;">
+    <img src="./images/0005.webp" alt="0005.webp" height="170" width="348">
 </left>
 
 ### 8.1.1 `if`语句
@@ -2329,16 +2334,11 @@ else:
     statement_block_3
 ```
 
-- 若 "condition_1" 为`True` , 将执行 "statement_block_1" 块语句
-- 若 "condition_1" 为`False`, 将判断 "condition_2"
-- 若 "condition_2" 为`True`, 将执行 "statement_block_2" 块语句
-- 若 "condition_2" 为`False`, 将执行"statement_block_3"块语句
-
 **注意：**
 
-- 1、每个条件后面要使用冒号(" : ")表示接下来是满足条件后要执行的语句块。
-- 2、使用缩进来划分语句块，相同缩进数的语句在一起组成一个语句块。
-- 3、在Python中没有`switch – case`语句。
+- 1、每个条件后面要**使用冒号(" : ")**表示接下来是满足条件后要执行的语句块。
+- 2、使用缩**进来划分语句块**，相同缩进数的语句在一起组成一个语句块。
+- 3、Python 中没有`switch – case`语句。
 
 ### 8.1.2 `if`嵌套
 
@@ -2364,7 +2364,7 @@ else:
 Python 中的循环语句有`for`和`while`，其控制结构图如下所示：
 
 <left>
-    <img src="./images/0006.png" alt="0006.png" style="zoom: 90%;">
+    <img src="./images/0006.png" alt="0006.png" height="373" width="367">
 </left>
 
 ### 8.2.1 `while`循环
@@ -2386,7 +2386,7 @@ while <condition> : <statement(s)>  # single-line style
 执行流程图如下：
 
 <left>
-    <img src="./images/0007.jpg" alt="0007.jpg" style="zoom: 90%;">
+    <img src="./images/0007.jpg" alt="0007.jpg" height="345" width="310">
 </left>
 
 同样需要注意冒号和缩进。另外，在 Python 中**没有`do...while`循环**。
@@ -2405,7 +2405,7 @@ else:
 执行流程图如下：
 
 <left>
-    <img src="./images/0008.jpg" alt="0008.jpg" style="zoom: 95%;">
+    <img src="./images/0008.jpg" alt="0008.jpg" height="357" width="307">
 </left>
 
 如果需要遍历数字序列，可以使用内置`range()`函数生成数列；也可以使用`range()`指定区间的值并指定不同的步长 (可以为负数)；也可以结合`range()`和`len()`函数以遍历一个序列的索引：
@@ -2442,35 +2442,39 @@ for index, item in enumerate(sequence):
 
 ### 8.2.3 `pass`,`break`和`continue`语句
 
-**pass**语句是空语句，不做任何事情，是为了保持程序结构的完整性，一般用做占位语句。<br>**break**语句可以跳出`for`和`while`的循环体，若跳出循环体终止，任何对应的`else`循环块将不被执行。<br>**continue**语句被用来跳过当前循环块中的剩余语句，然后继续进行下一轮循环。
+1. **pass**语句是空语句，不做任何事情，是为了保持程序结构的完整性，一般用做占位语句。
 
-**`break`执行流程图：**
+2. **break**语句可以跳出`for`和`while`的循环体，若跳出循环体终止，任何对应的`else`循环块将不被执行。
 
-<left>
-    <img src="./images/0009.jpg" alt="0009.jpg" style="zoom: 90%;">
-</left>
+   **`break`执行流程图：**
 
-**`continue`执行流程图：**
+   <left>
+       <img src="./images/0009.jpg" alt="0009.jpg" height="326" width="310">
+   </left>
 
-<left>
-    <img src="./images/0010.jpg" alt="0010.jpg" style="zoom: 90%;">
-</left>
+3. **continue**语句被用来跳过当前循环块中的剩余语句，然后继续进行下一轮循环。
 
-**代码执行过程**：
+   **`continue`执行流程图：**
 
-<left>
-    <img src="./images/0011.webp" alt="0011.webp" style="zoom: 40%;">
-</left>
+   <left>
+       <img src="./images/0010.jpg" alt="0010.jpg" height="334" width="318">
+   </left>
+
+4. **代码执行过程**：
+
+   <left>
+       <img src="./images/0011.webp" alt="0011.webp" height="239" width="213">
+   </left>
 
 # 9 Python 3 迭代器与生成器
 
 ## 9.1 迭代器
 
-迭代是Python最强大的功能之一，是访问集合元素的一种方式。<br>迭代器是一个可以记住遍历的位置的对象。迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。迭代器有两个基本的方法：**iter()** 和 **next()**。
+迭代是Python最强大的功能之一，是访问集合元素的一种方式。迭代器是一个可以记住遍历的位置的对象。<br>Python 中的任意对象，只要它定义了`__iter__`方法 (返回一个迭代器)，或者定义了`__getitem__`方法 (支持下标索引)，它就是一个可迭代对象。Python 中的任意对象，只要它定义了`__next__`方法，它就是一个迭代器。<br>迭代器对象从第一个元素开始访问，直到所有的元素被访问完结束 (迭代器只能往前不能后退)。<br>迭代器有两个基本的方法：**iter()** 和 **next()**。
 
 ### 9.1.1 迭代器的创建
 
-字符串，列表或元组对象都可用于创建迭代器：
+字符串、列表或元组对象都可用于创建迭代器：
 
 ```python
 >>> list = [1,2,3,4]
@@ -2507,7 +2511,7 @@ while True:
 
 ### 9.1.2 类作为迭代器
 
-把一个类作为一个迭代器使用需要在类中实现两个方法`__iter__()`与`__next__()`。`__iter__()`方法返回一个特殊的迭代器对象， 这个迭代器对象实现了`__next__()`方法并通过`StopIteration`异常标识迭代的完成。`__next__()`方法会返回下一个迭代器对象，在 `__next__()`方法中我们可以设置在完成指定循环次数后触发`StopIteration`异常来结束迭代，防止出现无限循环的情况。
+把一个类作为一个迭代器使用需要在类中实现两个方法**`__iter__()`**与**`__next__()`**。`__iter__()`方法返回一个特殊的迭代器对象， 这个迭代器对象实现了`__next__()`方法并**通过`StopIteration`异常**标识迭代的完成。`__next__()`方法会返回下一个迭代器对象，在 `__next__()`方法中我们可以设置在完成指定循环次数后触发`StopIteration`异常来结束迭代，防止出现无限循环的情况。
 
 ```python
 #!/usr/bin/env python3
@@ -2534,7 +2538,7 @@ for i in Fibonacci(10):
 
 ## 9.2 生成器
 
-在 Python 中，使用了`yield`的函数被称为生成器 (generator)，跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个迭代器。在调用生成器运行的过程中，每次遇到`yield`时函数会暂停并保存当前所有的运行信息，返回`yield`的值, 并在下一次执行`next()`方法时从当前位置继续运行。
+在 Python 中，使用了**`yield`**的函数被称为生成器 (generator)，跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个迭代器。在调用生成器运行的过程中，每次遇到`yield`时函数会暂停并保存当前所有的运行信息，返回`yield`的值, 并在下一次执行`next()`方法时从当前位置继续运行。
 
 调用一个生成器函数，返回的是一个迭代器对象
 
@@ -2586,9 +2590,7 @@ def read_file(fpath):
 - 函数内容以冒号起始，并且需要缩进。
 - 结束函数 **return [表达式]** ，选择性地返回一个值给调用方。不带表达式的相当于返回`None`。
 
-**语法**：
-
-Python 定义函数使用 **def** 关键字，一般格式如下：
+**定义语法**：Python 定义函数使用 **def** 关键字，一般格式如下：
 
 ```python
 def 函数名(参数列表):
@@ -2785,9 +2787,7 @@ Python 使用`lambda`来创建匿名函数。所谓匿名，即不再使用`def`
 - `lambda`函数拥有自己的命名空间，且不能访问自己参数列表之外或全局命名空间里的参数。
 - `lambda`函数不等同于 C 或 C++ 的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。
 
-**语法**：
-
-`lambda`函数的语法只包含一个语句：
+**语法**：`lambda`函数的语法只包含一个语句：
 
 ```python
 lambda [arg1 [,arg2,.....argn]]:expression  # lambda函数也可以设定默认值
@@ -2804,24 +2804,63 @@ print("相加后的值为 : ", sum(10,20))
 print("相加后的值为 : ", sum(20,20))
 ```
 
-匿名函数`lambda`常与`map()`函数一起使用，`map()`函数会根据提供的函数对指定序列做映射：
+匿名函数`lambda`常与`map()`,`filter()`和`reduce()`函数一起使用。<br>函数**`map()`可根据提供的函数对指定的序列做一个映射并返回一个由指定函数所有输出构成的迭代器**：
 
 ```python
-map(function, iterable, ...)
+map(function, iterables)
 ```
 
-第一个参数`function`以参数序列中的每一个元素调用该函数，返回包含每次`function`函数返回值的新列表。
+参数`function`以序列中的每一个元素调用该函数，`map()`返回一个迭代器，需用`list()`转换为列表。
 
 ```python
->>>def square(x):  # 计算平方数
+>>> def square(x):  # 计算平方数
 ...     return x ** 2
 ... 
->>> map(square, [1,2,3,4,5])  # 计算列表各个元素的平方
+>>> list(map(square, [1,2,3,4,5]))  # 计算列表各个元素的平方
 [1, 4, 9, 16, 25]
->>> map(lambda x: x ** 2, [1, 2, 3, 4, 5])  # 使用 lambda 匿名函数
+>>> list(map(lambda x: x ** 2, [1, 2, 3, 4, 5]))  # 使用 lambda 匿名函数
 [1, 4, 9, 16, 25]
->>> map(lambda x, y: x + y, [1, 3, 5, 7, 9], [2, 4, 6, 8, 10])
+>>> list(map(lambda x, y: x + y, [1, 3, 5, 7, 9], [2, 4, 6, 8, 10]))
 [3, 7, 11, 15, 19]   # 提供了两个列表，对相同位置的列表数据进行相加
+```
+
+函数**`filter()`可根据提供的函数对指定的序列做一个过滤并返回一个由所有符合要求的元素所构成的迭代器**， “符合要求“ 即指函数映射到该元素时返回值为`True`。
+
+```python
+filter(function, iterables)
+```
+
+参数`function`以序列中的每一个元素调用该函数，`filter()`返回一个迭代器，需用`list()`转换为列表。
+
+ ```python
+>>> number_list = range(-5, 5)
+>>> less_than_zero = filter(lambda x: x < 0, number_list)
+>>> print(list(less_than_zero)) 
+[-5, -4, -3, -2, -1]
+ ```
+
+函数**`reduce()`将一个序列中的所有数据进行下列操作**：用传给`reduce`中的函数`function(有两个参数)`先对集合中的第1, 2 个元素进行操作，得到的结果再与第3个元素操作，最终得到一个结果。
+
+```python
+from functools import reduce
+reduce(function, iterables[, initializer])
+```
+
+参数`function`必须有两个参数，`reduce()`返回一个迭代器，需用`list()`转换为列表。
+
+```python
+>>> reduce(lambda x, y: x+y, [1,2,3,4,5])  # 使用 lambda 匿名函数
+15
+>>>def add(x, y) :  # 定义一个两数相加的函数
+...     return x + y
+... 
+>>> reduce(add, [1,2,3,4,5])  # 计算列表和：1+2+3+4+5
+15
+>>> # 统计一字符串中某字符串的重复次数
+>>> from functools import reduce
+>>> sentences = ['The Deep Learning textbook is a resource intended to help students and practitioners enter the field of machine learning.'] 
+>>> word_count =reduce(lambda a,x:a+x.count("learning"),sentences,0)
+>>> print(word_count)
 ```
 
 ## 10.6 强制位置参数
@@ -2829,7 +2868,7 @@ map(function, iterable, ...)
 Python 3.8 中新增了一个函数形参语法`/`用来指明函数形参必须使用指定位置参数，不能使用关键字参数的形式。在以下的例子中，形参`a`和`b`必须使用指定位置参数，`c`或`d`可以是位置形参或关键字形参，而`e`或`f`要求为关键字形参：
 
 ```python
-def f(a, b, /, c, d, *, e, f):
+def f(a, b, /, c, d, *, e, f):  # /号前面的必须为位置参数，*号后面的必须为关键字参数
     print(a, b, c, d, e, f)
 ```
 
@@ -2850,7 +2889,7 @@ f(10, 20, 30, 40, 50, f=60)           # e 必须使用关键字参数的形式
 
 ## 11.1 变量前加 \* 号可进行拆分
 
-在列表、元组、字典变量前加 "\*" 号，会将其拆分成一个一个的独立元素。<br>不光是列表、元组、字典，由`numpy`生成的向量也可进行拆分。
+在列表、元组、字典变量前加 **"\*"** 号，会将其拆分成一个一个的独立元素。<br>不光是列表、元组、字典，由`numpy`生成的向量也可进行拆分。
 
 ```python
 >>> _list = [1, 3, 5, 2]
@@ -2864,7 +2903,7 @@ f(10, 20, 30, 40, 50, f=60)           # e 必须使用关键字参数的形式
 {'1': 'a', '2': 'b', '3': 'c'} = 1 2 3
 ```
 
-此外，"\*" 号也可以作用于高维的列表。例如拆分一个二维列表，其结果是两个一维列表：
+此外，**"\*"** 号也可以作用于高维的列表。例如拆分一个二维列表，其结果是两个一维列表：
 
 ```python
 >>> _list2 = [[1, 2, 3], [4, 5, 6]]
@@ -2941,7 +2980,7 @@ add_plus(*_list2)
 
 ## 11.4 使用`zip()`函数进行压缩
 
-Python 中有一个`zip()`函数功能与"\*"号相反，该函数可将一个或多个可迭代对象进行包装压缩，返回的结果是一个 ‘zip’ 类的迭代器。通俗的说：`zip()`压缩可迭代对象，而 "\*" 号解压可迭代对象。
+Python 中有一个**`zip()`**函数功能与**"\*"**号相反，该函数可将一个或多个可迭代对象进行包装压缩，返回是一个 'zip' 类的迭代器，需经过`list()`转换为列表。通俗的说：**`zip()`压缩可迭代对象**，而 **"\*" 号解压可迭代对象**。
 
 ```
 用法： zip([iterable1, iterable2, ...])
@@ -3021,7 +3060,7 @@ True
 
 **注意**：
 
-1. **可迭代对象**才可以使用 "\*" 号来拆分，或`zip()`函数来压缩；
+1. **可迭代对象**才可以使用 "\*" 号来拆分或`zip()`函数来压缩；
 2. 带 "\*" 号变量并不是一个变量，而更**应该称为参数**，它是**不能赋值给其他变量**的，但可作为参数传递。
 
 # 12 Python 3 命名空间和作用域
@@ -3039,7 +3078,7 @@ True
 - **局部名称 (local names)**，函数中定义的名称，记录了函数的变量，包括函数的参数和局部定义的变量。类中定义的也是局部名称。
 
 <left>
-    <img src="./images/0012.png" alt="0012.png" style="zoom: 50%;">
+    <img src="./images/0012.png" alt="0012.png" height="289" width="325">
 </left>
 
 **命名空间查找顺序**：**局部命名空间 -> 全局命名空间 -> 内置命名空间**。若所有空间都找不到，则将放弃查找并引发一个`NameError`异常。**命名空间的生命周期**：取决于对象的作用域，如果对象执行完成，则该命名空间的生命周期就结束。因此，我们无法从外部命名空间访问内部命名空间的对象。
@@ -3057,7 +3096,7 @@ def some_func():
 如下图所示，相同的对象名称可以存在于多个命名空间中。
 
 <left>
-    <img src="./images/0013.png" alt="0013.png" style="zoom: 80%;">
+    <img src="./images/0013.png" alt="0013.png" height="292" width="340">
 </left>
 
 ## 12.2 作用域
@@ -3074,7 +3113,7 @@ Python 中程序的变量并不是在哪个位置都可以访问的，访问权�
 规则顺序： **L –> E –> G –> B**。在局部找不到，便会去局部外的局部找 (例如闭包)，再去全局找，再去内置中找。
 
 <left>
-    <img src="./images/0014.png" alt="0014.png" style="zoom: 100%;">
+    <img src="./images/0014.png" alt="0014.png" height="198" width="285">
 </left>
 
 ```python
@@ -3123,10 +3162,13 @@ NameError: name 'msg_inner' is not defined
 total = 0  # 这是一个全局变量
 def sum( arg1, arg2 ):
     total = arg1 + arg2  # total在这里是局部变量
-    print ("函数内是局部变量 : ", total)
+    print ("函数内是局部变量: ", total)
     return total
 sum(10,20) # 调用sum函数
 print("函数外是全局变量: ", total)
+#输出为:
+# 函数内是局部变量:  30
+# 函数外是全局变量:  0
 ```
 
 ### 12.2.2 关键字 global 和 nonlocal
@@ -3379,7 +3421,7 @@ print(func())
 # Output: Function will not run
 ```
 
-**注意**：**@wraps()** 接受一个函数来进行装饰，并加入了复制函数名称、注释文档、参数列表等等的功能。这可以让我们在装饰器里面访问在装饰之前的函数的属性。
+**注意**：**@wraps()** 接受一个函数来进行装饰，并加入了**复制函数名称、注释文档、参数列表等等**的功能。这可以让我们**在装饰器里面访问在装饰之前的函数的属性**。
 
 ## 13.6 装饰器的使用场景
 
@@ -3493,7 +3535,7 @@ def myfunc1():
     pass
 ```
 
-现在，我们给`logit`创建子类，来添加 Email 的功能 (虽然 email 这个话题不会在这里展开)。
+现在，我们给`logit`创建子类，来添加 Email 的功能 (虽然 Email 这个话题不会在这里展开)。
 
 ```python
 class email_logit(logit):
@@ -3597,7 +3639,7 @@ from modname import *
 ['__annotations__', '__builtins__', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'a', 'b', 'math', 'sys']
 ```
 
-## 14.5 Python 包(packages)
+## 14.5 Python 包管理 (packages)
 
 包 (packages) 是一种管理 Python 模块命名空间的形式，采用"点模块名称"。比如一个模块的名称是`A.B`， 那么它表示一个包`A`中的子模块`B`。就像使用模块的时候，不用担心不同模块之间的全局变量相互影响一样，采用点模块名称这种形式也不用担心不同库之间的模块有重名的情况。
 
@@ -3719,7 +3761,507 @@ sound/                          顶层包
 
 # 15 Python 3 错误和异常
 
+Python 有两种错误：**语法错误**和**异常**。
 
+## 15.1 语法错误
+
+Python 的语法错误称之为解析错。语法分析器可指出出错的一行，并在最先找到的错误处标记一个箭头。例：
+
+```python
+>>>while True print('Hello world')
+  File "<stdin>", line 1, in ?
+    while True print('Hello world')
+                   ^
+SyntaxError: invalid syntax
+```
+
+这个例子中，函数`print()`被检查到有错误，它前面缺少了一个**:**冒号 。
+
+## 15.2 异常
+
+即便 Python 程序的语法是正确的，在运行它的时候，也有可能发生错误。运行期检测到的错误被称为异常。大多数的异常都不会被程序处理，都以错误信息的形式展现在这里：
+
+```python
+>>>10 * (1/0)             # 0 不能作为除数，触发异常
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+ZeroDivisionError: division by zero
+>>> 4 + spam*3             # spam 未定义，触发异常
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+NameError: name 'spam' is not defined
+>>> '2' + 2               # int 不能与 str 相加，触发异常
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+TypeError: Can't convert 'int' object to str implicitly
+```
+
+异常以不同的类型出现，这些类型都作为信息的一部分打印出来。上面例子中的异常类型有`ZeroDivisionError`, `NameError`和`TypeError`。错误信息的前面部分显示了异常发生的上下文，并以调用栈的形式显示具体信息。
+
+## 15.3 捕获异常
+
+### 15.3.1 使用`try...except`语句
+
+异常捕捉可以使用 **try…except** 语句：
+
+<left>
+    <img src="./images/0015.png" alt="0015.png" height="170" width="300">
+</left>
+
+以下例子中，让用户输入一个合法的整数，且允许用户中断这个程序 (使用 Ctrl+C 或者操作系统提供的方法)。用户中断的信息会引发一个`KeyboardInterrupt`异常：
+
+```python
+while True:
+    try:
+        x = int(input("请输入一个数字: "))
+        break
+    except ValueError:
+        print("您输入的不是数字，请再次尝试输入！")
+```
+
+**`try...except`**语句按照如下方式工作；
+
+- 首先，执行在关键字`try`和关键字`except`之间的语句;
+- 若没有异常发生，则忽略`except`子句，在`try`子句执行后结束;
+- 若在执行`try`子句的过程中发生了异常，那么`try`子句中余下的部分将被忽略;
+  - 若异常的类型和`except`之后的名称相符，那么对应的`except`子句将被执行;
+  - 若异常没有与任何的`except`匹配，那么这个异常将会传递给上层的`try`中。
+
+一个`try/except`语句可能包含多个`except`子句，分别来处理不同的特定的异常，但最多只有一个分支会被执行。处理程序将只针对对应的`try`子句中的异常进行处理，而不是其他的`try`的处理程序中的异常。一个`except`子句可以同时处理多个异常，这些异常将被放在一个括号里成为一个元组，如:
+
+```python
+except (RuntimeError, TypeError, NameError):
+    pass
+```
+
+最后一个`except`子句可以忽略异常的名称，它将被当作通配符使用。可以使用这种方法打印一个错误信息，然后**再次把异常抛出**。
+
+```python
+import sys
+try:
+    f = open('myfile.txt')
+    s = f.readline()
+    i = int(s.strip())
+except OSError as err:
+    print("OS error: {0}".format(err))
+except ValueError:
+    print("Could not convert data to an integer.")
+except:
+    print("Unexpected error:", sys.exc_info()[0])
+    raise
+```
+
+### 15.3.2 使用`try...except...else`语句
+
+**`try...except`** 语句还有一个可选的**`else`** 子句，将在`try`子句没有发生任何异常的时候执行。若要使用**`else`**子句，必须将其放在所有的`except`子句之后。
+
+<left>
+    <img src="./images/0016.png" alt="0016.png" height="220" width="330">
+</left>
+
+以下实例在`try`语句中判断文件是否可以打开，若打开文件时未发生异常则执行`else`子语句读取文件内容：
+
+```python
+for arg in sys.argv[1:]:
+    try:
+        f = open(arg, 'r')
+    except IOError:
+        print('cannot open', arg)
+    else:
+        print(arg, 'has', len(f.readlines()), 'lines')
+        f.close()
+```
+
+使用`else`子句比把所有语句都放在`try`子句里面要好，可以避免一些意想不到而`except`又无法捕获的异常。
+
+异常处理并不仅仅处理那些直接发生在`try`子句中的异常，还能处理子句中调用的函数 (甚至是间接调用的函数) 里抛出的异常。例如：
+
+```python
+>>> def this_fails():
+...   x = 1/0
+...
+>>> try:
+...   this_fails()
+... except ZeroDivisionError as err:
+...   print('Handling run-time error:', err)
+...
+Handling run-time error: int division or modulo by zero
+```
+
+### 15.3.3 使用`try...finally`语句
+
+**`try...finally`**语句无论是否发生异常都将执行最后的代码。
+
+<left>
+    <img src="./images/0017.png" alt="0017.png" height="303" width="300">
+</left>
+
+实例：
+
+```python
+try:
+    runoob()
+except AssertionError as error:
+    print(error)
+else:
+    try:
+        with open('file.log') as file:
+            read_data = file.read()
+    except FileNotFoundError as fnf_error:
+        print(fnf_error)
+finally:
+    print('this line will be printed no matter there is error or not.')
+```
+
+在`finally`子句中可定义无论在任何情况下都会执行的清理行为，例如关闭打开的文件：
+
+```python
+try:
+  file= open("test.txt","r")
+  for line in file.readlines():
+    print line
+except:
+  print "error"
+finally:
+  if file:
+    file.close()
+```
+
+### 15.3.4 使用`with...as`语句
+
+一些对象定义了标准的清理行为，无论系统是否成功的使用了它，一旦不需要它了，那么这个标准的清理行为就会执行。下面这个例子展示了尝试打开一个文件，然后把内容打印到屏幕上:
+
+```python
+file = open("myfile.txt")
+for line in file.readlines():
+    print(line, end="")
+file.close()
+```
+
+以上这段代码的问题是，如果读取文件过程中出现错误，那么文件会保持打开状态一直占用内存资源。如前面所诉，可以使用`try..finally`语句来实现自动关闭文件。而关键词`with`语句则提供了更为简单的实现，可以保证诸如文件之类的对象在使用完之后一定会正确的执行他的清理方法。
+
+实例1：(以下这段代码执行完毕后，就算在处理过程中出了问题，文件`file`也总会被关闭)
+
+```python
+with open("myfile.txt") as file:
+    for line in file:
+        print(line, end="")
+```
+
+实例2：(使用`with`语句来打开文件读写、用`pickle`包完成数据的存储及恢复的操作)
+
+```python
+import pickle
+try:
+  with open("phone.pickle", "wb") as outf:
+    pickle.dump("13193388105", outf)
+  except:
+    print("file have error.")
+
+try:
+  with open("phone.pickle", "rb") as outf:
+    data = pickle.load(outf)
+    print(type(data))
+    print(data)
+  except:
+    print("file have error.")
+```
+
+#### 15.3.4.1 `with`语句的执行原理
+
+`with`语句的基本形式是：
+
+```python
+with expression1 as var1 [,expression2 as var2 [...]]：
+  code_block
+```
+
+这样的一段代码可以称为一个上下文 (context)，在执行`with`语句时，解释器会先求出表达式的值，这个值 (对象) 就是一个上下文管理器，并且假设这个对象拥有如下类的构造方法：
+
+```python
+def __enter__():
+  # 描述进入上下文的动作
+  pass
+ 
+ def __exit__():
+  # 描述退出上下文的动作
+  pass
+```
+
+`with`语句在求出这个上下文管理器对象之后，会自动执行`__enter__()`，并将这个对象的返回值赋值于`as`之后的变量，然后执行语句块。最终在退出上下文前，解释器会自动执行对象的`__exit__()`。Python 中的系统和标准库的一些类型定义了这对操作，可以直接用于`with`语句，比如文件对象的操作。
+
+#### 15.3.4.2 自定义类的上下文管理
+
+若自己有类似的计算过程需要抽取出来，那么可以自定义一个类，并且包含`__enter__()`和`__exit__()`方法。
+
+```python
+class File(object):
+  def __init__(self, file_name, method):
+    self.file_obj = open(file_name, method)
+  def __enter__(self):
+    return self.file_obj
+  def __exit__(self, exception_type, exception_value, traceback): 
+    self.file_obj.close() 
+    # 异常处理的代码块 #
+
+with File('demo.txt', 'r') as opened_file:
+  for line in opened_file:
+    print(line)
+
+# with 语句执行的步骤：
+# (1) 创建一个 File 类的实例, 先调用__init__方法来使用指定模式打开一个指定的文件
+# (2) with 语句调用 File 类的__enter__方法返回打开的文件对象的句柄
+# (3) 打开的文件句柄被传递给 opened_file, 再执行 with 语句内的代码块
+# (4) 若执行过程中有异常或执行完毕无异常, with 语句调用 File 类的__exit__方法
+# (5) File 类的__exit__方法关闭了文件
+
+# with 语句处理异常的步骤：
+# (1) 将异常的 type, value 和 traceback 传递给__exit__方法
+# (2) 让__exit__方法来处理异常
+# (3-1) 若__exit__返回的是True，那么这个异常被忽略;
+# (3-2) 若__exit__返回的是True以外的东西，那么这个异常将被 with 语句抛出
+```
+
+此外，还可使用上下文管理包 (contextlib) 及装饰器和生成器来实现，则不需要用到类构造方法：
+
+```python
+from contextlib import contextmanager  # 引入上下文管理器
+
+@contextmanager  # 给函数引入装饰器
+def myopen(filename, mode):
+  file = open(filename, mode, encoding='utf-8')
+  try: # 上文
+    yield file
+  except Exception as err:
+    print('Errpr: ', err)
+  finally: # 下文
+    file.close()
+
+with myopen("demo.txt", 'r') as fobj:  # 把 try 中的 yield 中的 file 赋值给 fobj
+  # with 会将后面的函数中的 yield 赋值给 fobj
+  for line in fobj:
+    print(line)
+  # 等待上面的循环结束后,才最终执行 finally 的代码，所以这就是上下文管理
+```
+
+## 15.4 抛出异常
+
+Python 中使用`raise`语句可抛出一个指定的异常。语法格式: `raise [Exception[, args[, traceback]]]`。
+
+<left>
+    <img src="./images/0018.png" alt="0018.png" height="110" width="446">
+</left>
+
+以下实例中如果`x > 5`就触发异常:
+
+```python
+x = 10
+if x > 5:
+    raise Exception('x 不能大于 5。x 的值为: {}'.format(x))
+```
+
+执行以上代码会触发异常：
+
+```python
+Traceback (most recent call last):
+  File "test.py", line 3, in <module>
+    raise Exception('x 不能大于 5。x 的值为: {}'.format(x))
+Exception: x 不能大于 5。x 的值为: 10
+```
+
+`raise`唯一的一个参数指定了要被抛出的异常，它必须是一个异常的实例或异常的类 (即`Exception`的子类)。若只想知道是否抛出了一个异常但并不想去处理它，那么一个简单的`raise`语句就可以再次把它抛出。
+
+```python
+>>> try:
+...   raise NameError('HiThere')
+... except NameError:
+...   print('An exception flew by!')
+...   raise
+...
+An exception flew by!
+Traceback (most recent call last):
+  File "<stdin>", line 2, in ?
+NameError: HiThere
+```
+
+## 15.5 用户自定义的异常
+
+用户可以通过创建一个新的异常类来拥有自己的异常。异常类继承自`Exception`类，可以直接或者间接继承:
+
+```python
+>>> class MyError(Exception):
+...   def __init__(self, value):
+...     self.value = value
+...   def __str__(self):
+...     return repr(self.value)
+...
+>>> try:
+...   raise MyError(2*2)
+... except MyError as e:
+...   print('My exception occurred, value:', e.value)
+...
+My exception occurred, value: 4
+>>> raise MyError('oops!')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+__main__.MyError: 'oops!'
+```
+
+在这个例子中，类`Exception`默认的`__init__()`被覆盖。
+
+当创建一个模块有可能抛出多种不同的异常时，一种通常的做法是为这个包建立一个基础异常类，然后基于这个基础类为不同的错误情况创建不同的子类：
+
+```python
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class InputError(Error):
+    """Exception raised for errors in the input.
+ 
+    Attributes:
+        expression -- input expression in which the error occurred
+        message -- explanation of the error
+    """
+ 
+    def __init__(self, expression, message):
+        self.expression = expression
+        self.message = message
+ 
+class TransitionError(Error):
+    """Raised when an operation attempts a state transition that's not allowed.
+ 
+    Attributes:
+        previous -- state at beginning of transition
+        next -- attempted new state
+        message -- explanation of why the specific transition is not allowed
+    """
+
+    def __init__(self, previous, next, message):
+        self.previous = previous
+        self.next = next
+        self.message = message
+```
+
+大多数的异常的名字都以"Error"结尾，就跟标准的异常命名一样。
+
+## 15.6 使用`assert`断言
+
+Python 中的`assert` (断言) 语句用于判断一个表达式，在表达式条件为`False`时触发异常。断言可以在条件不满足程序运行的情况下直接返回错误，而不必等待程序运行后出现崩溃的情况。例如若代码只能在Linux系统下运行，则可先判断当前系统是否符合条件。
+
+语法格式：
+
+```python
+assert expression
+assert expression [, arguments]
+```
+
+等价于：
+
+```python
+if not expression:
+    raise AssertionError
+    
+if not expression:
+    raise AssertionError(arguments)
+```
+
+实例：
+
+```python
+>>> assert True     # 条件为 true  正常执行
+>>> assert False    # 条件为 false 触发异常
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError
+>>> assert 1==1    # 条件为 true  正常执行
+>>> assert 1==2    # 条件为 false 触发异常
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError
+>>> assert 1==2, '1 不等于 2'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError: 1 不等于 2
+```
+
+以下实例判断当前系统是否为 Linux，若不满足条件则直接触发异常，不必执行接下来的代码：
+
+```python
+import sys
+assert ('linux' in sys.platform), "This code only supports Linux OS!"
+```
+
+## 15.7 内置的异常类型
+
+Python 3 内置异常类型的结构：
+
+```python
+BaseException
+ +-- SystemExit
+ +-- KeyboardInterrupt
+ +-- GeneratorExit
+ +-- Exception
+      +-- StopIteration
+      +-- StopAsyncIteration
+      +-- ArithmeticError
+      |    +-- FloatingPointError
+      |    +-- OverflowError
+      |    +-- ZeroDivisionError
+      +-- AssertionError
+      +-- AttributeError
+      +-- BufferError
+      +-- EOFError
+      +-- ImportError
+      |    +-- ModuleNotFoundError
+      +-- LookupError
+      |    +-- IndexError
+      |    +-- KeyError
+      +-- MemoryError
+      +-- NameError
+      |    +-- UnboundLocalError
+      +-- OSError
+      |    +-- BlockingIOError
+      |    +-- ChildProcessError
+      |    +-- ConnectionError
+      |    |    +-- BrokenPipeError
+      |    |    +-- ConnectionAbortedError
+      |    |    +-- ConnectionRefusedError
+      |    |    +-- ConnectionResetError
+      |    +-- FileExistsError
+      |    +-- FileNotFoundError
+      |    +-- InterruptedError
+      |    +-- IsADirectoryError
+      |    +-- NotADirectoryError
+      |    +-- PermissionError
+      |    +-- ProcessLookupError
+      |    +-- TimeoutError
+      +-- ReferenceError
+      +-- RuntimeError
+      |    +-- NotImplementedError
+      |    +-- RecursionError
+      +-- SyntaxError
+      |    +-- IndentationError
+      |         +-- TabError
+      +-- SystemError
+      +-- TypeError
+      +-- ValueError
+      |    +-- UnicodeError
+      |         +-- UnicodeDecodeError
+      |         +-- UnicodeEncodeError
+      |         +-- UnicodeTranslateError
+      +-- Warning
+           +-- DeprecationWarning
+           +-- PendingDeprecationWarning
+           +-- RuntimeWarning
+           +-- SyntaxWarning
+           +-- UserWarning
+           +-- FutureWarning
+           +-- ImportWarning
+           +-- UnicodeWarning
+           +-- BytesWarning
+           +-- ResourceWarning
+```
 
 
 
