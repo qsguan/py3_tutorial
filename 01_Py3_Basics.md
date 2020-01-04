@@ -11,7 +11,7 @@
 
 ## 1.1 `print`函数
 
-`print`语句没有了，取而代之的是`print()`函数。
+Python 3 中`print`语句没有了，取而代之的是`print()`函数。
 
 在 Python 2.6 与 Python 2.7 里面，以下三种形式是等价的：
 
