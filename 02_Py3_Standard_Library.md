@@ -102,7 +102,7 @@ open(filename, mode='r', encoding=None)
 下图很好的总结了这几种模式：
 
 <left>
-    <img src="./images/0101.png" alt="0001.png" style="zoom: 50%;">
+    <img src="./images/0101.png" alt="0001.png" height="350" width="590">
 </left>
 
 |    Mode    |  r   |  r+  |  w   |  w+  |  a   |  a+  |
