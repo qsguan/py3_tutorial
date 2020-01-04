@@ -7,6 +7,8 @@
 [toc]
 
 <div style="page-break-after: always;"></div>
+&emsp;
+
 # 1 Python 2 与 3 的区别
 
 ## 1.1 `print`函数
