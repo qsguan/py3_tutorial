@@ -13,9 +13,7 @@
 
 ## 1.1 `print`函数
 
-Python 3 中`print`语句没有了，取而代之的是`print()`函数。
-
-在 Python 2.6 与 Python 2.7 里面，以下三种形式是等价的：
+Python 3 中`print`语句没有了，取而代之的是`print()`函数。Python 2.7 中以下三种形式等价：
 
 ```python
 print "fish"
@@ -46,15 +44,14 @@ china
 
 ## 1.4 异常与抛出
 
- Python 3 中使用 `as` 作为关键词。捕获异常的语法由 `except exc, var` 改为 `except exc as var`。使用语法`except (exc1, exc2) as var`可以同时捕获多种类别的异常。Python 2.6已经支持这两种语法。此外:<br>
+ Python 3 中使用 `as` 作为关键词。捕获异常的语法由 `except exc, var` 改为 `except exc as var`。使用语法`except (exc1, exc2) as var`可以同时捕获多种类别的异常。Python 2.6 已经支持这两种语法。此外:<br>
 
 1. Python 2 中所有类型的对象都可被直接抛出； 而 Python 3 中只有继承自`BaseException`的对象才可被抛出。
-
-   Python 2 中`raise`语句使用逗号将抛出对象类型和参数分开；而 Python 3 中取消了这种奇葩的写法，直接调用构造函数抛出对象即可。
+2. Python 2 中`raise`语句使用逗号将抛出对象类型和参数分开；而 Python 3 中取消了这种奇葩的写法，直接调用构造函数抛出对象即可。
 
 ## 1.5 `range()`取代`xrange()`
 
-在 Python 3 中，`range()`是像`xrange()`那样实现的，以至于一个专门的`xrange()`函数不再存在。在 Python 3 中使用`xrange()`会抛出命名异常。(`xrange()`相当于利用迭代器生成器，可以节省内存的使用)
+在 Python 3 中，`range()`是像`xrange()`那样实现的，因而`xrange()`函数不再存在。在 Python 3 中使用`xrange()`会抛出命名异常。(`xrange()`相当于利用迭代器生成器，可以节省内存的使用)
 
 ## 1.6 进制数表示
 
@@ -158,7 +155,6 @@ $ chmod +x hello.py
 ./hello.py
 ```
 
-<div style="page-break-after: always;"></div>
 # 3 Python 3 基础语法
 
 ## 3.1 编码
@@ -488,7 +484,6 @@ PYTHONDEVMODE: enable the development mode.
 PYTHONPYCACHEPREFIX: root directory for bytecode cache (pyc) files.
 ```
 
-<div style="page-break-after: always;"></div>
 # 4 Python 3 基本数据类型
 
 Python 中的变量不需要声明。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建。<br>Python 中的变量就是变量，它没有类型，我们所说的"*类型* "是变量所指的内存中对象的类型。
@@ -520,8 +515,8 @@ Python 3 中有六个标准的数据类型：
 
 Python 3 的六个标准数据类型中：
 
-* **不可变数据类型** (3个)：**Number** (数字)、**String** (字符串)、**Tuple** (元组)
-* **可变数据类型** (3个)：**List** (列表)、**Dictionary** (字典)、**Set** (集合)
+* **不可变(immutable)数据类型** (3个)：**Number** (数字)、**String** (字符串)、**Tuple** (元组)
+* **可变(mutable)数据类型** (3个)：**List** (列表)、**Dictionary** (字典)、**Set** (集合)
 
 ## 4.3 查询对象类型
 
@@ -670,7 +665,7 @@ del var1[,var2[,var3[....,varN]]]
 | `degrees(x)`  | 将弧度转换为角度                       |
 | `radians(x)`  | 将角度转换为弧度                       |
 
-**注意**：以上函数的使用都需先**导入`math`模块**！
+**注意**：以上函数的使用都需先**导入`math`模块**！若要使用**复数运算**，则需**先导入`cmath`模块**！
 
 ### 4.4.6 数学常量
 
@@ -775,13 +770,13 @@ Python 中字符串运算符表：
 ```python
 #!/usr/bin/env python3
 str = 'Runoob'
-print (str) # 输出字符串
-print (str[0:-1]) # 输出第一个到倒数第二个的所有字符
-print (str[0]) # 输出字符串第一个字符
-print (str[2:5]) # 输出从第三个开始到第五个的字符
-print (str[2:]) # 输出从第三个开始的后的所有字符
-print (str * 2) # 输出字符串两次
-print (str + "TEST") # 连接字符串
+print (str)           # 输出字符串
+print (str[0:-1])     # 输出第一个到倒数第二个的所有字符
+print (str[0])        # 输出字符串第一个字符
+print (str[2:5])      # 输出从第三个开始到第五个的字符
+print (str[2:])       # 输出从第三个开始的后的所有字符
+print (str * 2)       # 输出字符串两次
+print (str + "TEST")  # 连接字符串
 ```
 
 执行以上程序会输出如下结果：
@@ -802,7 +797,7 @@ RunoobTEST
 
 操作符" % "的使用格式为：
 
-```
+```python
 %[(name)][flags][width][.precision]typecode
 ```
 
@@ -901,9 +896,9 @@ print('value 为: {0.value}'.format(my_value)) # "0" 是可选的
 print('value 为: {.value}'.format(my_value))  # "0" 是可选的 (两结果相同)
 ```
 
-**注意**: 在 **\{\}** 中可使用特殊符号来指定输出字符串格式：**`!a`**使用 **`ascii()`**,  **`!s`**使用 **`str()`** , **`!r`**使用 **`repr()`**。
+**注意**: 在 **\{\}** 中可指定输出字符串格式：**`!a`**使用 **`ascii()`**,  **`!s`**使用 **`str()`** , **`!r`**使用 **`repr()`**。
 
-**数字的格式化** (在 **\{\}** 中使用 " : "来表示数字的格式化，" : " 前仍可添加限定参数，如 "0: ", "name: "等)：
+**数字的格式化** (在 **\{\}** 中可使用 " : "来表示数字的格式化，且仍可添加限定参数，如 "name:+5.2f"等)：
 
 | Number     | Format               | Output    | Description                  |
 | :--------- | :------------------- | :-------- | :--------------------------- |
@@ -936,10 +931,10 @@ symbol    : 填充符号 (只能是一个字符，如: 正号,逗号,0,x 等；�
 align     : 居中(^)、左对齐(<)、右对齐(>)
 width     : 表示总宽度
 .precision: 表示小数点后的位数
-typecode  : f, d, e, E, g, G, %, b, d, o, #o, x, #x, #X
+typecode  : f, d, e, E, g, G, % (百分数), b, d, o, #o, x, #x, #X
 ```
 
-1. "^, <, > " 分别是**居中**、**左对齐**、**右对齐**，左边紧跟的符号代表补齐方式，右边紧跟的数字代表宽度；
+1. "^, <, > " 分别是**居中**、**左对齐**、**右对齐**，左边跟的符号代表补齐方式，右边跟的数字代表宽度；
 
 2. “ : ” 号后面带填充的字符，只能是一个字符，不指定则默认是用空格填充；
 
@@ -951,6 +946,67 @@ typecode  : f, d, e, E, g, G, %, b, d, o, #o, x, #x, #X
    >>> print ("{} 对应的位置是 {{0}}".format("runoob"))
    runoob 对应的位置是 {0}
    ```
+
+实例：(**注意：`header_fmt`和`fmt`的定义方法，以及在定义后可复使用**)
+
+```python
+#!/usr/bin/env python3
+width = int(input('Please enter width: '))
+
+price_width = 10
+item_width = width - price_width
+
+# header_fmt = '{:item_width}{:>price_width}'
+header_fmt = '{{:{}}}{{:>{}}}'.format(item_width, price_width)
+# fmt = '{:item_width}{:>price_width.2f}'
+fmt = '{{:{}}}{{:>{}.2f}}'.format(item_width, price_width)
+
+print('=' * width)
+print(header_fmt.format('Item', 'Price'))
+print('-' * width)
+
+print(fmt.format('Apples', 0.4))
+print(fmt.format('Pears', 0.5))
+print(fmt.format('Cantaloupes', 1.92))
+print(fmt.format('Dried Apricots (16 oz.)', 8))
+print(fmt.format('Prunes (4 lbs.)', 12))
+
+print('=' * width)
+
+# 输出结果为：
+# Please enter width: 35
+# ===================================
+# Item                          Price
+# -----------------------------------
+# Apples                         0.40
+# Pears                          0.50
+# Cantaloupes                    1.92
+# Dried Apricots (16 oz.)        8.00
+# Prunes (4 lbs.)               12.00
+# ===================================
+```
+
+有些情况下，通过在字典中存储一系列命名的值，可让格式设置更容易些。例如，可在字典中包含各种信息，这样只需在格式字符串中提取所需的信息即可，但必须使用`format_map`来指出将通过一个映射来提供所需的信息。
+
+```python
+#!/usr/bin/env python3
+template = '''<html>
+<head><title>{title}</title></head>
+<body>
+<h1>{title}</h1>
+<p>{text}</p>
+</body>'''
+data = {'title': 'My Home Page', 'text': 'Welcome to my home page!'}
+print(template.format_map(data))
+
+# 输出结果为：
+# <html>
+# <head><title>My Home Page</title></head>
+# <body>
+# <h1>My Home Page</h1>
+# <p>Welcome to my home page!</p>
+# </body>
+```
 
 #### 4.5.3.3 使用`f-string`来格式化
 
@@ -1670,24 +1726,24 @@ Python 中字典包含了以下**内置函数**：
 
 Python 中字典包含了以下**内置方法**：
 
-| No.  | Method                                                       | Description                                                  |
-| :--: | ------------------------------------------------------------ | ------------------------------------------------------------ |
-|  1   | [dict.clear()](https://www.runoob.com/python3/python3-att-dictionary-clear.html) | 删除字典内所有元素                                           |
-|  2   | [dict2 = dict1.copy()](https://www.runoob.com/python3/python3-att-dictionary-copy.html) | 返回一个字典的浅复制                                         |
-|  3   | [x = dict.fromkeys(seq [, value])](https://www.runoob.com/python3/python3-att-dictionary-fromkeys.html) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | 创建一个新字典`x`，以序列`seq`中的元素为键，可选参数`value`为键对应的初始值，若无可选参数则初始值为`None` |
-|  4   | [dict.get(key, default=None)](https://www.runoob.com/python3/python3-att-dictionary-get.html) | 返回指定键的值，如果值不在字典中返回`default`值              |
-|  5   | [key in dict](https://www.runoob.com/python3/python3-att-dictionary-in.html) | 如果键在字典`dict`里返回`True`，否则返回`False`              |
-|  6   | [dict.items()](https://www.runoob.com/python3/python3-att-dictionary-items.html) | 以列表返回可遍历的 (键, 值) 元组数组                         |
-|  7   | [dict.keys()](https://www.runoob.com/python3/python3-att-dictionary-keys.html) | 返回一个迭代器，可以使用`list()`来转换为列表                 |
-|  8   | [dict.setdefault(key, default=None)](https://www.runoob.com/python3/python3-att-dictionary-setdefault.html) | 和`get()`类似, 但若键不存在则会添加键并将值设为`default`     |
-|  9   | [dict1.update(dict2)](https://www.runoob.com/python3/python3-att-dictionary-update.html) | 把`dict2`的键值对更新到`dict1`里 (若键已存在则替换掉)        |
-|  10  | [dict.values()](https://www.runoob.com/python3/python3-att-dictionary-values.html) | 返回一个迭代器，可以使用`list()`来转换为列表                 |
-|  11  | [pop([key] [,default])](https://www.runoob.com/python3/python3-att-dictionary-pop.html) | 删除字典中给定键所对应的值，并返回该值。若给定键不存在于字典中，则返回`default`值。若未给定键，则从字典中随机删除一个键并返回其对应的值。 |
-|  12  | [popitem()](https://www.runoob.com/python3/python3-att-dictionary-popitem.html) | 随机返回并删除最后一对键值对。若字典已经为空则报错。         |
+|  No.   | Method                                                       | Description                                                  |
+| :----: | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **1**  | [dict.clear()](https://www.runoob.com/python3/python3-att-dictionary-clear.html) | 删除字典内所有元素                                           |
+| **2**  | [dict2 = dict1.copy()](https://www.runoob.com/python3/python3-att-dictionary-copy.html) | 返回一个字典的浅复制                                         |
+| **3**  | [x = dict.fromkeys(seq [, value])](https://www.runoob.com/python3/python3-att-dictionary-fromkeys.html) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | 创建一个新字典`x`，以序列`seq`中的元素为键，可选参数`value`为键对应的初始值，若无可选参数则初始值为`None` |
+| **4**  | [dict.get(key, default=None)](https://www.runoob.com/python3/python3-att-dictionary-get.html) | 返回指定键的值，如果值不在字典中返回`default`值              |
+| **5**  | [key in dict](https://www.runoob.com/python3/python3-att-dictionary-in.html) | 如果键在字典`dict`里返回`True`，否则返回`False`              |
+| **6**  | [dict.items()](https://www.runoob.com/python3/python3-att-dictionary-items.html) | 以列表返回可遍历的 (键, 值) 元组数组                         |
+| **7**  | [dict.keys()](https://www.runoob.com/python3/python3-att-dictionary-keys.html) | 返回一个迭代器，可以使用`list()`来转换为列表                 |
+| **8**  | [dict.setdefault(key, default=None)](https://www.runoob.com/python3/python3-att-dictionary-setdefault.html) | 和`get()`类似, 但若键不存在则会添加键并将值设为`default`     |
+| **9**  | [dict1.update(dict2)](https://www.runoob.com/python3/python3-att-dictionary-update.html) | 把`dict2`的键值对更新到`dict1`里 (若键已存在则替换掉)        |
+| **10** | [dict.values()](https://www.runoob.com/python3/python3-att-dictionary-values.html) | 返回一个迭代器，可以使用`list()`来转换为列表                 |
+| **11** | [pop([key] [,default])](https://www.runoob.com/python3/python3-att-dictionary-pop.html) | 删除字典中给定键所对应的值，并返回该值。若给定键不存在于字典中，则返回`default`值。若未给定键，则从字典中随机删除一个键并返回其对应的值。 |
+|   12   | [popitem()](https://www.runoob.com/python3/python3-att-dictionary-popitem.html) | 随机返回并删除最后一对键值对。若字典已经为空则报错。         |
 
 **补充**:
 
-1. Python 3 中`dict.keys()`和`dict.values`返回的是迭代对象，需要使用`list()`将其转换为列表：
+1. Python 3 中**`dict.keys()`和`dict.values`返回的是迭代对象**，需**要使用`list()`将其转换为列表**：
 
    ```python
    >>> sites_link = {'runoob':'runoob.com', 'google':'google.com'}
@@ -1962,7 +2018,7 @@ for x in range(1,5):
 
 ## 5.3 遍历技巧
 
-在**字典 (List) 中遍历**时，关键字和对应的值可以使用`items()`方法同时解读出来：
+在**字典 (List) 中遍历**时，关键字和对应的值可以使用**`items()`方法**同时解读出来：
 
 ```python
 >>> knights = {'gallahad': 'the pure', 'robin': 'the brave'}
@@ -1973,7 +2029,7 @@ gallahad the pure
 robin the brave
 ```
 
-在**序列 (seq) 中遍历**时，**索引位置**和**对应值**可以使用`enumerate()`函数同时得到：
+在**序列 (seq) 中遍历**时，**索引位置**和**对应值**可以使用**`enumerate()`函数**同时得到：
 
 ```python
 >>> for i, v in enumerate(['tic', 'tac', 'toe']):
@@ -2106,7 +2162,6 @@ print(a,b)
 # ['a', ['def', 0]] ['b', ['def', 1]]
 ```
 
-<div style="page-break-after: always;"></div>
 # 7 Python 3 运算符
 
 Python 支持以下类型的运算符：
@@ -2185,7 +2240,7 @@ while 1:
 有了`：=`之后：
 
 ```python
-while ( (block := f.read(256)) != ''):
+while ( (block := f.read(256)) != '' ):
     process(block)
 ```
 
@@ -2306,7 +2361,6 @@ Python 中变量是以内容为基准而不是像C语言中以变量名为基准
 
 以上所说在脚本式编程环境中没有问题。但是在交互式环境中，编译器会有一个**小整数池**的概念，会把 (-5, 256) 间的数预先创建好，而当`a`和`b`超过这个范围的时候，两个变量就会指向不同的对象，因此地址也会不一样。
 
-<div style="page-break-after: always;"></div>
 # 8 Python 3 控制语句
 
 ## 8.1 条件控制
@@ -2677,10 +2731,10 @@ execute(hello)
 
 以下是调用函数时可使用的正式参数类型：
 
-- 必需参数：须以正确的顺序传入函数，调用时的数量必须和声明时的一样。
-- 关键字参数：函数调用使用关键字参数来确定传入的参数值，允许调用时参数的顺序与声明时不一致。
-- 默认参数：调用函数时，若没有传递参数，则会使用默认参数。默认参数必须放在最后面。
-- 不定长参数：可能需要一个函数能处理比当初声明时更多的参数，和上述参数不同，声明时不会命名。
+- **必需参数**：须以正确的顺序传入函数，调用时的数量必须和声明时的一样。
+- **关键字参数**：函数调用使用关键字参数来确定传入的参数值，允许调用时参数的顺序与声明时不一致。
+- **默认参数**：调用函数时，若没有传递参数，则会使用默认参数。默认参数必须放在最后面。
+- **不定长参数**：可能需要一个函数能处理比当初声明时更多的参数，和上述参数不同，声明时不会命名。
 
 实例1 (必须参数)：
 
@@ -2812,7 +2866,7 @@ print("相加后的值为 : ", sum(20,20))
 map(function, iterables)
 ```
 
-参数`function`以序列中的每一个元素调用该函数，`map()`返回一个迭代器，需用`list()`转换为列表。
+参数`function`以序列中的每一个元素调用该函数，**`map()`返回一个迭代器，需用`list()`转换为列表**。
 
 ```python
 >>> def square(x):  # 计算平方数
@@ -2832,7 +2886,7 @@ map(function, iterables)
 filter(function, iterables)
 ```
 
-参数`function`以序列中的每一个元素调用该函数，`filter()`返回一个迭代器，需用`list()`转换为列表。
+参数`function`以序列中的每一个元素调用该函数，**`filter()`返回一个迭代器，需用`list()`转换为列表**。
 
  ```python
 >>> number_list = range(-5, 5)
@@ -2848,7 +2902,7 @@ from functools import reduce
 reduce(function, iterables[, initializer])
 ```
 
-参数`function`必须有两个参数，`reduce()`返回一个迭代器，需用`list()`转换为列表。
+参数`function`必须有两个参数，**`reduce()`返回一个迭代器，需用`list()`转换为列表**。
 
 ```python
 >>> reduce(lambda x, y: x+y, [1,2,3,4,5])  # 使用 lambda 匿名函数
@@ -3173,7 +3227,7 @@ print("函数外是全局变量: ", total)
 # 函数外是全局变量:  0
 ```
 
-### 12.2.2 关键字 global 和 nonlocal
+### 12.2.2 关键字`global`和`nonlocal`
 
 内部作用域**可访问外部作用域**变量**但不可以修改**该变量。当内部作用域想修改外部作用域的变量时，需要使用关键字 **global** 和 **nonlocal** 。
 
@@ -3397,7 +3451,7 @@ print(a_function_requiring_decoration.__name__)
 # Output: a_function_requiring_decoration
 ```
 
-**装饰器使用的蓝本规范**：
+==**装饰器使用的蓝本规范**==：
 
 ```python
 #!/usr/bin/env python3
@@ -3467,6 +3521,8 @@ result = addition_func(4)
 
 ## 13.7 带参数的装饰器
 
+实例1：(打日志)
+
 ```python
 from functools import wraps
 def logit(logfile='out.log'):
@@ -3498,6 +3554,39 @@ def myfunc2():
 myfunc2()
 # Output: myfunc2 was called
 # 现在一个叫做 func2.log 的文件出现了，里面的内容就是上面的字符串
+```
+
+实例2：(输出任务执行时间)
+
+```python
+import time
+def timer(parameter):
+    def outer_wrapper(func):
+		def wrapper(*args, **kwargs):
+				start = time.time()
+				func(*args, **kwargs)
+				stop = time.time()
+				print("{0} run time is {1:8.6f}.".format(parameter, stop-start))
+		return wrapper
+	return outer_wrapper
+
+@timer(parameter='task1')
+def task1():
+    print("in the task1")
+	time.sleep(2)
+
+@timer(parameter='task2')
+def task2():
+    print("in the task2")
+	time.sleep(2)
+
+task1()
+task2()
+# Output:
+# in the task1
+# task1 run time is 2.002187.
+# in the task2
+# task2 run time is 2.002156.
 ```
 
 ## 13.8 装饰器类
@@ -3679,7 +3768,7 @@ sound/                          顶层包
 
 用户可只导入一个包里的特定模块，如: **`import sound.effects.echo`**，这将会导入子模块`sound.effects.echo`，但必须使用全名去访问，如: `sound.effects.echo.echofilter(input, output, delay=0.7, atten=4)`。还有一种导入子模块的方法是: **`from sound.effects import echo`**，这同样会导入子模块`echo`并且不需要冗长的前缀，可以这样使用: `echo.echofilter(input, output, delay=0.7, atten=4)`。还有一种变化就是直接导入一个函数或者变量: **`from sound.effects.echo import echofilter`**，同样这也会导入子模块`echo`且可以直接使用`echofilter()`函数，如: `echofilter(input, output, delay=0.7, atten=4)`。
 
-**注意**：
+**注意事项**：
 
 1. 若使用**`from package import item`**这种导入形式，对应的`item`既**可以是包里面的子包**，或者是**包里面定义的其他名称**，如：**函数、类或者变量名**。`import`语法会首先把`item`当作一个包定义的名称；若没找到，再试图按照一个模块去导入；若还没找到，则抛出一个`ImportError`异常。
 
@@ -3701,7 +3790,6 @@ sound/                          顶层包
    import abc
    import six
    from monty.json import MSONable
-   
    
    class Potential(six.with_metaclass(abc.ABCMeta, MSONable)):
        """
@@ -4086,7 +4174,7 @@ Traceback (most recent call last):
 NameError: HiThere
 ```
 
-## 15.5 用户自定义的异常
+## 15.5 自定义的异常
 
 用户可以通过创建一个新的异常类来拥有自己的异常。异常类继承自`Exception`类，可以直接或者间接继承:
 
@@ -4265,7 +4353,108 @@ BaseException
            +-- ResourceWarning
 ```
 
+## 15.8 使用`warnings`模块
 
+### 15.8.1 发出警告
+
+若只想发出警告指出情况偏离了正轨，可使用`warnings`模块中的`warn()`函数。该警告只显示一次，若之后还有相同情况发生不会再次发出警告。函数`warn()`的**语法格式为：**
+
+```python
+warn(message, category=None, stacklevel=1, source=None)
+```
+
+> The *category* argument, if given, must be a [warning category class](https://docs.python.org/3.8/library/warnings.html#warning-categories); it defaults to [`UserWarning`](https://docs.python.org/3.8/library/exceptions.html#UserWarning). Alternatively, *message* can be a [`Warning`](https://docs.python.org/3.8/library/exceptions.html#Warning) instance, in which case *category* will be ignored and `message.__class__` will be used. In this case, the message text will be `str(message)`. This function raises an exception if the particular warning issued is changed into an error by the [warnings filter](https://docs.python.org/3.8/library/warnings.html#warning-filter). The *stacklevel* argument can be used by wrapper functions written in Python, like this:
+>
+> ```python
+> def deprecation(message):
+>     warnings.warn(message, DeprecationWarning, stacklevel=2)
+> ```
+>
+> This makes the warning refer to `deprecation()`’s caller, rather than to the source of `deprecation()` itself (since the latter would defeat the purpose of the warning message).
+>
+> *source*, if supplied, is the destroyed object which emitted a [`ResourceWarning`](https://docs.python.org/3.8/library/exceptions.html#ResourceWarning).
+>
+> *Changed in version 3.6:* Added *source* parameter.
+
+可选用的**警告类型** (warning categories) 有：
+
+> | Class                                                        | Description                                                  |
+> | :----------------------------------------------------------- | :----------------------------------------------------------- |
+> | [`Warning`](https://docs.python.org/3.8/library/exceptions.html#Warning) | This is the base class of all warning category classes. It is a subclass of [`Exception`](https://docs.python.org/3.8/library/exceptions.html#Exception). |
+> | [`UserWarning`](https://docs.python.org/3.8/library/exceptions.html#UserWarning) | The default category for [`warn()`](https://docs.python.org/3.8/library/warnings.html#warnings.warn). |
+> | [`DeprecationWarning`](https://docs.python.org/3.8/library/exceptions.html#DeprecationWarning) | Base category for warnings about deprecated features when those warnings are intended for other Python developers (ignored by default, unless triggered by code in `__main__`). |
+> | [`SyntaxWarning`](https://docs.python.org/3.8/library/exceptions.html#SyntaxWarning) | Base category for warnings about dubious syntactic features. |
+> | [`RuntimeWarning`](https://docs.python.org/3.8/library/exceptions.html#RuntimeWarning) | Base category for warnings about dubious runtime features.   |
+> | [`FutureWarning`](https://docs.python.org/3.8/library/exceptions.html#FutureWarning) | Base category for warnings about deprecated features when those warnings are intended for end users of applications that are written in Python. |
+> | [`PendingDeprecationWarning`](https://docs.python.org/3.8/library/exceptions.html#PendingDeprecationWarning) | Base category for warnings about features that will be deprecated in the future (ignored by default). |
+> | [`ImportWarning`](https://docs.python.org/3.8/library/exceptions.html#ImportWarning) | Base category for warnings triggered during the process of importing a module (ignored by default). |
+> | [`UnicodeWarning`](https://docs.python.org/3.8/library/exceptions.html#UnicodeWarning) | Base category for warnings related to Unicode.               |
+> | [`BytesWarning`](https://docs.python.org/3.8/library/exceptions.html#BytesWarning) | Base category for warnings related to [`bytes`](https://docs.python.org/3.8/library/stdtypes.html#bytes) and [`bytearray`](https://docs.python.org/3.8/library/stdtypes.html#bytearray). |
+> | [`ResourceWarning`](https://docs.python.org/3.8/library/exceptions.html#ResourceWarning) | Base category for warnings related to resource usage.        |
+>
+> *Changed in version 3.7:* Previously [`DeprecationWarning`](https://docs.python.org/3.8/library/exceptions.html#DeprecationWarning) and [`FutureWarning`](https://docs.python.org/3.8/library/exceptions.html#FutureWarning) were distinguished based on whether a feature was being removed entirely or changing its behaviour. They are now distinguished based on their intended audience and the way they’re handled by the default warnings filters. 
+
+```python
+>>> from warnings import warn
+>>> warn("I've got a bad feeling about this.")
+__main__:1: UserWarning: I've got a bad feeling about this.
+```
+
+### 15.8.2 过滤警告
+
+若其他代码在使用你的模块，可使用`warnings`模块中的`filterwarnings()`函数来过滤你发出的警告 (或特定类型的警告) 并指定要采取的措施，如 "error" 或 "ignore"。函数`filterwarnings()`的**语法格式为**：
+
+```python
+filterwarnings(action, message='', category=Warning, module='', lineno=0, append=False)
+```
+
+> Insert an entry into the list of [warnings filter specifications](https://docs.python.org/3.8/library/warnings.html#warning-filter). The entry is inserted at the front by default; if *append* is true, it is inserted at the end. This checks the types of the arguments, compiles the *message* and *module* regular expressions, and inserts them as a tuple in the list of warnings filters. Entries closer to the front of the list override entries later in the list, if both match a particular warning. Omitted arguments default to a value that matches everything.
+>
+> - *action* is one of the following strings:
+>
+>   | Value       | Disposition                                                  |
+>   | :---------- | :----------------------------------------------------------- |
+>   | `"default"` | print the first occurrence of matching warnings for each location (module + line number) where the warning is issued |
+>   | `"error"`   | turn matching warnings into exceptions                       |
+>   | `"ignore"`  | never print matching warnings                                |
+>   | `"always"`  | always print matching warnings                               |
+>   | `"module"`  | print the first occurrence of matching warnings for each module where the warning is issued (regardless of line number) |
+>   | `"once"`    | print only the first occurrence of matching warnings, regardless of location |
+>
+> - *message* is a string containing a regular expression that the start of the warning message must match. The expression is compiled to always be case-insensitive.
+>
+> - *category* is a class (a subclass of [`Warning`](https://docs.python.org/3.8/library/exceptions.html#Warning)) of which the warning category must be a subclass in order to match.
+>
+> - *module* is a string containing a **regular expression** that the module name must match. The expression is compiled to be case-sensitive.
+>
+> - *lineno* is an integer that the line number where the warning occurred must match, or `0` to match all line numbers.
+
+```python
+>>> from warnings import filterwarnings
+>>> filterwarnings("ignore")
+>>> warn("Anyone out there?")
+>>> filterwarnings("error")
+>>> warn("Something is very wrong!")
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+UserWarning: Something is very wrong!
+```
+
+以上实例引发的异常为`UserWarning`。发出警告时，可指定将引发的异常 (即警告类别)，但必须是`Warning`的子类。若将警告转换为错误 ("error")，则将使用你指定的异常。此外，还可根据异常来过滤掉特定类型的警告。
+
+```python
+>>> filterwarnings("error")
+>>> warn("This function is really old...", DeprecationWarning)
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+DeprecationWarning: This function is really old...
+>>> filterwarnings("ignore", category=DeprecationWarning)
+>>> warn("Another deprecation warning.", DeprecationWarning)
+>>> warn("Something else.")
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+UserWarning: Something else.
+```
 
 
 
