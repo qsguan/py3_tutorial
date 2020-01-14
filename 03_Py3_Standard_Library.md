@@ -793,7 +793,7 @@ if __name__ == "__main__":
 
 # 3 Python 3 标准库概览
 
-## 3.1 操作系统接口
+## 3.1 操作系统`os`接口
 
 Python 中`os`模块提供了不少与操作系统相关联的函数。
 
@@ -816,7 +816,7 @@ Python 中`os`模块提供了不少与操作系统相关联的函数。
 >>> shutil.move('/build/executables', 'installdir')
 ```
 
-## 3.3 文件通配符
+## 3.3 文件通配符`glob`
 
 Python 中的`glob`模块提供了一个函数用于从目录通配符搜索中生成文件列表:
 
@@ -826,7 +826,7 @@ Python 中的`glob`模块提供了一个函数用于从目录通配符搜索中�
 ['primes.py', 'random.py', 'quote.py']
 ```
 
-## 3.4 命令行参数
+## 3.4 命令行参数`sys.argv`
 
 通用工具脚本经常调用命令行参数。这些命令行参数以链表形式存储于`sys`模块的`argv`变量。例如在命令行中执行`python demo.py one two three`后可以得到以下输出结果:
 
@@ -845,7 +845,7 @@ Python 中的`sys`模块还有`stdin`, `stdout`和`stderr`属性，即使在`std
 Warning, log file not found starting a new one
 ```
 
-## 3.6 字符串正则匹配
+## 3.6 字符串`re`正则匹配
 
 Python 中的`re`模块为高级字符串处理提供了正则表达式工具。对于复杂的匹配和处理，正则表达式提供了简洁、优化的解决方案:
 
@@ -864,7 +864,7 @@ Python 中的`re`模块为高级字符串处理提供了正则表达式工具。
 'tea for two'
 ```
 
-## 3.7 数学库
+## 3.7 数学`math,cmath`库
 
 Python 中的`math`模块为浮点运算提供了对底层C函数库的访问：
 
@@ -890,7 +890,7 @@ Python 中的`random`提供了生成随机数的工具：
 4
 ```
 
-## 3.8 访问互联网
+## 3.8 访问互联网`urllib`
 
 有几个模块用于访问互联网以及处理网络通信协议。最简单的是用于处理从`urls`接收的数据的 `urllib.request`以及用于发送电子邮件的`smtplib`:
 
@@ -914,7 +914,7 @@ Python 中的`random`提供了生成随机数的工具：
 >>> server.quit()
 ```
 
-## 3.9 日期和时间
+## 3.9 日期和时间`datetime`
 
 Python 中的`datetime`模块为日期和时间处理同时提供了简单和复杂的方法。支持日期和时间算法的同时，实现的重点放在更有效的处理和格式化输出。该模块还支持时区处理:
 
