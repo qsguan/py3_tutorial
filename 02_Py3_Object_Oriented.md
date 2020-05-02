@@ -47,6 +47,8 @@ class ClassName(object):
 
 ## 1.3 类对象
 
+### 1.3.1 类对象的操作
+
 类对象支持两种操作：**属性引用**和**实例化**。<br>属性引用使用和 Python 中所有的**属性引用**一样的标准语法：**obj.name**。<br>类对象创建后，类命名空间中所有的命名都是有效属性名。
 
 实例：(创建一个新的类实例并将该对象赋给局部变量`x`)
@@ -103,6 +105,62 @@ t.prt()
 ```
 
 从执行结果可以很明显的看出，**self** 代表的是类的实例 (即当前对象的地址)，而 **self.class** 则指向类。注意：**self** 不是 Python 关键字，换成其他也是可以正常执行的。
+
+### 1.3.2 类变量与实例变量
+
+* 类变量：可在类的所有实例之间共享的值 (即它们不是单独分配给每个实例的)。
+* 实例变量：实例化之后，每个实例单独拥有的变量。 
+
+注意: 实例中不可修改类变量, 一般情况下只是将与类变量同名称的一个变量绑定给了实例而已. <br>但若在类定义中使用了魔法方法`__slots__`来限定实例的属性, 则会发现类变量是只读属性.<br>而对于类列表, 在实例中仍可以使用`list.append()`来对类列表进行添加元素.
+
+```python
+class Dog:
+    cls_n = '这是一个类变量'  # 类变量1
+    cls_name = '这是类的name!'  # 类变量2
+    cls_list = []  # 类列表
+
+    # 利用魔法函数'__slots__'来限制实例的属性
+    __slots__ = ('name', 'weapon', 'role', 'money')
+
+    def __init__(self, name, weapon, role, money=1234):
+        # 构造函数: 在实例化时做一些类的初始化的工作
+        self.name = name  # 这个属于实例变量(属性),只是作用于实例本身
+        self.weapon = weapon
+        self.role = role
+        self.money = money
+
+    def shot_down(self):
+        print('%s:被击中！' % self.name)
+
+    def buy_gun(self, gun_name):
+        print('%s:买了一部%s枪' % (self.name, gun_name))
+
+    def bulk(self):
+        print('%s ,Wang Wang Wang!' % self.name)
+
+# 实例化两个对象
+Dog1 = Dog('superman', 'ak47', 'police')
+Dog2 = Dog('X-man', 'b211', 'robber')
+
+# 使用类来修改类变量
+print("-"*20)
+Dog.cls_n = "更改后的类变量！"
+print("Dog.n:", Dog.cls_n)    # Dog.n: 更改后的类变量！
+print("Dog1.n:", Dog1.cls_n)  # Dog1.n: 更改后的类变量！
+print("Dog2.n:", Dog2.cls_n)  # Dog2.n: 更改后的类变量！
+
+# # 使用实例来修改类变量
+# Dog1.cls_n = "更改后的类变量！"
+# Dog2.cls_list = "list_2"
+# 报错: AttributeError: 'Dog' object attribute 'cls_n' is read-only
+
+# 实例2中以赋值方式修改类list (类list若使用append,则不会被实例化)
+print("-"*20)
+Dog1.cls_list.append("list_1")
+print("Dog.n_list", Dog.cls_list)    # Dog.n_list ['list_1']
+print("Dog1.n_list", Dog1.cls_list)  # Dog1.n_list ['list_1']
+print("Dog2.n_list", Dog2.cls_list)  # Dog2.n_list ['list_1']
+```
 
 ## 1.4 类的方法
 

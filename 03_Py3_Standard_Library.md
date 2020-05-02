@@ -459,6 +459,8 @@ pkl_file.close()
 
 # 2 Python 3 OS 文件/目录方法
 
+## 2.1 `os`常用属性
+
 Python 中的**`os`**模块的部分**常用属性**如下所示：
 
 1. **os.curdir**: 调用`os`模块获取当前路径的符号，即" . "。
@@ -466,16 +468,21 @@ Python 中的**`os`**模块的部分**常用属性**如下所示：
 3. **os.sep**: 调用`os`模块获取路径中的分隔符，即" / "。
 4. **os.linesep**: 调用`os`模块获取换行符，即" /n "。
 
+## 2.2 `os`处理文件和目录
+
 Python 中的**`os`**模块提供了非常丰富的方法用来处理文件和目录。**常用的方法**如下所示：
 
 1. **[os.access(path, mode)](https://www.runoob.com/python3/python3-os-access.html)**: 用于检验权限模式。
+   
    - **path** -- 要用来检测是否有访问权限的路径
    - **mode** -- 默认为`os.F_OK`
      - **os.F_OK:** 作为access()的mode参数，测试path是否存在。
      - **os.R_OK:** 包含在access()的mode参数中 ， 测试path是否可读。 
      - **os.W_OK** 包含在access()的mode参数中 ， 测试path是否可写。
      - **os.X_OK** 包含在access()的mode参数中 ，测试path是否可执行。
+   
 2. **[os.chdir(path)](https://www.runoob.com/python3/python3-os-chdir.html)**: 用于改变当前工作目录到指定的路径。如果允许访问返回`True`, 否则返回`False`。
+
 3. **[os.chmod(path, mode)](https://www.runoob.com/python3/python3-os-chmod.html)**: 用于更改文件或目录的权限。
    - **flags** -- 可用以下选项按位或操作生成，目录的读权限表示可以获取目录里的文件名列表，执行权限表示可以把工作目录切换到此目录。删除添加目录里的文件必须同时有写和执行权限。文件权限以 "用户 ID ->组 ID -> 其它" 顺序检验，最先匹配的允许或禁止权限被应用。 
      - **stat.S_IXOTH:**   其他用户有执行权0o001
@@ -495,12 +502,19 @@ Python 中的**`os`**模块提供了非常丰富的方法用来处理文件和�
      - **stat.S_ISUID:**     执行此文件其进程有效用户为其所有者0o4000
      - **stat.S_IREAD:**    windows下设为只读
      - **stat.S_IWRITE:**  windows下取消只读
+   
 4. **[os.chown(path, uid, gid)](https://www.runoob.com/python3/python3-os-chown.html)**: 更改文件所有者。需要超级用户权限，只支持在 Unix 下使用。
+
 5. **[os.chroot(path)](https://www.runoob.com/python3/python3-os-chroot.html)**: 改变当前进程的根目录。需要超级用户权限，只支持在 Unix 下使用。
+
 6. **[os.close(fd)](https://www.runoob.com/python3/python3-os-close.html)**: 关闭指定的文件描述符`fd`。
+
 7. [os.closerange(fd_low, fd_high)](https://www.runoob.com/python3/python3-os-closerange.html): 关闭从`fd_low`(包含)到`fd_high`(不包含)的文件描述符, 错误会忽略。
+
 8. **cpu_count()**: 返回系统的CPU数。若想得知当前进程的可用CPU数，则用`len(os.sched_getaffinity(0))`。
+
 9. **[os.dup(fd)](https://www.runoob.com/python3/python3-os-dup.html)**: 复制文件描述符`fd`，返回被复制的文件描述符。
+
 10. [os.dup2(fd1, fd2)](https://www.runoob.com/python3/python3-os-dup2.html): 将一个文件描述符`fd1`复制到另一个`fd2`。e.g. `os.dup2(f.fileno(), 1) # 1 -> stdout`
 
 10. **[os.fchdir(fd)](https://www.runoob.com/python3/python3-os-fchdir.html)**: 通过文件描述符改变当前工作目录。
@@ -628,43 +642,43 @@ Python 中的**`os`**模块提供了非常丰富的方法用来处理文件和�
 
 45. os.fwalk(top='.', topdown=True, onerror=None, *, follow_symlinks=False, dir_fd=None): 与`os.walk`类似，区别在于该函数返回4-元组 `(dirpath, dirnames, filenames, dirfd)`。
 
-46. **[os.write(fd, str)](https://www.runoob.com/python3/python3-os-write.html)**: 用于写入字符串到文件描述符`fd`中，且返回实际写入的字符串长度。
+47. **[os.write(fd, str)](https://www.runoob.com/python3/python3-os-write.html)**: 用于写入字符串到文件描述符`fd`中，且返回实际写入的字符串长度。
 
-47. **[os.path 模块](https://www.runoob.com/python3/python3-os-path.html)**: 主要用于获取文件的属性。
+## 2.3 `os.path`模块
 
-    | Method                                  | Description                                                  |
-    | --------------------------------------- | ------------------------------------------------------------ |
-    | `os.path.abspath(path)`                 | 返回绝对路径                                                 |
-    | `os.path.basename(path)`                | 返回文件名                                                   |
-    | `os.path.commonprefix(list)`            | 返回`list` (多个路径) 中所有`path`共有的最长的路径           |
-    | `os.path.dirname(path)`                 | 返回文件路径                                                 |
-    | `os.path.exists(path)  `                | 路径存在则返回`True`, 路径损坏返回`False`                    |
-    | `os.path.lexists `                      | 路径存在则返回`True`, 路径损坏也返回`True`                   |
-    | `os.path.expanduser(path)  `            | 把`path`中包含的"\~"和"\~user"转换成用户目录                 |
-    | `os.path.expandvars(path)  `            | 根据环境变量的值替换`path`中包含的"\$name"和"\${name}"       |
-    | `os.path.getatime(path)  `              | 返回最近访问时间 (浮点型秒数)                                |
-    | `os.path.getmtime(path) `               | 返回最近文件修改时间                                         |
-    | `os.path.getctime(path)  `              | 返回文件`path`创建时间                                       |
-    | `os.path.getsize(path)`                 | 返回文件大小，若文件不存在则返回错误                         |
-    | `os.path.isabs(path) `                  | 判断是否为绝对路径                                           |
-    | `os.path.isfile(path)  `                | 判断路径是否为文件                                           |
-    | `os.path.isdir(path)  `                 | 判断路径是否为目录                                           |
-    | `os.path.islink(path)  `                | 判断路径是否为链接                                           |
-    | `os.path.ismount(path)  `               | 判断路径是否为挂载点                                         |
-    | `os.path.join(path1[, path2[, ...]]) `  | 把目录和文件名合成一个路径                                   |
-    | `os.path.normcase(path)  `              | 转换`path`的大小写和斜杠                                     |
-    | `os.path.normpath(path)  `              | 规范`path`字符串形式                                         |
-    | `os.path.realpath(path)  `              | 返回`path`的真实路径                                         |
-    | `os.path.relpath(path[, start])  `      | 从`start`开始计算相对路径                                    |
-    | `os.path.samefile(path1, path2)  `      | 判断目录或文件是否相同                                       |
-    | `os.path.sameopenfile(fp1, fp2)  `      | 判断`fp1`和`fp2`是否指向同一文件                             |
-    | `os.path.samestat(stat1, stat2)  `      | 判断stat元组`stat1`和`stat2`是否指向同一个文件               |
-    | `os.path.split(path)  `                 | 把路径分割成`dirname`和`basename`并返回一个元组              |
-    | `os.path.splitdrive(path)   `           | 一般用在Windows下返回驱动器名和路径组成的元组                |
-    | `os.path.splitext(path)  `              | 分割路径，返回路径名和文件扩展名的元组                       |
-    | `os.path.splitunc(path)  `              | 把路径分割为加载点与文件                                     |
-    | `os.path.walk(path, visit, arg)  `      | 进入`path`每个目录都调用`visit`函数, 必须有3个参数: (`arg, dirname, names`)，其中`dirname`表示当前目录名, `names`表示当前目录下所有文件名; `args`则为walk的第三个参数 |
-    | `os.path.supports_unicode_filenames   ` | 设置是否支持Unicode路径名                                    |
+| Method                                  | Description                                                  |
+| --------------------------------------- | ------------------------------------------------------------ |
+| `os.path.abspath(path)`                 | 返回绝对路径                                                 |
+| `os.path.basename(path)`                | 返回文件名                                                   |
+| `os.path.commonprefix(list)`            | 返回`list` (多个路径) 中所有`path`共有的最长的路径           |
+| `os.path.dirname(path)`                 | 返回文件路径                                                 |
+| `os.path.exists(path)  `                | 路径存在则返回`True`, 路径损坏返回`False`                    |
+| `os.path.lexists `                      | 路径存在则返回`True`, 路径损坏也返回`True`                   |
+| `os.path.expanduser(path)  `            | 把`path`中包含的"\~"和"\~user"转换成用户目录                 |
+| `os.path.expandvars(path)  `            | 根据环境变量的值替换`path`中包含的"\$name"和"\${name}"       |
+| `os.path.getatime(path)  `              | 返回最近访问时间 (浮点型秒数)                                |
+| `os.path.getmtime(path) `               | 返回最近文件修改时间                                         |
+| `os.path.getctime(path)  `              | 返回文件`path`创建时间                                       |
+| `os.path.getsize(path)`                 | 返回文件大小，若文件不存在则返回错误                         |
+| `os.path.isabs(path) `                  | 判断是否为绝对路径                                           |
+| `os.path.isfile(path)  `                | 判断路径是否为文件                                           |
+| `os.path.isdir(path)  `                 | 判断路径是否为目录                                           |
+| `os.path.islink(path)  `                | 判断路径是否为链接                                           |
+| `os.path.ismount(path)  `               | 判断路径是否为挂载点                                         |
+| `os.path.join(path1[, path2[, ...]]) `  | 把目录和文件名合成一个路径                                   |
+| `os.path.normcase(path)  `              | 转换`path`的大小写和斜杠                                     |
+| `os.path.normpath(path)  `              | 规范`path`字符串形式                                         |
+| `os.path.realpath(path)  `              | 返回`path`的真实路径                                         |
+| `os.path.relpath(path[, start])  `      | 从`start`开始计算相对路径                                    |
+| `os.path.samefile(path1, path2)  `      | 判断目录或文件是否相同                                       |
+| `os.path.sameopenfile(fp1, fp2)  `      | 判断`fp1`和`fp2`是否指向同一文件                             |
+| `os.path.samestat(stat1, stat2)  `      | 判断stat元组`stat1`和`stat2`是否指向同一个文件               |
+| `os.path.split(path)  `                 | 把路径分割成`dirname`和`basename`并返回一个元组              |
+| `os.path.splitdrive(path)   `           | 一般用在Windows下返回驱动器名和路径组成的元组                |
+| `os.path.splitext(path)  `              | 分割路径，返回路径名和文件扩展名的元组                       |
+| `os.path.splitunc(path)  `              | 把路径分割为加载点与文件                                     |
+| `os.path.walk(path, visit, arg)  `      | 进入`path`每个目录都调用`visit`函数, 必须有3个参数: (`arg, dirname, names`)，其中`dirname`表示当前目录名, `names`表示当前目录下所有文件名; `args`则为walk的第三个参数 |
+| `os.path.supports_unicode_filenames   ` | 设置是否支持Unicode路径名                                    |
 
 实例1：
 
@@ -789,6 +803,68 @@ if __name__ == "__main__":
     rep_word = input('Please Type a Character/Word to be Replaced：')
     new_word = input('Please Type a New Character/Word：')
     file_replace(file_name, rep_word, new_word)
+```
+
+## 2.4 `Pathlib` 模块 
+
+```python
+import pathlib
+from pathlib import Path
+
+p = Path(filepath)  # create a Path object using specified file path
+p = Path.cwd()      # create a Path object of the current directory
+
+p.is_file()      # Return whether p is a file
+p.is_dir()       # Return whether p is a directory
+p.is_absolute()  # Return whether p is an absolute directory
+p.exist()        # Return whether p exists
+
+p.name    # Return the file name (including file extension)
+p.suffix  # Return the file extension type
+p.stem    # Return the file name but without extension type
+	
+p.parent                 # Return the parent's directory
+p.parents                # Return a list of all parents' directory. The larger index, the further distance. 
+p.match('C:\Windows\*')  # Return whether p matches a certain pattern
+p.relative_to(target)    # Return the directory relative to the target
+
+p.iterdir()       # Return an iterator for all files contained in p
+p.glob('*.py')    # Return an iterator of all the files in p matching a certain pattern
+p.rglob('*.py')   # Return an iterator of all the files in p & its subfloders matching a certain pattern 
+
+for i in p.iterdir():
+	print(i)
+    
+pys = Path.cwd().glob('*.py')
+for py in pys:
+    print(py)
+
+p.mkdir()  # Creat a folder p if it does not exist; if exists raise error.
+# Create a folder p if it does not exist
+#   'mode': permision of the folder
+#   'parents': if True, create middle directories when they don't exist
+#   'exist_ok': if True, don't raise error when p exists.
+p.mkdir(mode=0o777, parents=False, exist_ok=False)  
+
+# pathlib supports using '.joinpath()' to join multiple paths
+Path('/etc').joinpath('init.d', 'apache2')  
+'> /etc/init.d/apache2'
+
+# pathlib also supports using '/' to directly join paths
+print(Path("/home/limiing/test.py").parent/'vocab.txt')
+'> /home/zhaoliang/vocab.txt'
+
+# open p as a file to read/write
+p.open(mode=’r’, buffering=-1, encoding=None, errors=None, newline=None)
+
+# if target is a string, then rename p; 
+# if target is a Path, then rename & move p.
+p.rename(target)   # rename / rename+move p to target
+p.replace(target)  # use p to overide target
+p.rmdir()          # remove p if it is an empty folder
+
+p.with_name(name_str)      # Return a new directory after replacing the file name
+p.with_suffix(suffix_str)  # Return a new directory after replacing the extension type
 ```
 
 # 3 Python 3 标准库概览

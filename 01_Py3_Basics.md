@@ -46,7 +46,7 @@ china
 
  Python 3 中使用 `as` 作为关键词。捕获异常的语法由 `except exc, var` 改为 `except exc as var`。使用语法`except (exc1, exc2) as var`可以同时捕获多种类别的异常。Python 2.6 已经支持这两种语法。此外:<br>
 
-1. Python 2 中所有类型的对象都可被直接抛出； 而 Python 3 中只有继承自`BaseException`的对象才可被抛出。
+1. Python 2 中所有类型的对象都可被直接抛出； 而 Python 3 中只有继承自`BaseException`的对象才可。
 2. Python 2 中`raise`语句使用逗号将抛出对象类型和参数分开；而 Python 3 中取消了这种奇葩的写法，直接调用构造函数抛出对象即可。
 
 ## 1.5 `range()`取代`xrange()`
@@ -246,7 +246,7 @@ Python 通常是一行写完一条语句。
 
 ```python
 total = item_one + \
-        item_two + \
+		item_two + \
         item_three
 ```
 
@@ -1462,22 +1462,22 @@ Python 包含以下方法:
    ```python
    #!/usr/bin/env python3
    class element(object):  
-       def __init__(self,id="",name=""):  
-           self.id=id  
-           self.name=name
+       def __init__(self,id="", name=""):  
+           self.id = id  
+           self.name = name
            
        def __lt__(self, other):  # override < 操作符  
-           if self.id<other.id:  
+           if self.id < other.id:  
                return True  
            return False  
-     
+       
        def __str__(self): # override __str__  
-           return "id={0},name={1}".format(self.id,self.name)  
-     
+           return "id={0}, name={1}".format(self.id, self.name)  
+   
    def sort_by_attribute():  
-       list=[element(id="130",name="json"),  
-             element(id="01",name="jack"),
-             element(id="120",name="tom")]  
+       list=[element(id="130", ame="json"),  
+             element(id="01", ame="jack"),
+             element(id="120", ame="tom")]  
        list.sort()  
        for item in list:  
            print(item)
@@ -1506,7 +1506,7 @@ Python 包含以下方法:
        key_set=key_set.rstrip("+")  
        list.sort(key=lambda ele:eval(key_set))  
        print("排序索引:",sort_index,list)  
-     
+   
    if __name__=="__main__":  
        two_d_list_sort2("0")  
        two_d_list_sort2("1")  
@@ -1540,7 +1540,7 @@ tup2 = (20,) # 一个元素，需要在元素后添加逗号
 >>> tup = ('r', 'u', 'n', 'o', 'o', 'b')
 >>> tup[0] = 'g'  # 元组不支持修改元素
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <module>
 TypeError: 'tuple' object does not support item assignment
 >>> id(tup)       # 查看内存地址
 4440687904
@@ -1844,9 +1844,8 @@ Python 中**集合的内置方法**有：
 {'Google', 'Runoob'}
 >>> thisset.remove("Facebook")   # 不存在会发生错误
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <module>
 KeyError: 'Facebook'
->>>
 ```
 
 **注意**：
@@ -2008,7 +2007,7 @@ print('\n7.矩阵a3--->数组a7:\n',a7)
 ['3.1', '3.14', '3.142', '3.1416', '3.14159']
 
 [x*y for x in range(1,5) if x > 2 for y in range(1,4) if y < 3]
-相当于：
+# 相当于：
 for x in range(1,5):
     if x > 2:
         for y in range(1,4):
@@ -2048,9 +2047,9 @@ robin the brave
 >>> for q, a in zip(questions, answers):
 ...     print('What is your {0}?  It is {1}.'.format(q, a))
 ...
-What is your name?  It is lancelot.
-What is your quest?  It is the holy grail.
-What is your favorite color?  It is blue.
+# What is your name?  It is lancelot.
+# What is your quest?  It is the holy grail.
+# What is your favorite color?  It is blue.
 ```
 
 要**反向遍历一个序列**，首先指定这个序列，然后调用`reversed()`函数：
@@ -2073,10 +2072,10 @@ What is your favorite color?  It is blue.
 >>> for f in sorted(set(basket)):
 ...     print(f)
 ...
-apple
-banana
-orange
-pear
+# apple
+# banana
+# orange
+# pear
 ```
 
 # 6 Python 中的浅拷贝与深拷贝
@@ -2695,10 +2694,10 @@ print(b) # 结果仍是 2
 #!/usr/bin/python3
 # 可写函数说明
 def changeme(mylist):
-   "修改传入的列表"
-   mylist.append([1,2,3,4])
-   print ("函数内取值: ", mylist)
-   return
+    "修改传入的列表"
+    mylist.append([1,2,3,4])
+    print ("函数内取值: ", mylist)
+    return
  
 # 调用changeme函数
 mylist = [10,20,30]
@@ -2718,11 +2717,11 @@ print ("函数外取值: ", mylist)
 ```python
 #!/usr/bin/env python3
 def hello () :
-  print ("Hello, world!")
+    print ("Hello, world!")
 
 def execute(f):
-  "执行一个没有参数的函数"
-  f()
+    "执行一个没有参数的函数"
+    f()
 
 execute(hello)
 ```
@@ -2741,9 +2740,9 @@ execute(hello)
 ```python
 #!/usr/bin/env python3
 def printme(str):
-   "打印任何传入的字符串"
-   print(str)
-   return
+    "打印任何传入的字符串"
+    print(str)
+    return
 
 # 调用printme()函数，不加参数会报错
 printme()
@@ -2754,10 +2753,10 @@ printme()
 ```python
 #!/usr/bin/env python3
 def printinfo(name,age):
-   "打印任何传入的字符串"
-   print("名字: ", name)
-   print("年龄: ", age)
-   return
+    "打印任何传入的字符串"
+    print("名字: ", name)
+    print("年龄: ", age)
+    return
 
 #调用printinfo()函数，不需要使用指定顺序
 printinfo(age=50, name="runoob")
@@ -2768,10 +2767,10 @@ printinfo(age=50, name="runoob")
 ```python
 #!/usr/bin/env python3
 def printinfo(name, age=35):
-   "打印任何传入的字符串"
-   print("名字: ", name)
-   print("年龄: ", age)
-   return
+    "打印任何传入的字符串"
+    print("名字: ", name)
+    print("年龄: ", age)
+    return
 
 #调用printinfo()函数，若没有给定传递参数则使用默认参数
 printinfo(age=50, name="runoob")
@@ -2783,9 +2782,9 @@ printinfo(name="runoob")
 
 ```python
 def functionname([formal_args,] *var_args_tuple, **var_args_dictionary):
-   "函数_文档字符串"
-   function_suite
-   return [expression]
+    "函数_文档字符串"
+    function_suite
+    return [expression]
 ```
 
 加了一个星号 `*` 的参数会以元组 (tuple) 的形式导入，存放所有未命名的变量参数。
@@ -2793,12 +2792,12 @@ def functionname([formal_args,] *var_args_tuple, **var_args_dictionary):
 ```python
 #!/usr/bin/env python3
 def printinfo( arg1, *vartuple ):
-   "打印任何传入的参数"
-   print("输出: ")
-   print(arg1)
-   for var in vartuple:
-      print(var)
-   return
+    "打印任何传入的参数"
+    print("输出: ")
+    print(arg1)
+    for var in vartuple:
+        print(var)
+    return
 
 # 调用printinfo()函数
 printinfo(70,60,50)
@@ -2809,12 +2808,12 @@ printinfo(70,60,50)
 ```python
 #!/usr/bin/env python3
 def printinfo(arg1, **vardict):
-   "打印任何传入的参数"
-   print("输出: ")
-   print(arg1)
-   for key,value in vardict.items():
-      print(key,value)
-   return
+    "打印任何传入的参数"
+    print("输出: ")
+    print(arg1)
+    for key,value in vardict.items():
+        print(key,value)
+    return
 
 # 调用printinfo 函数
 printinfo(1, a=2,b=3)
@@ -2828,7 +2827,7 @@ printinfo(1, a=2,b=3)
 ... 
 >>> f(1,2,3)   # 报错
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <module>
 TypeError: f() takes 2 positional arguments but 3 were given
 >>> f(1,2,c=3) # 正常
 6
@@ -2915,8 +2914,9 @@ reduce(function, iterables[, initializer])
 >>> # 统计一字符串中某字符串的重复次数
 >>> from functools import reduce
 >>> sentences = ['The Deep Learning textbook is a resource intended to help students and practitioners enter the field of machine learning.'] 
->>> word_count =reduce(lambda a,x:a+x.count("learning"),sentences,0)
->>> print(word_count)
+>>> word_count = reduce(lambda a, x: a + x.lower().count("learning"), sentences, 0)
+>>> print(word_count) 
+2
 ```
 
 ## 10.6 强制位置参数
@@ -3036,12 +3036,12 @@ add_plus(*_list2)
 
 ## 11.4 使用`zip()`函数进行压缩
 
-Python 中有一个**`zip()`**函数功能与**"\*"**号相反，该函数可将一个或多个可迭代对象进行包装压缩，返回是一个 'zip' 类的迭代器，需经过`list()`转换为列表。通俗的说：**`zip()`压缩可迭代对象**，而 **"\*" 号解压可迭代对象**。
+Python 中有一个**`zip()`**函数功能与**"\*"**号相反，该函数可将一个或多个可迭代对象进行包装压缩，返回是一个 **'zip'** 类的迭代器，需经过`list()`转换为列表。通俗的说：**`zip()`压缩可迭代对象**，而 **"\*" 号解压可迭代对象**。
 
 ```
 用法： zip([iterable1, iterable2, ...])
 
-说明： 创建一个聚合了来自每个可迭代对象中的元素的迭代器。返回一个元组的迭代器，其中的第 i 个元组包含来自每个参数序列或可迭代对象的第 i 个元素。当所输入可迭代对象中最短的一个被耗尽时，迭代器将停止迭代。当只有一个可迭代对象参数时，它将返回一个单元组的迭代器。若不带参数，它将返回一个空迭代器。
+说明： 创建一个聚合了来自每个可迭代对象中的元素的迭代器。返回一个元组的迭代器，其中的第i个元组包含来自每个参数序列或可迭代对象的第i个元素。当所输入可迭代对象中最短的一个被耗尽时，迭代器将停止迭代。当只有一个可迭代对象参数时，它将返回一个单元组的迭代器。若不带参数，它将返回一个空迭代器。
 
 注意： zip()的结果为一个'zip'类，要经过 list() 之后才能显示出来。
 ```
@@ -3060,14 +3060,14 @@ Python 中有一个**`zip()`**函数功能与**"\*"**号相反，该函数可将
 ```python
 >>> seq1 = ['one', 'two', 'three']
 >>> seq2 = [1, 2, 3]
->>> list(zip(seq1,seq2))
+>>> list(zip(seq1 ,seq2))
 [('one', 1), ('two', 2), ('three', 3)]
 ```
 
 实例3 (把两个列表转化为一个列表，每个列表转换为一个元组)：
 
 ```python
->>> zz = zip(seq1,seq2)
+>>> zz = zip(seq1 ,seq2)
 >>> list(zip(*zz))
 [('one', 'two', 'three'), (1, 2, 3)]
 ```
@@ -3075,7 +3075,7 @@ Python 中有一个**`zip()`**函数功能与**"\*"**号相反，该函数可将
 实例4 (可利用`zip()`函数的特性可用来构建字典)：
 
 ```python
->>> dict(zip(seq1,seq2))
+>>> dict(zip(seq1, seq2))
 {'one': 1, 'two': 2, 'three': 3}
 ```
 
@@ -3106,18 +3106,18 @@ print(m == list(m2) and n == list(n2))
 
 ```python
 list(zip(m,n)):
- [([1, 2, 3], [2, 2, 2]), ([4, 5, 6], [3, 3, 3]), ([7, 8, 9], [4, 4, 4])]
+# [([1, 2, 3], [2, 2, 2]), ([4, 5, 6], [3, 3, 3]), ([7, 8, 9], [4, 4, 4])]
 *zip(m, n):
- ([1, 2, 3], [2, 2, 2]) ([4, 5, 6], [3, 3, 3]) ([7, 8, 9], [4, 4, 4])
+ #([1, 2, 3], [2, 2, 2]) ([4, 5, 6], [3, 3, 3]) ([7, 8, 9], [4, 4, 4])
 *zip(*zip(m, n)):
- ([1, 2, 3], [4, 5, 6], [7, 8, 9]) ([2, 2, 2], [3, 3, 3], [4, 4, 4])
+ #([1, 2, 3], [4, 5, 6], [7, 8, 9]) ([2, 2, 2], [3, 3, 3], [4, 4, 4])
 True
 ```
 
 **注意**：
 
-1. **可迭代对象**才可以使用 "\*" 号来拆分或`zip()`函数来压缩；
-2. 带 "\*" 号变量并不是一个变量，而更**应该称为参数**，它是**不能赋值给其他变量**的，但可作为参数传递。
+1. **可迭代对象**才可以使用 **"\*"** 号来拆分或`zip()`函数来压缩；
+2. 带 **"\*"** 号变量并不是一个变量，而更**应该称为参数**，它是**不能赋值给其他变量**的，但可作为参数传递。
 
 # 12 Python 3 命名空间和作用域
 
@@ -3205,7 +3205,7 @@ Python 中只有模块 (module), 类 (class) 以及函数 (def或lambda) 才会�
 ... 
 >>> msg_inner
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <module>
 NameError: name 'msg_inner' is not defined
 ```
 
@@ -3299,10 +3299,10 @@ print(greet())
 #!/usr/bin/env python3
 def hi(name="yasoob"):
     print("now you are inside the hi() function")
- 
+    
     def greet():
         return "now you are in the greet() function"
- 
+    
     def welcome():
         return "now you are in the welcome() function"
 
@@ -3339,7 +3339,7 @@ def hi(name="yasoob"):
         return greet
     else:
         return welcome
- 
+
 a = hi()
 print(a)
 #outputs: <function greet at 0x7f2143c01500>
@@ -3512,8 +3512,8 @@ def logit(func):
 
 @logit
 def addition_func(x):
-   """Do some math."""
-   return x + x
+    """Do some math."""
+    return x + x
  
 result = addition_func(4)
 # Output: addition_func was called
@@ -3598,7 +3598,7 @@ from functools import wraps
 class logit(object):
     def __init__(self, logfile='out.log'):
         self.logfile = logfile
- 
+    
     def __call__(self, func):
         @wraps(func)
         def wrapped_function(*args, **kwargs):
@@ -3612,7 +3612,7 @@ class logit(object):
             self.notify()
             return func(*args, **kwargs)
         return wrapped_function
- 
+    
     def notify(self):
         # logit只打日志，不做别的
         pass
@@ -3874,15 +3874,15 @@ SyntaxError: invalid syntax
 ```python
 >>>10 * (1/0)             # 0 不能作为除数，触发异常
 Traceback (most recent call last):
-  File "<stdin>", line 1, in ?
+    File "<stdin>", line 1, in ?
 ZeroDivisionError: division by zero
 >>> 4 + spam*3             # spam 未定义，触发异常
 Traceback (most recent call last):
-  File "<stdin>", line 1, in ?
+    File "<stdin>", line 1, in ?
 NameError: name 'spam' is not defined
 >>> '2' + 2               # int 不能与 str 相加，触发异常
 Traceback (most recent call last):
-  File "<stdin>", line 1, in ?
+    File "<stdin>", line 1, in ?
 TypeError: Can't convert 'int' object to str implicitly
 ```
 
@@ -4007,14 +4007,14 @@ finally:
 
 ```python
 try:
-  file= open("test.txt","r")
-  for line in file.readlines():
-    print line
+    file= open("test.txt","r")
+    for line in file.readlines():
+        print line
 except:
-  print "error"
+    print "error"
 finally:
-  if file:
-    file.close()
+    if file:
+        file.close()
 ```
 
 ### 15.3.4 使用`with...as`语句
@@ -4043,17 +4043,17 @@ with open("myfile.txt") as file:
 ```python
 import pickle
 try:
-  with open("phone.pickle", "wb") as outf:
-    pickle.dump("13193388105", outf)
-  except:
+    with open("phone.pickle", "wb") as outf:
+        pickle.dump("13193388105", outf)
+except:
     print("file have error.")
 
 try:
-  with open("phone.pickle", "rb") as outf:
-    data = pickle.load(outf)
-    print(type(data))
-    print(data)
-  except:
+    with open("phone.pickle", "rb") as outf:
+        data = pickle.load(outf)
+        print(type(data))
+        print(data)
+except:
     print("file have error.")
 ```
 
@@ -4073,7 +4073,7 @@ def __enter__():
   # 描述进入上下文的动作
   pass
  
- def __exit__():
+def __exit__():
   # 描述退出上下文的动作
   pass
 ```
@@ -4086,17 +4086,19 @@ def __enter__():
 
 ```python
 class File(object):
-  def __init__(self, file_name, method):
-    self.file_obj = open(file_name, method)
-  def __enter__(self):
-    return self.file_obj
-  def __exit__(self, exception_type, exception_value, traceback): 
-    self.file_obj.close() 
-    # 异常处理的代码块 #
+    def __init__(self, file_name, method):
+        self.file_obj = open(file_name, method)
+        
+    def __enter__(self):
+        return self.file_obj
+    
+    def __exit__(self, exception_type, exception_value, traceback): 
+        self.file_obj.close() 
+        # 异常处理的代码块 #
 
 with File('demo.txt', 'r') as opened_file:
-  for line in opened_file:
-    print(line)
+    for line in opened_file:
+        print(line)
 
 # with 语句执行的步骤：
 # (1) 创建一个 File 类的实例, 先调用__init__方法来使用指定模式打开一个指定的文件
@@ -4119,19 +4121,19 @@ from contextlib import contextmanager  # 引入上下文管理器
 
 @contextmanager  # 给函数引入装饰器
 def myopen(filename, mode):
-  file = open(filename, mode, encoding='utf-8')
-  try: # 上文
-    yield file
-  except Exception as err:
-    print('Errpr: ', err)
-  finally: # 下文
-    file.close()
+    file = open(filename, mode, encoding='utf-8')
+    try: # 上文
+        yield file
+    except Exception as err:
+        print('Errpr: ', err)
+    finally: # 下文
+        file.close()
 
 with myopen("demo.txt", 'r') as fobj:  # 把 try 中的 yield 中的 file 赋值给 fobj
-  # with 会将后面的函数中的 yield 赋值给 fobj
-  for line in fobj:
-    print(line)
-  # 等待上面的循环结束后,才最终执行 finally 的代码，所以这就是上下文管理
+    # with 会将后面的函数中的 yield 赋值给 fobj
+    for line in fobj:
+        print(line)
+        # 等待上面的循环结束后,才最终执行 finally 的代码，所以这就是上下文管理
 ```
 
 ## 15.4 抛出异常
@@ -4154,7 +4156,7 @@ if x > 5:
 
 ```python
 Traceback (most recent call last):
-  File "test.py", line 3, in <module>
+    File "test.py", line 3, in <module>
     raise Exception('x 不能大于 5。x 的值为: {}'.format(x))
 Exception: x 不能大于 5。x 的值为: 10
 ```
@@ -4170,7 +4172,7 @@ Exception: x 不能大于 5。x 的值为: 10
 ...
 An exception flew by!
 Traceback (most recent call last):
-  File "<stdin>", line 2, in ?
+    File "<stdin>", line 2, in ?
 NameError: HiThere
 ```
 
@@ -4193,7 +4195,7 @@ NameError: HiThere
 My exception occurred, value: 4
 >>> raise MyError('oops!')
 Traceback (most recent call last):
-  File "<stdin>", line 1, in ?
+    File "<stdin>", line 1, in ?
 __main__.MyError: 'oops!'
 ```
 
@@ -4213,11 +4215,11 @@ class InputError(Error):
         expression -- input expression in which the error occurred
         message -- explanation of the error
     """
- 
+    
     def __init__(self, expression, message):
         self.expression = expression
         self.message = message
- 
+
 class TransitionError(Error):
     """Raised when an operation attempts a state transition that's not allowed.
  
@@ -4262,16 +4264,16 @@ if not expression:
 >>> assert True     # 条件为 true  正常执行
 >>> assert False    # 条件为 false 触发异常
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <module>
 AssertionError
 >>> assert 1==1    # 条件为 true  正常执行
 >>> assert 1==2    # 条件为 false 触发异常
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <module>
 AssertionError
 >>> assert 1==2, '1 不等于 2'
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File <stdin>", line 1, in <module>
 AssertionError: 1 不等于 2
 ```
 
@@ -4367,7 +4369,7 @@ warn(message, category=None, stacklevel=1, source=None)
 >
 > ```python
 > def deprecation(message):
->     warnings.warn(message, DeprecationWarning, stacklevel=2)
+>        warnings.warn(message, DeprecationWarning, stacklevel=2)
 > ```
 >
 > This makes the warning refer to `deprecation()`’s caller, rather than to the source of `deprecation()` itself (since the latter would defeat the purpose of the warning message).
