@@ -814,38 +814,38 @@ from pathlib import Path
 p = Path(filepath)  # create a Path object using specified file path
 p = Path.cwd()      # create a Path object of the current directory
 
-p.is_file()      # Return whether p is a file
-p.is_dir()       # Return whether p is a directory
-p.is_absolute()  # Return whether p is an absolute directory
-p.exist()        # Return whether p exists
+p.resolve()         # Return the absolute path of p
+p.is_file()         # Return whether p is a file
+p.is_dir()          # Return whether p is a directory
+p.is_absolute()     # Return whether p is an absolute directory
+p.is_symlink()      # Return whether p is a symlink directory
+p.exist()           # Return whether p exists
+p.stat()            # Return detailed information of p
+p.stat().st_size    # Return the size of a file
+p.stat().st_ctime   # Return the time of creation
+p.stat().st_ctime   # Return the time of modification
 
-p.name    # Return the file name (including file extension)
-p.suffix  # Return the file extension type
-p.stem    # Return the file name but without extension type
+p.name       # Return the file name (including file extension)
+p.suffix     # Return the file extension type
+p.stem       # Return the file name but without extension type
 	
-p.parent                 # Return the parent's directory
-p.parents                # Return a list of all parents' directory. The larger index, the further distance. 
+p.parent     # Return the parent's directory
+p.parents    # Return a list of all parents' directory. The larger index, the further distance. 
 p.match('C:\Windows\*')  # Return whether p matches a certain pattern
 p.relative_to(target)    # Return the directory relative to the target
 
-p.iterdir()       # Return an iterator for all files contained in p
-p.glob('*.py')    # Return an iterator of all the files in p matching a certain pattern
-p.rglob('*.py')   # Return an iterator of all the files in p & its subfloders matching a certain pattern 
+p.iterdir()       # Return an iterator for all files in p
+p.glob('*.py')    # Return an iterator for all files in p matching a certain pattern
+p.rglob('*.py')   # Return an iterator for all files in p & subfloders matching a certain pattern 
 
 for i in p.iterdir():
 	print(i)
-    
+
 pys = Path.cwd().glob('*.py')
 for py in pys:
     print(py)
 
-p.mkdir()  # Creat a folder p if it does not exist; if exists raise error.
-# Create a folder p if it does not exist
-#   'mode': permision of the folder
-#   'parents': if True, create middle directories when they don't exist
-#   'exist_ok': if True, don't raise error when p exists.
-p.mkdir(mode=0o777, parents=False, exist_ok=False)  
-
+    
 # pathlib supports using '.joinpath()' to join multiple paths
 Path('/etc').joinpath('init.d', 'apache2')  
 '> /etc/init.d/apache2'
@@ -854,14 +854,33 @@ Path('/etc').joinpath('init.d', 'apache2')
 print(Path("/home/limiing/test.py").parent/'vocab.txt')
 '> /home/zhaoliang/vocab.txt'
 
-# open p as a file to read/write
-p.open(mode=’r’, buffering=-1, encoding=None, errors=None, newline=None)
+p.mkdir()  # Creat a folder p if it does not exist; if exists raise error.
+# Create a folder p if it does not exist
+#   'mode': permision of the folder
+#   'parents': if True, create middle directories when they don't exist
+#   'exist_ok': if True, don't raise error when p exists.
+p.mkdir(mode=0o777, parents=False, exist_ok=False)  
+
+
+# open a Path object to read/write
+cur_path = Path(__file__).resolve().parent
+filepath = cur_path.joinpath('data/target_day_20140422.dat')
+with open(filepath, mode='r') as f:
+    contents = f.readlines()
+
+p = Path('/Users/Anders/Documents/information/JH.txt')
+p.read_text()
+p.read_bytes()
+p.write_text()
+p.write_bytes()
+
 
 # if target is a string, then rename p; 
 # if target is a Path, then rename & move p.
 p.rename(target)   # rename / rename+move p to target
 p.replace(target)  # use p to overide target
 p.rmdir()          # remove p if it is an empty folder
+
 
 p.with_name(name_str)      # Return a new directory after replacing the file name
 p.with_suffix(suffix_str)  # Return a new directory after replacing the extension type
