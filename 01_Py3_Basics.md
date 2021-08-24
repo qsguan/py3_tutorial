@@ -1,19 +1,17 @@
-**Python 3 基础教程**
+<center> <font size="5"><b>Python 3 基础教程</b></font> </center>
 
 ---
 
-目录
+<center> <font size="3.5"><b>目录</b></font> </center>
 
 [toc]
 
 <div style="page-break-after: always;"></div>
-&emsp;
+## Python 2 与 3 的区别
 
-# 1 Python 2 与 3 的区别
+### `print`函数
 
-## 1.1 `print`函数
-
-Python 3 中`print`语句没有了，取而代之的是`print()`函数。Python 2.7 中以下三种形式等价：
+Python 3 中 `print` 语句没有了，取而代之的是 `print()` 函数。Python 2.7 中以下三种形式等价：
 
 ```python
 print "fish"
@@ -21,53 +19,53 @@ print ("fish") # print后面有个空格
 print("fish")  # print()不能带有任何其它参数
 ```
 
-实际上 Python 2.6 已经支持新的`print()`函数语法：
+实际上 Python 2.6 已经支持新的 `print()` 函数语法：
 
 ```python
 from __future__ import print_function
 print("fish", "panda", sep=',')
 ```
 
-## 1.2 `Unicode`编码
+### `Unicode` 编码
 
-Python 2 有`ASCII str()`类型，`unicode()`是单独的，不是 `byte`类型。现在在Python 3 中，我们有了 `Unicode (utf-8)` 字符串，以及一个字节类：`byte`和`bytearrays`。由于 Python3.X 源码文件默认使用`utf-8`编码，这就使得以下代码是合法的:
+Python 2 有 `ASCII str()` 类型，`unicode()` 是单独的，不是 `byte` 类型。现在在 Python 3 中，我们有了 `Unicode(utf-8)` 字符串，以及一个字节类：`byte` 和` bytearrays`。由于 Python 3.x 源码文件默认使用 `utf-8` 编码，使得以下代码是合法的:
 
 ```python
 >>> 中国 = 'china'
 >>> print(中国)
-china
+# -> china
 ```
 
-## 1.3 除法运算
+### 除法运算
 
 在 Python 3 中对于整数之间的相除 (/)，结果也会是浮点数。<br>而对于 `//` 除法 (floor除法)，会自动对结果进行一个 `floor` 操作，这在 Python 2 和 3 中是一致的。
 
-## 1.4 异常与抛出
+### 异常与抛出
 
  Python 3 中使用 `as` 作为关键词。捕获异常的语法由 `except exc, var` 改为 `except exc as var`。使用语法`except (exc1, exc2) as var`可以同时捕获多种类别的异常。Python 2.6 已经支持这两种语法。此外:<br>
 
 1. Python 2 中所有类型的对象都可被直接抛出； 而 Python 3 中只有继承自`BaseException`的对象才可。
 2. Python 2 中`raise`语句使用逗号将抛出对象类型和参数分开；而 Python 3 中取消了这种奇葩的写法，直接调用构造函数抛出对象即可。
 
-## 1.5 `range()`取代`xrange()`
+### `range()`取代`xrange()`
 
 在 Python 3 中，`range()`是像`xrange()`那样实现的，因而`xrange()`函数不再存在。在 Python 3 中使用`xrange()`会抛出命名异常。(`xrange()`相当于利用迭代器生成器，可以节省内存的使用)
 
-## 1.6 进制数表示
+### 进制数表示
 
 1. 八进制数必须写成：0o777，原来的形式：0777不能用了；二进制必须写成：0b111。
 
 2. 新增了一个`bin()`函数用于将一个整数转换成二进制字串。
 
-## 1.7 不等运算符
+### 不等运算符
 
 Python 3 中去掉了`<>`, 只有`!=`一种写法。
 
-## 1.8 去掉了`repr`表达式\`\`
+### 去掉了`repr`表达式\`\`
 
 Python 2 中反引号\`\`相当于`repr`函数的作用；<br>Python 3 中去掉了这种写法，只允许使用`repr()`函数。
 
-## 1.9 模块更名
+### 模块更名
 
 | Old Name       | New Name       | Old Name       | New Name       |
 | -------------- | -------------- | -------------- | -------------- |
@@ -77,7 +75,7 @@ Python 2 中反引号\`\`相当于`repr`函数的作用；<br>Python 3 中去掉
 
 `StringIO`被合并到`io`模组内；`new`, `md5`, `gopherlib`等模块被删除；`httplib`, `BaseHTTPServer`, `CGIHTTPServer`, `SimpleHTTPServer`, `Cookie`, `cookielib`被合并到`http`包内；取消了`exec`语句，只剩下`exec()`函数。
 
-## 1.10 数据类型
+### 数据类型
 
 1. Python 3 去除了`long`类型，现在只有一种整型`int`，但它的行为就像 Python 2 版本的`long`。
 
@@ -102,7 +100,7 @@ Python 2 中反引号\`\`相当于`repr`函数的作用；<br>Python 3 中去掉
 
 3. `dict`类型的的`.keys()`、`.items()`和`.values()`方法返回迭代器，而之前的`.iterkeys()`等函数都被废弃。同时去掉的还有`dict.has_key()`，用`in`替代它吧 。
 
-## 1.11 打开文件及输入
+### 打开文件及输入
 
 1. 原 Python 2 中：
 
@@ -120,13 +118,13 @@ Python 2 中反引号\`\`相当于`repr`函数的作用；<br>Python 3 中去掉
 
 2. Python 3 中`input()`函数替代了原`raw_input()`函数，可接收任意性输入，将所有输入默认为字符串处理并返回字符串类型。
 
-## 1.12 `map`,`filter`和`reduce`
+### `map`, `filter` 和 `reduce`
 
 这三个函数号称是函数式编程的代表。在 Python 2 中它们都是内置函数 (built-in function)。而在 Python 3 中它们从内置函数变成了类 (class)；其次它们的**返回结果**也从当初的列表变成了一个**可迭代的对象**，可以使用`next()`函数来进行手工迭代，若想输出需使用`list()`转换为列表。
 
-# 2 Python 解释器
+## Python 解释器
 
-## 2.1 环境变量
+### 环境变量
 
 | Variable        | Description                                                  |
 | --------------- | ------------------------------------------------------------ |
@@ -135,7 +133,7 @@ Python 2 中反引号\`\`相当于`repr`函数的作用；<br>Python 3 中去掉
 | `PYTHONCASEOK`  | 加入`PYTHONCASEOK`的环境变量，会使Python导入模块时不区分大小写 |
 | `PYTHONHOME`    | 模块搜索路径，通常内嵌于`PYTHONSTARTUP`或`PYTHONPATH`目录中，使得模块库更容易切换 |
 
-## 2.2 脚本式编程
+### 脚本式编程
 
 在 Linux/Unix 中可以在脚本顶部添加以下命令让 Python 脚本可以像 Shell 脚本一样可直接执行：
 
@@ -155,9 +153,9 @@ $ chmod +x hello.py
 ./hello.py
 ```
 
-# 3 Python 3 基础语法
+## Python 3 基础语法
 
-## 3.1 编码
+### 编码
 
 默认情况下， Python 3 源码文件以 UTF-8 编码， 所有字符串都是 Unicode 字符串， 即:
 
@@ -173,7 +171,7 @@ $ chmod +x hello.py
 
 上述定义允许在源文件中使用 Windows-1252 字符集中的字符编码， 对应适合语言为保加利亚语、白罗斯语、马其顿语、俄语、塞尔维亚语。
 
-## 3.2 标识符
+### 标识符
 
 ```
 第一个字符必须是字母表中字母(a-z,A-Z)或下划线(_)。
@@ -181,7 +179,7 @@ $ chmod +x hello.py
 标识符对大小写敏感。
 ```
 
-## 3.3 保留字
+### 保留字
 
 保留字即关键字， 我们不能把它们用作任何标识符名称。<br>Python 的标准库提供了一个`keyword`模块， 可输出当前版本的所有关键字：
 
@@ -191,7 +189,7 @@ $ chmod +x hello.py
 ['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
 ```
 
-## 3.4 注释
+### 注释
 
 **单行注释**：以 \# 开头；<br>**多行注释**：多个 \#，或者 ''' ，或者 """。
 
@@ -225,22 +223,22 @@ print(a.__doc__)
 这是文档字符串
 ```
 
-## 3.5 行与缩进
+### 行与缩进
 
-### 3.5.1 缩进
+#### 缩进
 
 Python 最具特色的就是使用缩进来表示代码块，不需要使用大括号 \{\} 。<br>
 缩进的空格数是可变的，但是**同一个代码块**的语句**必须包含相同的缩进**空格数。
 
-### 3.5.2 空行
+#### 空行
 
 函数之间或类的方法之间用空行分隔，表示一段新的代码的开始。<br>类和函数入口之间也用一行空行分隔，以突出函数入口的开始。<br>空行的作用在于分隔两段不同功能或含义的代码，便于日后代码的维护或重构。
 
-## 3.6 多行语句
+### 多行语句
 
 Python 通常是一行写完一条语句。
 
-### 3.6.1 一条语句跨多行
+#### 一条语句跨多行
 
 但如果语句很长，我们可以使用反斜杠(\\)来实现多行语句，例如：
 
@@ -257,7 +255,7 @@ total = ['item_one', 'item_two', 'item_three',
          'item_four', 'item_five']
 ```
 
-### 3.6.2 一行写多条语句
+#### 一行写多条语句
 
 Python可以在同一行中使用多条语句，语句之间使用分号(;)分割，例如：
 
@@ -282,7 +280,7 @@ runoob
 
 此处的 7 表示字符数。
 
-### 3.6.3 多个语句构成代码组
+#### 多个语句构成代码组
 
 缩进相同的一组语句构成一个代码块，称之代码组。像 `if`、`while`、`def`和`class`这样的复合语句，首行以关键字开始并以冒号(:)结束，该行之后的一行或多行代码构成代码组。首行及后面的代码组称为一个子句 (clause)。
 
@@ -297,9 +295,9 @@ else :
 	suite3
 ```
 
-## 3.7 输入与输出
+### 输入与输出
 
-### 3.7.1 `input` 输入
+#### `input` 输入
 
 Python 3 仅保留了`input()`函数，它可接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。执行下面的程序在按回车键后就会等待用户输入：
 
@@ -310,7 +308,7 @@ input("\n\n按下 enter 键后退出。")
 
 以上代码中 ，`'\n\n'`在结果输出前会输出两个新的空行。一旦用户按下 <kbd>Enter</kbd> 键时，程序将退出。
 
-### 3.7.2 `print` 输出
+#### `print` 输出
 
 `print` 默认输出是换行的 (即`end='\n'`)，若要实现不换行需在变量末尾加上 `end=' '`，实例：
 
@@ -372,7 +370,7 @@ print(...)
 4:64
 ```
 
-## 3.8 `import` 与 `from ... import`
+### `import` 与 `from ... import`
 
 在 Python 用 `import` 或者 `from ... import` 来导入相应的模块。
 
@@ -383,7 +381,7 @@ print(...)
 | 从某个模块中导入多个函数：` from somemodule import firstfunc, secondfunc, thirdfunc` |
 | 将某个模块中的全部函数导入： `from somemodule import *` (应避免使用) |
 
-## 3.9 `help()` 函数
+### `help()` 函数
 
 调用 Python 的 help() 函数可以打印输出一个函数的文档字符串，按下`:q`即退出说明文档。
 
@@ -417,7 +415,7 @@ With two or more arguments, return the largest argument.
 
 在 `print()` 打印的时候双引号与单引号都可作为定界符使用，且可以嵌套，被嵌套的会被解释为标点符号。
 
-## 3.10 命令行参数
+### 命令行参数
 
 很多程序可以执行一些操作来查看一些基本信息，Python可以使用`-h`参数查看各参数帮助信息：
 
@@ -3133,9 +3131,7 @@ True
 - **全局名称 (global names)**，模块中定义的名称，记录了模块的变量，包括函数、类、其它导入的模块、模块级的变量和常量。
 - **局部名称 (local names)**，函数中定义的名称，记录了函数的变量，包括函数的参数和局部定义的变量。类中定义的也是局部名称。
 
-<left>
-    <img src="./images/0012.png" alt="0012.png" height="289" width="325">
-</left>
+<img src="./images/0012.png" alt="0012.png" height="280" width="320" style="center">
 
 **命名空间查找顺序**：**局部命名空间 -> 全局命名空间 -> 内置命名空间**。若所有空间都找不到，则将放弃查找并引发一个`NameError`异常。**命名空间的生命周期**：取决于对象的作用域，如果对象执行完成，则该命名空间的生命周期就结束。因此，我们无法从外部命名空间访问内部命名空间的对象。
 
@@ -3267,28 +3263,21 @@ outer()
 首先我们来理解下 Python 中的函数：
 
 ```python
-#!/usr/bin/env python3
 def hi(name="yasoob"):
     return "hi " + name
 
-print(hi())
-# output: 'hi yasoob'
+print(hi())  # -> output: 'hi yasoob'
 
-# 我们甚至可以将一个函数赋值给一个变量，比如
-greet = hi
-# 我们这里没有在使用小括号，因为我们并不是在调用hi()函数
-# 而是在将它放在greet变量里头。
+# 我们甚至可以将一个函数赋值给一个变量，比如:
+greet = hi  # 这里没有使用小括号，因为我们并不是在调用`hi()`函数, 而是在将它放在greet变量里头。
 
 # 我们尝试运行下这个
-print(greet())
-# output: 'hi yasoob'
+print(greet())  # -> output: 'hi yasoob'
 
 # 如果我们删掉旧的hi函数，看看会发生什么！
 del hi
-print(hi())
-#outputs: NameError
-print(greet())
-#outputs: 'hi yasoob'
+print(hi())     # -> outputs: NameError
+print(greet())  # -> outputs: 'hi yasoob'
 ```
 
 ## 13.2 在函数中定义函数
@@ -3327,7 +3316,6 @@ greet()
 其实并不需要在一个函数里去执行另一个函数，我们也可以将其作为输出返回出来：
 
 ```python
-#!/usr/bin/env python3
 def hi(name="yasoob"):
     def greet():
         return "now you are in the greet() function"
@@ -3350,12 +3338,11 @@ print(a())
 #outputs: now you are in the greet() function
 ```
 
-再次看看这个代码，在`if/else`语句中我们返回`greet`和`welcome`，而不是`greet()`和`welcome()`。这是因为如果把一对小括号放在函数名称后，这个函数就会执行；然而若不放括号在函数名称后，那它可以被到处传递，并且可以赋值给别的变量而不去执行它。当写下`a = hi()`时，`hi()`会被执行，而由于`name`参数默认是`yasoob`，所以函数名`greet`被返回了 (同样，若把语句改为`a = hi(name = "ali")`，那么函数名`welcome`将被返回)。当执行`a()`时，相当于执行`hi()()`即`greet()`，这时才会输出`now you are in the greet() function`。
+再次看看这个代码，在`if/else`语句中我们返回`greet`和`welcome`，而不是`greet()`和`welcome()`。这是因为如果把一对小括号放在函数名称后，这个函数就会执行；然而若不放括号在函数名称后，那它可以被到处传递，并且可以赋值给别的变量而不去执行它。当写下`a = hi()`时，`hi()`会被执行，而由于`name`参数默认是`yasoob`，所以函数名`greet`被返回了 (同样，若把语句改为`a = hi(name="ali")`，那么函数名`welcome`将被返回)。当执行`a()`时，相当于执行`hi()()`即`greet()`，这时才会输出: “now you are in the greet() function”。
 
 ## 13.4 将函数作为参数传给另一个函数
 
 ```python
-#!/usr/bin/env python3
 def hi():
     return "hi yasoob!"
 
@@ -3373,7 +3360,6 @@ doSomethingBeforeHi(hi)
 上一个例子里，其实已经创建了一个装饰器！现在修改下上一个装饰器，并编写一个稍微更有用点的程序：
 
 ```python
-#!/usr/bin/env python3
 def a_new_decorator(a_func):
     def wrapTheFunction():
         print("I am doing some boring work before executing a_func()")
@@ -3514,7 +3500,7 @@ def logit(func):
 def addition_func(x):
     """Do some math."""
     return x + x
- 
+
 result = addition_func(4)
 # Output: addition_func was called
 ```
@@ -3595,6 +3581,7 @@ task2()
 
 ```python
 from functools import wraps
+
 class logit(object):
     def __init__(self, logfile='out.log'):
         self.logfile = logfile
